@@ -1,4 +1,5 @@
 import { Handler } from 'express';
+import { Schema } from 'mongoose';
 import { Defendant } from '../../models';
 
 export const post: Handler = async (req, res) => {
