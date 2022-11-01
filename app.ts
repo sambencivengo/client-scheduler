@@ -2,7 +2,6 @@ import express from 'express';
 import { env } from './env';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { appointments } from './api/routes/appointments';
 import { api } from './api/routes';
 import { connectDb } from './api/db';
 
@@ -11,6 +10,8 @@ dotenv.config();
 const { expressPort } = env;
 
 const app = express();
+
+app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => res.send('App running'));
