@@ -1,13 +1,14 @@
 import { Schema } from 'mongoose';
 
-interface Defendant {
+export interface DefendantInterFace {
 	name: string;
 	email?: string;
 	phoneNumber?: number;
 	dayOfContact: Date;
 }
 
-export const defendantSchema = new Schema<Defendant>({
+// Schema
+export const defendantSchema = new Schema<DefendantInterFace>({
 	name: { type: String, required: true },
 	email: { type: String, required: false },
 	phoneNumber: { type: Number, required: false },
