@@ -5,5 +5,6 @@ export const env = setEnv({
 	optional: {
 		nodeEnv: 'NODE_ENV',
 		expressPort: 'EXPRESS_PORT',
+		database: 'MONGO_URI',
 	},
 });

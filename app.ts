@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { appointments } from './api/routes/appointments';
 import { api } from './api/routes';
+import { connectDb } from './api/db';
 
 dotenv.config();
 
@@ -18,6 +19,16 @@ app.use(
 	'/api', // All routes that start with `/api` but not followed by `/auth`
 	api
 );
+
+const connect = async () => {
+	try {
+		await connectDb(env.database ?? '');
+		console.log('Database is connected');
+	} catch (error) {
+		console.log(error);
+	}
+};
+connect();
 
 app.listen(expressPort, () => {
 	console.log(`Application is listening on port ${env.expressPort}`);
