@@ -4,3 +4,4 @@ import { appointments } from './appointments';
 export const api = Router();
 
 api.use('/appointments', appointments);
+api.use('/defendants', appointments);
