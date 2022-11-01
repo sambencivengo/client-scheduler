@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { api } from './api/routes';
 import { connectDb } from './api/db';
+import logger from './api/logger';
 
 dotenv.config();
 
@@ -24,13 +25,14 @@ app.use(
 const connect = async () => {
 	try {
 		await connectDb(env.database ?? '');
-		console.log('Database is connected');
+		logger.info('Database is connected 🔌 ✅');
 	} catch (error) {
-		console.log(error);
+		logger.crit('❌ Unable to connect to the database ❌');
+		logger.crit(error);
 	}
 };
 connect();
 
 app.listen(expressPort, () => {
-	console.log(`Application is listening on port ${env.expressPort}`);
+	logger.info(`Application is listening on port ${env.expressPort} 🚀`);
 });

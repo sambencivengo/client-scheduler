@@ -1,8 +1,10 @@
 import { model, Schema } from 'mongoose';
+import { MeetingType } from '../../shared/types';
 export interface DefendantInterFace {
 	name: string;
 	email?: string;
 	phoneNumber?: number;
+	meetingType: MeetingType;
 	dayOfContact: Date;
 }
 
@@ -12,6 +14,11 @@ export const defendantSchema = new Schema<DefendantInterFace>({
 	email: { type: String, required: false },
 	phoneNumber: { type: Number, required: false },
 	dayOfContact: { type: Date, default: new Date() },
+	meetingType: {
+		type: String,
+		required: true,
+		enum: Object.values(MeetingType),
+	},
 });
 
 // Model
