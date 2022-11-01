@@ -1,7 +1,17 @@
 import { Handler } from 'express';
+import { Defendant } from '../../models';
 
-export const post: Handler = (req, res) => {
-	console.log(req.body);
+export const post: Handler = async (req, res) => {
+	try {
+		const { name, email, phoneNumber } = req.body;
 
-	res.send('defendant post');
+		const defendant = new Defendant({ name, email, phoneNumber });
+
+		await defendant.save();
+
+		res.send(defendant);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Unable to create a new defendant');
+	}
 };
