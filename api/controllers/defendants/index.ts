@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { post } from './post';
+import { createDefendant } from './createDefendant';
 
 export const defendants = Router({ mergeParams: true });
 
-defendants.post('', post);
+defendants.post('', createDefendant);

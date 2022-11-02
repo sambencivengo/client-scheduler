@@ -1,8 +1,9 @@
 import { Handler } from 'express';
-import { Schema } from 'mongoose';
+import logger from '../../logger';
+
 import { Defendant } from '../../models';
 
-export const post: Handler = async (req, res) => {
+export const createDefendant: Handler = async (req, res) => {
 	try {
 		const { name, email, phoneNumber } = req.body;
 
@@ -12,7 +13,7 @@ export const post: Handler = async (req, res) => {
 
 		res.send(defendant);
 	} catch (error) {
-		console.log(error);
+		logger.error(error);
 		res.status(500).send('Unable to create a new defendant');
 	}
 };

@@ -1,6 +1,6 @@
 import { Router } from 'express';
+import { defendants } from '../controllers/defendants';
 import { appointments } from './appointments';
-import { defendants } from './defendants';
 
 export const api = Router();
 
