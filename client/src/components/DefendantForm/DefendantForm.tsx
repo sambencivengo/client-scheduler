@@ -42,18 +42,27 @@ export const DefendantForm: React.FC = () => {
 			phoneNumber,
 			meetingType,
 		}) {
-			const payload = JSON.stringify({
+			const payload = {
 				firstName: firstName.trim(),
 				lastName: lastName.trim(),
 				phoneNumber: phoneNumber?.trim(),
 				email: email?.trim(),
 				meetingType,
-			});
+			};
 
-			const res = await axios.post(
-				'http://localhost:8000/api/defendants'
-			);
-			console.log(res);
+			console.log(payload);
+
+			try {
+				const res = await axios({
+					method: 'post',
+					url: 'http://localhost:8000/api/defendants',
+					data: payload,
+				});
+
+				console.log(res);
+			} catch (error) {
+				console.error(error);
+			}
 		},
 	});
 
