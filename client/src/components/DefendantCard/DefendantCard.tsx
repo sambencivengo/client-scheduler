@@ -7,7 +7,13 @@ interface DefendantCardProps {
 	defendant: DefendantInterface;
 }
 export const DefendantCard = ({ defendant }: DefendantCardProps) => (
-	<Flex bgColor={colors.deepNavy} flexDirection={'column'}>
+	<Flex
+		gap={1}
+		p={10}
+		borderRadius={20}
+		bgColor={colors.deepNavy}
+		flexDirection={'column'}
+	>
 		<Text>
 			{defendant.firstName} {defendant.lastName}
 		</Text>

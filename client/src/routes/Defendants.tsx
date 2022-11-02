@@ -2,7 +2,6 @@ import { VStack, Center, Heading, Spinner } from '@chakra-ui/react';
 import { DefendantInterface } from '../../../shared/types';
 import React from 'react';
 import axios from 'axios';
-import { colors } from '../theme';
 import { DefendantCard } from '../components/DefendantCard';
 
 export const Defendants: React.FC = () => {
@@ -38,7 +37,12 @@ export const Defendants: React.FC = () => {
 	}
 
 	return (
-		<VStack bgColor={colors.navy} borderRadius={20} w={'100%'} h={'100%'}>
+		<VStack
+			// bgColor={colors.greyBlue} //TODO: change bg color?
+			borderRadius={20}
+			w={'100%'}
+			h={'100%'}
+		>
 			<Heading>Defendants</Heading>
 			{defendants.map((defendant) => (
 				<DefendantCard defendant={defendant} />

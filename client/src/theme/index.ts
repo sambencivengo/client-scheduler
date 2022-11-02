@@ -38,7 +38,7 @@ export const theme = extendTheme({
 		global: (props) => ({
 			body: {
 				color: mode(colors.deepNavy, colors.paperGrey)(props),
-				backgroundColor: mode(colors.paperGrey, colors.deepNavy)(props),
+				backgroundColor: mode(colors.paperGrey, colors.navy)(props),
 			},
 			'::-webkit-scrollbar': { display: 'none' },
 			'#hubspot-messages-iframe-container': {
