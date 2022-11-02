@@ -1,5 +1,4 @@
-import { Box, Center, VStack, Text, Heading } from '@chakra-ui/react';
-import { ServerStreamFileResponseOptionsWithError } from 'http2';
+import { Box, VStack, Text, Heading } from '@chakra-ui/react';
 import { useRouteError } from 'react-router-dom';
 import { colors } from './theme';
 
