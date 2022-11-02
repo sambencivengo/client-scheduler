@@ -2,9 +2,9 @@ import express from 'express';
 import { env } from './env';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { api } from './api/routes';
 import { connectDb } from './api/db';
 import logger from './api/logger';
+import { defendants } from './api/routes/defendants';
 
 dotenv.config();
 
@@ -12,15 +12,11 @@ const { expressPort } = env;
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
-app.get('/', (req, res) => res.send('App running'));
-
-app.use(
-	'/api', // All routes that start with `/api` but not followed by `/auth`
-	api
-);
+// Routes
+app.use('/api/defendants', defendants);
 
 const connect = async () => {
 	try {
