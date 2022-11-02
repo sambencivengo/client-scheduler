@@ -1,9 +1,9 @@
 import { Center, Heading, Spinner, Flex, Box, VStack } from '@chakra-ui/react';
-import { DefendantInterface } from '../../../shared/types';
 import React from 'react';
 import axios, { AxiosError } from 'axios';
 import { DefendantCard } from '../components/DefendantCard';
 import { colors } from '../theme';
+import { DefendantInterface } from '../types/DefendantInterface';
 
 export const Defendants: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(true);
@@ -50,8 +50,6 @@ export const Defendants: React.FC = () => {
 			</Center>
 		);
 	}
-
-	console.log(defendants);
 
 	return (
 		<Flex direction={'column'} gap={10}>

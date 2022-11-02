@@ -1,5 +1,7 @@
 import { Flex, Tag, Text } from '@chakra-ui/react';
+import { MdPeople, MdPhone } from 'react-icons/md';
 import { colors } from '../../theme';
+import { MeetingType } from '../../types/MeetingType';
 
 interface DefendantCardTextProps {
 	field: string;
@@ -12,6 +14,9 @@ export const DefendantCardText = ({
 	value,
 	tag = false,
 }: DefendantCardTextProps) => {
+	const meetingIcon =
+		tag && value === MeetingType.InPerson ? <MdPeople /> : <MdPhone />;
+
 	return (
 		<Flex
 			direction={{ base: 'row', sm: 'row' }}
@@ -22,7 +27,14 @@ export const DefendantCardText = ({
 			<Text fontWeight={'bold'} color={colors.lightGreyBlue}>
 				{field}:
 			</Text>
-			{tag ? <Tag>{value}</Tag> : <Text>{value}</Text>}
+			{tag ? (
+				<Tag gap={1}>
+					<Text>{value}</Text>
+					{meetingIcon}
+				</Tag>
+			) : (
+				<Text>{value}</Text>
+			)}
 		</Flex>
 	);
 };
