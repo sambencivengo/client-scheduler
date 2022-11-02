@@ -8,6 +8,8 @@ export const post: Handler = async (req, res) => {
 	try {
 		const { body } = req;
 
+		console.log(body);
+
 		// TODO: util validation method
 		try {
 			await Schema.createDefendant.apiSchema.validate(body);

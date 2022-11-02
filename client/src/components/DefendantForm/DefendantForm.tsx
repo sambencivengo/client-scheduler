@@ -17,14 +17,21 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { CreateDefendant } from '../../schema';
 import { colors } from '../../theme';
+import { DefendantInterface } from '../../types/DefendantInterface';
 
 import { MeetingType } from '../../types/MeetingType';
 
 interface DefendantFormProps {
 	setShowDefendantForm: React.Dispatch<React.SetStateAction<boolean>>;
+	setName: React.Dispatch<React.SetStateAction<string>>;
+	setEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const DefendantForm = ({ setShowDefendantForm }: DefendantFormProps) => {
+export const DefendantForm = ({
+	setShowDefendantForm,
+	setEmail,
+	setName,
+}: DefendantFormProps) => {
 	const [validateWhileTyping, setValidateWhileTyping] = React.useState(false);
 
 	const toast = useToast();
@@ -47,8 +54,6 @@ export const DefendantForm = ({ setShowDefendantForm }: DefendantFormProps) => {
 			phoneNumber,
 			meetingType,
 		}) {
-			console.log(meetingType);
-
 			const payload = {
 				firstName: firstName.trim(),
 				lastName: lastName.trim(),
@@ -57,13 +62,16 @@ export const DefendantForm = ({ setShowDefendantForm }: DefendantFormProps) => {
 				meetingType,
 			};
 
-			console.log(payload);
-
 			try {
-				await axios.post(
+				const res = await axios.post(
 					'http://localhost:8000/api/defendants',
 					payload
 				);
+
+				const defendant = res.data as DefendantInterface;
+
+				setEmail(defendant.email ?? '');
+				setName(`${defendant.firstName} ${defendant.lastName}`);
 
 				toast({
 					description: `Thank you ${firstName} ${lastName}, your form submission was successful!`,
@@ -92,8 +100,6 @@ export const DefendantForm = ({ setShowDefendantForm }: DefendantFormProps) => {
 			}
 		},
 	});
-
-	console.log(formik.values);
 
 	if (formik.submitCount && !validateWhileTyping) {
 		setValidateWhileTyping(true);

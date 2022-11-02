@@ -2,8 +2,9 @@ import * as yup from 'yup';
 import { MeetingType } from '../types/MeetingType';
 import { phoneUtils } from '../utils';
 
-const validatePhoneNumber = (value?: string) =>
-	value === undefined ? true : phoneUtils.validatePhoneNumber(value);
+const validatePhoneNumber = (value?: string) => {
+	return value === undefined ? true : phoneUtils.validatePhoneNumber(value);
+};
 
 const schema = yup.object({
 	firstName: yup.string().trim().required('A first name is required'),
