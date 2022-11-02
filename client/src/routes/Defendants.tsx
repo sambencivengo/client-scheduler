@@ -57,7 +57,7 @@ export const Defendants: React.FC = () => {
 		<Flex direction={'column'} gap={10}>
 			<Heading textAlign={'center'}>Defendants</Heading>
 			<Flex
-				gap={10}
+				gap={5}
 				// bgColor={colors.greyBlue} //TODO: change bg color?
 				borderRadius={20}
 				w={'100%'}
