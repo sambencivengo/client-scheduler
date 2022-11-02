@@ -12,7 +12,7 @@ export interface DefendantInterFace {
 export const defendantSchema = new Schema<DefendantInterFace>({
 	name: { type: String, required: true },
 	email: { type: String, required: false },
-	phoneNumber: { type: Number, required: false },
+	phoneNumber: { type: String, required: false },
 	dayOfContact: { type: Date, default: new Date() },
 	meetingType: {
 		type: String,

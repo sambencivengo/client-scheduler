@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { MeetingType } from '../types';
 import { phoneUtils } from '../utils';
 
 const validatePhoneNumber = (value?: string) =>
@@ -14,4 +15,14 @@ const schema = yup.object({
 			'Please enter a valid phone number',
 			validatePhoneNumber
 		),
+	meetingType: yup
+		.mixed<MeetingType>()
+		.oneOf(Object.values(MeetingType))
+		.required('Meeting type is required'),
 });
+
+export type UiValues = yup.InferType<typeof uiSchema>;
+export const uiSchema = schema.clone();
+
+export type ApiValues = yup.InferType<typeof apiSchema>;
+export const apiSchema = schema.clone();
