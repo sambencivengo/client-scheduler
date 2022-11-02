@@ -20,6 +20,7 @@
 	},
 	"dependencies": {
 		"@americanairlines/simple-env": "^1.0.5",
+		"@chakra-ui/theme-tools": "^2.0.12",
 		"concurrently": "^7.5.0",
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.3",
