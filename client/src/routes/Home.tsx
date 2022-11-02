@@ -1,5 +1,6 @@
-import { Flex, Heading, Box } from '@chakra-ui/react';
+import { Flex, Heading } from '@chakra-ui/react';
 import React from 'react';
+import { Calendar } from '../components/Calendar';
 import { DefendantForm } from '../components/DefendantForm';
 
 export const Home: React.FC = () => {
@@ -17,12 +18,12 @@ export const Home: React.FC = () => {
 				justifyContent={'space-evenly'}
 				wrap={'wrap'}
 			>
-				{showDefendantForm ? (
+				{!showDefendantForm ? (
 					<DefendantForm
 						setShowDefendantForm={setShowDefendantForm}
 					/>
 				) : (
-					<Box>Calendar here</Box>
+					<Calendar />
 				)}
 			</Flex>
 		</Flex>

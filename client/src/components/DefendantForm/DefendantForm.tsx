@@ -163,7 +163,7 @@ export const DefendantForm = ({ setShowDefendantForm }: DefendantFormProps) => {
 							isInvalid={!!formik.errors.phoneNumber}
 						/>
 						<FormHelperText color={colors.warning}>
-							{formik.errors.email}&nbsp;
+							{formik.errors.phoneNumber as string}&nbsp;
 						</FormHelperText>
 					</FormControl>
 
