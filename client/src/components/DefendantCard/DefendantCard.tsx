@@ -13,13 +13,11 @@ export const DefendantCard = ({ defendant }: DefendantCardProps) => {
 
 	return (
 		<Flex
-			wrap={'wrap'}
-			minW={'350px'}
+			minW={'300px'}
 			gap={1}
 			p={10}
 			borderRadius={20}
 			bgColor={colors.deepNavy}
-			justifyContent={'space-around'}
 		>
 			<VStack alignItems={'left'}>
 				<DefendantCardText field={'Name'} value={fullName} />

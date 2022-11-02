@@ -19,7 +19,7 @@ const router = createBrowserRouter([
 const App = () => (
 	<>
 		<NavBar />
-		<Box m={100}>
+		<Box mt={10} mb={50} mx={20}>
 			<Center>
 				<RouterProvider router={router} />
 			</Center>

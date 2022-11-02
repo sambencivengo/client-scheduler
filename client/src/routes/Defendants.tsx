@@ -1,4 +1,4 @@
-import { VStack, Center, Heading, Spinner } from '@chakra-ui/react';
+import { Center, Heading, Spinner, Flex } from '@chakra-ui/react';
 import { DefendantInterface } from '../../../shared/types';
 import React from 'react';
 import axios from 'axios';
@@ -15,8 +15,6 @@ export const Defendants: React.FC = () => {
 			const { data } = await axios.get(
 				'http://localhost:8000/api/defendants'
 			);
-			console.log(data);
-
 			setDefendants(data);
 			setIsLoading(false);
 		} catch (error) {
@@ -37,16 +35,24 @@ export const Defendants: React.FC = () => {
 	}
 
 	return (
-		<VStack
-			// bgColor={colors.greyBlue} //TODO: change bg color?
-			borderRadius={20}
-			w={'100%'}
-			h={'100%'}
-		>
-			<Heading>Defendants</Heading>
-			{defendants.map((defendant) => (
-				<DefendantCard defendant={defendant} />
-			))}
-		</VStack>
+		<Flex direction={'column'} gap={10}>
+			<Heading textAlign={'center'}>Defendants</Heading>
+			<Flex
+				gap={10}
+				// bgColor={colors.greyBlue} //TODO: change bg color?
+				borderRadius={20}
+				w={'100%'}
+				h={'100%'}
+				justifyContent={'space-evenly'}
+				wrap={'wrap'}
+			>
+				{defendants.map((defendant) => (
+					<DefendantCard defendant={defendant} />
+				))}
+				{defendants.map((defendant) => (
+					<DefendantCard defendant={defendant} />
+				))}
+			</Flex>
+		</Flex>
 	);
 };
