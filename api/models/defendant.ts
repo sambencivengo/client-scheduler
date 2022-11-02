@@ -1,16 +1,10 @@
 import { model, Schema } from 'mongoose';
-import { MeetingType } from '../../shared/types';
-export interface DefendantInterFace {
-	name: string;
-	email?: string;
-	phoneNumber?: number;
-	meetingType: MeetingType;
-	dayOfContact: Date;
-}
+import { MeetingType, DefendantInterface } from '../../shared/types';
 
 // Schema
-export const defendantSchema = new Schema<DefendantInterFace>({
-	name: { type: String, required: true },
+export const defendantSchema = new Schema<DefendantInterface>({
+	firstName: { type: String, required: true },
+	lastName: { type: String, required: true },
 	email: { type: String, required: false },
 	phoneNumber: { type: String, required: false },
 	dayOfContact: { type: Date, default: new Date() },
@@ -22,7 +16,7 @@ export const defendantSchema = new Schema<DefendantInterFace>({
 });
 
 // Model
-export const Defendant = model<DefendantInterFace>(
+export const Defendant = model<DefendantInterface>(
 	'Defendant',
 	defendantSchema
 );

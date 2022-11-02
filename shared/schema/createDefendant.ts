@@ -6,7 +6,8 @@ const validatePhoneNumber = (value?: string) =>
 	phoneUtils.validatePhoneNumber(value);
 
 const schema = yup.object({
-	name: yup.string().trim().required('A name is required'),
+	firstName: yup.string().trim().required('A first name is required'),
+	lastName: yup.string().trim().required('A last name is required'),
 	email: yup.string().email('Email must be a valid email').trim(),
 	phoneNumber: yup
 		.mixed()

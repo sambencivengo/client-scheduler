@@ -16,10 +16,11 @@ export const post: Handler = async (req, res) => {
 			return;
 		}
 
-		const { name, email, phoneNumber, meetingType } = body;
+		const { firstName, lastName, email, phoneNumber, meetingType } = body;
 
 		const defendant = new Defendant({
-			name,
+			firstName,
+			lastName,
 			email,
 			phoneNumber,
 			meetingType,
