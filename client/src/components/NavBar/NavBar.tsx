@@ -4,8 +4,9 @@ import {
 	BreadcrumbItem,
 	BreadcrumbLink,
 	Center,
-	Text,
 } from '@chakra-ui/react';
+
+import { MdHome, MdPeople } from 'react-icons/md';
 import { colors } from '../../theme';
 
 export const NavBar = () => (
@@ -14,13 +15,13 @@ export const NavBar = () => (
 			<Breadcrumb separator="/">
 				<BreadcrumbItem>
 					<BreadcrumbLink href={`/`}>
-						<Text fontSize={'xl'}>Home</Text>
+						<MdHome size={'50px'} />
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 
 				<BreadcrumbItem>
 					<BreadcrumbLink href="/defendants">
-						<Text fontSize={'xl'}>List</Text>
+						<MdPeople size={'50px'} />
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 			</Breadcrumb>

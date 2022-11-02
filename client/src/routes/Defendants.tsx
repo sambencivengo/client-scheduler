@@ -1,4 +1,4 @@
-import { Center, Heading, Spinner, Flex } from '@chakra-ui/react';
+import { Center, Heading, Spinner, Flex, Box } from '@chakra-ui/react';
 import { DefendantInterface } from '../../../shared/types';
 import React from 'react';
 import axios from 'axios';
@@ -34,6 +34,8 @@ export const Defendants: React.FC = () => {
 		);
 	}
 
+	console.log(defendants);
+
 	return (
 		<Flex direction={'column'} gap={10}>
 			<Heading textAlign={'center'}>Defendants</Heading>
@@ -47,10 +49,9 @@ export const Defendants: React.FC = () => {
 				wrap={'wrap'}
 			>
 				{defendants.map((defendant) => (
-					<DefendantCard defendant={defendant} />
-				))}
-				{defendants.map((defendant) => (
-					<DefendantCard defendant={defendant} />
+					<Box key={defendant._id}>
+						<DefendantCard defendant={defendant} />
+					</Box>
 				))}
 			</Flex>
 		</Flex>

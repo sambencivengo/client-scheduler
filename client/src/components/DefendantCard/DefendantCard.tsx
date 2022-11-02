@@ -22,13 +22,14 @@ export const DefendantCard = ({ defendant }: DefendantCardProps) => {
 			<VStack alignItems={'left'}>
 				<DefendantCardText field={'Name'} value={fullName} />
 				{phoneNumber && (
-					<DefendantCardText
-						field={'Phone Number'}
-						value={phoneNumber}
-					/>
+					<DefendantCardText field={'Number'} value={phoneNumber} />
 				)}
 				{email && <DefendantCardText field={'Email'} value={email} />}
-				<DefendantCardText field={'Meeting Type'} value={meetingType} />
+				<DefendantCardText
+					field={'Meeting Type'}
+					value={meetingType}
+					tag={true}
+				/>
 			</VStack>
 		</Flex>
 	);
