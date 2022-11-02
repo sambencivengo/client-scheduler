@@ -17,6 +17,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/defendants', defendants);
+// TODO: appointments using calendly/outlook
 
 const connect = async () => {
 	try {
