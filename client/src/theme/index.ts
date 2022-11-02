@@ -14,6 +14,7 @@ export const colors = {
 	lightGreyBlue: '#778DA9',
 	paperGrey: '#E0E1DD',
 	red: '#8B0000',
+	warning: '#ffae00',
 };
 
 export const theme = extendTheme({

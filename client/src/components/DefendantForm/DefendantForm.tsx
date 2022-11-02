@@ -10,6 +10,7 @@ import {
 	Radio,
 	RadioGroup,
 	Stack,
+	useToast,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -19,10 +20,14 @@ import { colors } from '../../theme';
 
 import { MeetingType } from '../../types/MeetingType';
 
-export const DefendantForm: React.FC = () => {
-	const [meetingTypeValue, setMeetingTypeValue] = React.useState<MeetingType>(
-		MeetingType.InPerson
-	);
+interface DefendantFormProps {
+	setShowDefendantForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const DefendantForm = ({ setShowDefendantForm }: DefendantFormProps) => {
+	const [validateWhileTyping, setValidateWhileTyping] = React.useState(false);
+
+	const toast = useToast();
 
 	const formik = useFormik<CreateDefendant.UiValues>({
 		initialValues: {
@@ -33,8 +38,8 @@ export const DefendantForm: React.FC = () => {
 			phoneNumber: '',
 		},
 		validationSchema: CreateDefendant.uiSchema,
-		// validateOnBlur: validateWhileTyping,
-		// validateOnChange: validateWhileTyping,
+		validateOnBlur: validateWhileTyping,
+		validateOnChange: validateWhileTyping,
 		async onSubmit({
 			firstName,
 			lastName,
@@ -42,6 +47,8 @@ export const DefendantForm: React.FC = () => {
 			phoneNumber,
 			meetingType,
 		}) {
+			console.log(meetingType);
+
 			const payload = {
 				firstName: firstName.trim(),
 				lastName: lastName.trim(),
@@ -53,21 +60,52 @@ export const DefendantForm: React.FC = () => {
 			console.log(payload);
 
 			try {
-				const res = await axios({
-					method: 'post',
-					url: 'http://localhost:8000/api/defendants',
-					data: payload,
+				await axios.post(
+					'http://localhost:8000/api/defendants',
+					payload
+				);
+
+				toast({
+					description: `Thank you ${firstName} ${lastName}, your form submission was successful!`,
+					status: 'success',
+					variant: 'solid',
+					duration: 4000,
+					isClosable: true,
+					containerStyle: { background: colors.navy },
+					position: 'top',
 				});
 
-				console.log(res);
+				setShowDefendantForm(false);
 			} catch (error) {
 				console.error(error);
+				toast({
+					description: 'Unable to submit form',
+					status: 'error',
+					variant: 'solid',
+					duration: 4000,
+					isClosable: true,
+					containerStyle: {
+						background: colors.warning,
+					},
+					position: 'top',
+				});
 			}
 		},
 	});
 
+	console.log(formik.values);
+
+	if (formik.submitCount && !validateWhileTyping) {
+		setValidateWhileTyping(true);
+	}
+
 	return (
-		<Box minWidth={500} bgColor={colors.deepNavy} p={10} borderRadius={20}>
+		<Box
+			minWidth={{ base: 350, sm: 500 }}
+			bgColor={colors.deepNavy}
+			p={10}
+			borderRadius={20}
+		>
 			<Flex flexDir={'column'}>
 				<form
 					onSubmit={formik.handleSubmit}
@@ -82,7 +120,7 @@ export const DefendantForm: React.FC = () => {
 							onChange={formik.handleChange}
 							isInvalid={!!formik.errors.firstName}
 						/>
-						<FormHelperText color={colors.red}>
+						<FormHelperText color={colors.warning}>
 							{formik.errors.firstName}&nbsp;
 						</FormHelperText>
 					</FormControl>
@@ -96,7 +134,7 @@ export const DefendantForm: React.FC = () => {
 							onChange={formik.handleChange}
 							isInvalid={!!formik.errors.lastName}
 						/>
-						<FormHelperText color={colors.red}>
+						<FormHelperText color={colors.warning}>
 							{formik.errors.lastName}&nbsp;
 						</FormHelperText>
 					</FormControl>
@@ -110,7 +148,7 @@ export const DefendantForm: React.FC = () => {
 							onChange={formik.handleChange}
 							isInvalid={!!formik.errors.email}
 						/>
-						<FormHelperText color={colors.red}>
+						<FormHelperText color={colors.warning}>
 							{formik.errors.email}&nbsp;
 						</FormHelperText>
 					</FormControl>
@@ -124,14 +162,17 @@ export const DefendantForm: React.FC = () => {
 							onChange={formik.handleChange}
 							isInvalid={!!formik.errors.phoneNumber}
 						/>
+						<FormHelperText color={colors.warning}>
+							{formik.errors.email}&nbsp;
+						</FormHelperText>
 					</FormControl>
 
 					<Center>
 						<RadioGroup
-							onChange={(val: MeetingType) =>
-								setMeetingTypeValue(val)
+							onChange={(value: MeetingType) =>
+								formik.setFieldValue('meetingType', value)
 							}
-							value={meetingTypeValue}
+							defaultValue={MeetingType.InPerson}
 							id="meetingType"
 						>
 							<Stack spacing={5} direction="row">
