@@ -1,3 +1,3 @@
-import { createDefendant } from './createDefendant';
+import { post } from './post';
 
-export { createDefendant };
+export { post };

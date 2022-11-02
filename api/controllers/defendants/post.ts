@@ -3,7 +3,7 @@ import logger from '../../logger';
 
 import { Defendant } from '../../models';
 
-export const createDefendant: Handler = async (req, res) => {
+export const post: Handler = async (req, res) => {
 	try {
 		const { name, email, phoneNumber } = req.body;
 
