@@ -13,6 +13,7 @@ export const colors = {
 	greyBlue: '#415A77',
 	lightGreyBlue: '#778DA9',
 	paperGrey: '#E0E1DD',
+	red: '#8B0000',
 };
 
 export const theme = extendTheme({
