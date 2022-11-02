@@ -1,4 +1,4 @@
 export enum MeetingType {
-	InPersonMeeting = 'In Person Meeting',
-	PhoneMeeting = 'Phone Meeting',
+	InPerson = 'In Person',
+	Phone = 'Phone',
 }
