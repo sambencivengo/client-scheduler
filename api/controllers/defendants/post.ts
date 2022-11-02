@@ -1,7 +1,5 @@
 import { Handler } from 'express';
 import { Schema } from '../../../shared';
-import { apiSchema } from '../../../shared/schema/createDefendant';
-import { MeetingType } from '../../../shared/types';
 import logger from '../../logger';
 
 import { Defendant } from '../../models';
