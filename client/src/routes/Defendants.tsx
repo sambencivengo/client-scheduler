@@ -14,9 +14,7 @@ export const Defendants: React.FC = () => {
 
 	const getDefendants = async (): Promise<void> => {
 		try {
-			const { data } = await axios.get(
-				'http://localhost:8000/api/defendants'
-			);
+			const { data } = await axios.get('/api/defendants');
 			setDefendants(data);
 			setIsLoading(false);
 		} catch (error) {
