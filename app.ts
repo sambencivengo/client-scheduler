@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { env } from './env';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -8,9 +9,9 @@ import { defendants } from './api/routes/defendants';
 
 dotenv.config();
 
-const { expressPort } = env;
-
 const app = express();
+
+const port = env.expressPort || 8000;
 
 app.use(cors());
 app.use(express.json());
@@ -30,6 +31,6 @@ const connect = async () => {
 };
 connect();
 
-app.listen(expressPort, () => {
-	logger.info(`Application is listening on port ${env.expressPort} 🚀`);
+app.listen(port, () => {
+	logger.info(`Application is listening on port ${port} 🚀`);
 });
