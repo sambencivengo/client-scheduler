@@ -25,7 +25,7 @@ export const Calendar = ({ email, name }: CalendarProps) => {
 					email: `${calendlyEmail}`,
 					name: `${name}`,
 				}}
-				url="https://calendly.com/sambencivengo"
+				url="https://calendly.com/" //TODO: ENV VARIABLE FOR CALENDAR NAME
 			/>
 		</Box>
 	);
