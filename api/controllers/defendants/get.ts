@@ -17,6 +17,7 @@ export const get: Handler = async (req, res) => {
 
 	const { dayOfContact } = req.query;
 
+	// TODO: use 2 dates to create a boundary
 	console.log(dayOfContact);
 
 	try {
