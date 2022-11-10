@@ -3,7 +3,11 @@ import { MeetingType } from '../types';
 import { validateDate } from '../utils';
 
 const schema = yup.object({
-	dayOfContact: yup
+	dayOfContactStart: yup
+		.string()
+		.trim()
+		.test('dayOfContact', 'Please enter a valid date', validateDate),
+	dayOfContactEnd: yup
 		.string()
 		.trim()
 		.test('dayOfContact', 'Please enter a valid date', validateDate),
