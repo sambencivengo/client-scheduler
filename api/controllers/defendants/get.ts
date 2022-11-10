@@ -5,6 +5,25 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { Schema } from '../../../shared';
 import dayjs from 'dayjs';
+import { LogError } from 'concurrently';
+
+enum BoundaryType {
+	Start = 'Start',
+	End = 'End',
+}
+const createDateBoundaryOrUndefined = (
+	timeString: string | undefined,
+	boundary: BoundaryType
+) => {
+	if (timeString) {
+		const dayjsDate = dayjs(timeString);
+		if (boundary === BoundaryType.Start) {
+			return dayjsDate.startOf('day').toISOString();
+		}
+		return dayjsDate.endOf('day').toISOString();
+	}
+	return undefined;
+};
 
 export const get: Handler = async (req, res) => {
 	// TODO: set up query params so Bekah can filter results based on contact date or scheduled date
@@ -21,23 +40,30 @@ export const get: Handler = async (req, res) => {
 		dayOfContactEnd: dayOfContactEndString,
 	} = req.query as Schema.getDefendant.ApiValues;
 
-	const dayOfContactStartDate = dayOfContactStartString
-		? dayjs(dayOfContactStartString).toISOString()
-		: undefined;
+	const dayOfContactStartDate = createDateBoundaryOrUndefined(
+		dayOfContactStartString,
+		BoundaryType.Start
+	);
 
-	const dayOfContactEndDate = dayOfContactEndString
-		? dayjs(dayOfContactEndString).toISOString()
-		: undefined;
+	const dayOfContactEndDate = createDateBoundaryOrUndefined(
+		dayOfContactEndString,
+		BoundaryType.End
+	);
 
-	console.log({ dayOfContactStartDate }, { dayOfContactEndDate });
+	const filter =
+		dayOfContactStartDate || dayOfContactEndDate
+			? {
+					$and: [
+						{ dayOfContact: { $gte: dayOfContactStartDate } },
+						{ dayOfContact: { $lte: dayOfContactEndDate } },
+					],
+			  }
+			: undefined;
+
+	console.log(dayOfContactStartDate, dayOfContactEndDate, filter);
 
 	try {
-		const defendants = await Defendant.find({
-			$and: [
-				{ dayOfContact: { $gte: dayOfContactStartDate } },
-				{ dayOfContact: { $lt: dayOfContactEndDate } },
-			],
-		});
+		const defendants = await Defendant.find(filter ?? {});
 		res.send(defendants);
 	} catch (error) {
 		logger.error(error);
