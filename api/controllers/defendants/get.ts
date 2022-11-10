@@ -3,9 +3,18 @@ import logger from '../../logger';
 import { Defendant } from '../../models';
 import * as path from 'path';
 import * as fs from 'fs';
+import { Schema } from '../../../shared';
 
 export const get: Handler = async (req, res) => {
 	// TODO: set up query params so Bekah can filter results based on contact date or scheduled date
+
+	try {
+		await Schema.getDefendant.apiSchema.validate({ ...req.query });
+	} catch (error) {
+		res.status(400).send(`Validation failed: ${error}`);
+		return;
+	}
+
 	const { dayOfContact } = req.query;
 
 	console.log(dayOfContact);
