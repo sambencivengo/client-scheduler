@@ -1,11 +1,11 @@
 import express from 'express';
-
 import { env } from './env';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectDb } from './api/db';
 import logger from './api/logger';
 import { defendants } from './api/routes/defendants';
+import * as path from 'path';
 
 dotenv.config();
 
@@ -15,6 +15,12 @@ const port = env.expressPort || 8000;
 
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, './client/build')));
+
+app.get('/*', (req, res) => {
+	res.sendFile(path.join(__dirname, './client/build', 'index.html'));
+});
 
 // Routes
 app.use('/api/defendants', defendants);

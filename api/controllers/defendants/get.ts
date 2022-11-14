@@ -18,9 +18,9 @@ const createDateBoundaryOrUndefined = (
 	if (timeString) {
 		const dayjsDate = dayjs(timeString);
 		if (boundary === BoundaryType.Start) {
-			return dayjsDate.startOf('day').toISOString();
+			return new Date(dayjsDate.startOf('day').toISOString());
 		}
-		return dayjsDate.endOf('day').toISOString();
+		return new Date(dayjsDate.endOf('day').toISOString());
 	}
 	return undefined;
 };
@@ -50,20 +50,31 @@ export const get: Handler = async (req, res) => {
 		BoundaryType.End
 	);
 
-	const filter =
+	// if start exist
+
+	// if end exists
+
+	const filter = { dayOfContact: {} };
+
+	const filter2 =
 		dayOfContactStartDate || dayOfContactEndDate
 			? {
-					$and: [
-						{ dayOfContact: { $gte: dayOfContactStartDate } },
-						{ dayOfContact: { $lte: dayOfContactEndDate } },
-					],
+					dayOfContact: {
+						$gte: dayOfContactStartDate,
+						$lte: dayOfContactEndDate,
+					},
 			  }
 			: undefined;
 
 	console.log(dayOfContactStartDate, dayOfContactEndDate, filter);
 
 	try {
-		const defendants = await Defendant.find(filter ?? {});
+		const defendants = await Defendant.find({
+			dayOfContact: {
+				$gte: dayOfContactStartDate,
+				$lte: dayOfContactEndDate,
+			},
+		});
 		res.send(defendants);
 	} catch (error) {
 		logger.error(error);
