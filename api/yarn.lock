@@ -701,9 +701,9 @@
   "version" "2.0.7"
 
 "@chakra-ui/styled-system@>=2.0.0":
-  "integrity" "sha512-Lozbedu+GBj4EbHB/eGv475SFDLApsIEN9gNKiZJBJAE1HIhHn3Seh1iZQSrHC/Beq+D5cQq3Z+yPn3bXtFU7w=="
-  "resolved" "https://registry.npmjs.org/@chakra-ui/styled-system/-/styled-system-2.3.4.tgz"
-  "version" "2.3.4"
+  "integrity" "sha512-Xj78vEq/R+1OVx36tJnAb/vLtX6DD9k/yxj3lCigl3q5Qjr6aglPBjqHdfFbGaQeB0Gt4ABPyxUDO3sAhdxC4w=="
+  "resolved" "https://registry.npmjs.org/@chakra-ui/styled-system/-/styled-system-2.3.5.tgz"
+  "version" "2.3.5"
   dependencies:
     "csstype" "^3.0.11"
     "lodash.mergewith" "4.6.2"
