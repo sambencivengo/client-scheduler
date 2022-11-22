@@ -2,7 +2,7 @@ import { Handler } from 'express';
 import logger from '../../logger';
 import { Defendant } from '../../models';
 import dayjs from 'dayjs';
-import Schema from 'src/schema';
+import Schema from '../../schema';
 
 enum BoundaryType {
 	Start = 'Start',
