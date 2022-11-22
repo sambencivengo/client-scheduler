@@ -2,7 +2,7 @@ import { Handler } from 'express';
 import logger from '../../logger';
 import { Defendant } from '../../models';
 import dayjs from 'dayjs';
-import Schema from '../../schema';
+import { Schema } from 'src/schema';
 
 enum BoundaryType {
 	Start = 'Start',
@@ -35,7 +35,7 @@ export const get: Handler = async (req, res) => {
 	const {
 		dayOfContactStart: dayOfContactStartString,
 		dayOfContactEnd: dayOfContactEndString,
-	} = req.query as Schema.getDefendant.ApiValues;
+	} = req.query as Schema.
 
 	const dayOfContactStartDate = createDateBoundaryOrUndefined(
 		dayOfContactStartString,
