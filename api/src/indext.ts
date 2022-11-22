@@ -9,34 +9,41 @@ import * as path from 'path';
 
 dotenv.config();
 
-const server = express();
-
 const port = env.expressPort || 8000;
 
-server.use(cors());
-server.use(express.json());
-
-server.use(express.static(path.join(__dirname, './client/build')));
-
-server.get('/*', (_, res) => {
-	res.sendFile(path.join(__dirname, './client/build', 'index.html'));
-});
-
-// Routes
-server.use('/api/defendants', defendants);
-// TODO: appointments using calendly/outlook
-
-const connect = async () => {
+const start = async () => {
 	try {
-		await connectDb(env.database ?? '');
-		logger.info('Database is connected 🔌 ✅');
+		const app = express();
+
+		app.use(cors());
+		app.use(express.json());
+
+		app.use(express.static(path.join(__dirname, './client/build')));
+
+		app.get('/*', (_, res) => {
+			res.sendFile(path.join(__dirname, './client/build', 'index.html'));
+		});
+
+		// Routes
+		app.use('/api/defendants', defendants);
+		// TODO: appointments using calendly/outlook
+
+		const connect = async () => {
+			try {
+				await connectDb(env.database ?? '');
+				logger.info('Database is connected 🔌 ✅');
+			} catch (error) {
+				logger.crit('❌ Unable to connect to the database ❌');
+				logger.crit(error);
+			}
+		};
+		connect();
+
+		app.listen(port, () => {
+			logger.info(`Application is listening on port ${port} 🚀`);
+		});
 	} catch (error) {
-		logger.crit('❌ Unable to connect to the database ❌');
 		logger.crit(error);
 	}
 };
-connect();
-
-server.listen(port, () => {
-	logger.info(`serverlication is listening on port ${port} 🚀`);
-});
+start();

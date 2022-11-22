@@ -9,11 +9,7 @@
 		"moduleResolution": "node",
 		"removeComments": true,
 		"noImplicitAny": true,
-		"paths": {
-			"src/*": ["src/*"],
-			"entities/*": ["src/entities/*"],
-			"resolvers/*": ["src/resolvers/*"]
-		},
+
 		"typeRoots": ["/src/types", "/node_modules/@types"],
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
