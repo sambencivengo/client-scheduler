@@ -11,7 +11,7 @@ dotenv.config();
 
 const port = env.expressPort || 8000;
 
-const start = async () => {
+const main = async () => {
 	try {
 		const app = express();
 
@@ -46,4 +46,4 @@ const start = async () => {
 		logger.crit(error);
 	}
 };
-start();
+main();

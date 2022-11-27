@@ -9,7 +9,6 @@
 		"moduleResolution": "node",
 		"removeComments": true,
 		"noImplicitAny": true,
-
 		"typeRoots": ["/src/types", "/node_modules/@types"],
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
