@@ -1,6 +1,5 @@
-import { MeetingType } from 'src/types/MeetingType';
+import { MeetingType } from '../types';
 import * as yup from 'yup';
-
 import { phoneUtils } from '../utils';
 
 const validatePhoneNumber = (value?: string) =>
