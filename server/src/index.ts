@@ -16,6 +16,7 @@ const main = async () => {
 		app.use(cors());
 		app.use(express.json());
 
+		// NOTE: Keep in as comment until deployment method is determined
 		// app.use(express.static(path.join(__dirname, './client/build')));
 
 		// app.get('/*', (_, res) => {
