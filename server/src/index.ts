@@ -1,15 +1,13 @@
 import express from 'express';
-import { env } from './env';
-import dotenv from 'dotenv';
 import cors from 'cors';
+import * as dotenv_safe from 'dotenv-safe';
 import { connectDb } from './db';
 import logger from './logger';
 import { defendants } from './routes/defendants';
-import * as path from 'path';
 
-dotenv.config();
+dotenv_safe.config();
 
-const port = env.expressPort || 8000;
+const port = process.env.PORT || 8000;
 
 const main = async () => {
 	try {
@@ -18,11 +16,11 @@ const main = async () => {
 		app.use(cors());
 		app.use(express.json());
 
-		app.use(express.static(path.join(__dirname, './client/build')));
+		// app.use(express.static(path.join(__dirname, './client/build')));
 
-		app.get('/*', (_, res) => {
-			res.sendFile(path.join(__dirname, './client/build', 'index.html'));
-		});
+		// app.get('/*', (_, res) => {
+		// 	res.sendFile(path.join(__dirname, './client/build', 'index.html'));
+		// });
 
 		// Routes
 		app.use('/api/defendants', defendants);
@@ -30,7 +28,7 @@ const main = async () => {
 
 		const connect = async () => {
 			try {
-				await connectDb(env.database ?? '');
+				await connectDb(process.env.MONGO_URI ?? '');
 				logger.info('Database is connected 🔌 ✅');
 			} catch (error) {
 				logger.crit('❌ Unable to connect to the database ❌');
