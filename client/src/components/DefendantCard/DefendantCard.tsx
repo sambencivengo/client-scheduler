@@ -1,6 +1,6 @@
 import { Flex, VStack } from '@chakra-ui/react';
-import { DefendantInterface } from '../../../../shared/types';
 import { colors } from '../../theme';
+import { DefendantInterface } from '../../types/DefendantInterface';
 import { DefendantCardText } from './DefendantCardText';
 
 interface DefendantCardProps {

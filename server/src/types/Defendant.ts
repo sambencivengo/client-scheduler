@@ -1,4 +1,4 @@
-import { MeetingType } from './meetingType';
+import { MeetingType } from './MeetingType';
 
 export interface DefendantInterface {
 	_id: number;

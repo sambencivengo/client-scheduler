@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
-import { DefendantInterface, MeetingType } from 'src/types';
+import { DefendantInterface } from 'src/types/Defendant';
+import { MeetingType } from 'src/types/MeetingType';
 
 // Schema
 export const defendantSchema = new Schema<DefendantInterface>({

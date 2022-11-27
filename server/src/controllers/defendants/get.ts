@@ -1,26 +1,26 @@
 import { Handler } from 'express';
 import logger from '../../logger';
 import { Defendant } from '../../models';
-// import dayjs from 'dayjs';
-import Schema from '../../schema/index';
+import dayjs from 'dayjs';
+import Schema from 'src/schema';
 
-// enum BoundaryType {
-// 	Start = 'Start',
-// 	End = 'End',
-// }
-// const createDateBoundaryOrUndefined = (
-// 	timeString: string | undefined,
-// 	boundary: BoundaryType
-// ) => {
-// 	if (timeString) {
-// 		const dayjsDate = dayjs(timeString);
-// 		if (boundary === BoundaryType.Start) {
-// 			return new Date(dayjsDate.startOf('day').toISOString());
-// 		}
-// 		return new Date(dayjsDate.endOf('day').toISOString());
-// 	}
-// 	return undefined;
-// };
+enum BoundaryType {
+	Start = 'Start',
+	End = 'End',
+}
+const createDateBoundaryOrUndefined = (
+	timeString: string | undefined,
+	boundary: BoundaryType
+) => {
+	if (timeString) {
+		const dayjsDate = dayjs(timeString);
+		if (boundary === BoundaryType.Start) {
+			return new Date(dayjsDate.startOf('day').toISOString());
+		}
+		return new Date(dayjsDate.endOf('day').toISOString());
+	}
+	return undefined;
+};
 
 export const get: Handler = async (req, res) => {
 	// TODO: set up query params so Bekah can filter results based on contact date or scheduled date
@@ -32,36 +32,30 @@ export const get: Handler = async (req, res) => {
 		return;
 	}
 
-	// const {
-	// 	dayOfContactStart: dayOfContactStartString,
-	// 	dayOfContactEnd: dayOfContactEndString,
-	// } = req.query;
+	const {
+		dayOfContactStart: dayOfContactStartString,
+		dayOfContactEnd: dayOfContactEndString,
+	} = req.query;
 
-	// const dayOfContactStartDate = createDateBoundaryOrUndefined(
-	// 	dayOfContactStartString,
-	// 	BoundaryType.Start
-	// );
+	const dayOfContactStartDate = createDateBoundaryOrUndefined(
+		dayOfContactStartString as string,
+		BoundaryType.Start
+	);
 
-	// const dayOfContactEndDate = createDateBoundaryOrUndefined(
-	// 	dayOfContactEndString,
-	// 	BoundaryType.End
-	// );
+	const dayOfContactEndDate = createDateBoundaryOrUndefined(
+		dayOfContactEndString as string,
+		BoundaryType.End
+	);
 
-	// if start exist
-
-	// if end exists
-
-	// const filter = { dayOfContact: {} };
-
-	// const filter2 =
-	// 	dayOfContactStartDate || dayOfContactEndDate
-	// 		? {
-	// 				dayOfContact: {
-	// 					$gte: dayOfContactStartDate,
-	// 					$lte: dayOfContactEndDate,
-	// 				},
-	// 		  }
-	// 		: undefined;
+	const filter =
+		dayOfContactStartDate || dayOfContactEndDate
+			? {
+					dayOfContact: {
+						$gte: dayOfContactStartDate,
+						$lte: dayOfContactEndDate,
+					},
+			  }
+			: undefined;
 
 	try {
 		const defendants = await Defendant.find({
@@ -69,6 +63,7 @@ export const get: Handler = async (req, res) => {
 			// 	$gte: dayOfContactStartDate,
 			// 	$lte: dayOfContactEndDate,
 			// },
+			...filter,
 		});
 		res.send(defendants);
 	} catch (error) {

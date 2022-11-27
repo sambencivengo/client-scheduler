@@ -1,7 +1,6 @@
 import { Handler } from 'express';
 import logger from '../../logger';
 import Schema from '../../schema';
-
 import { Defendant } from '../../models';
 
 export const post: Handler = async (req, res) => {
