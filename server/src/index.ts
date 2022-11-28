@@ -7,6 +7,7 @@ import { defendants } from './routes/defendants';
 import Redis from 'ioredis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
+import { lawyers } from './routes/lawyer';
 
 dotenv_safe.config();
 
@@ -28,6 +29,7 @@ const main = async () => {
 
 		// Routes
 		app.use('/api/defendants', defendants);
+		app.use('/api/lawyers', lawyers);
 		// TODO: appointments using calendly/outlook
 
 		const connect = async () => {

@@ -1,3 +1,4 @@
 import { Defendant } from './defendant';
+import { Lawyer } from './lawyer';
 
-export { Defendant };
+export { Defendant, Lawyer };
