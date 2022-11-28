@@ -18,6 +18,7 @@ export const Register: React.FC = () => {
 				validationSchema={CreateLawyer.uiSchema}
 				onSubmit={async ({ email, password }, { setErrors }) => {
 					const res = await fetch('/api/lawyers', {
+						// TODO: switch to axios
 						method: 'POST',
 						headers: {
 							'content-type': 'application/json',
