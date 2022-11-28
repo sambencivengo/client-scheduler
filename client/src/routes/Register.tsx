@@ -1,8 +1,9 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { colors } from '../theme';
 import { Form, Formik } from 'formik';
 import { CreateLawyer } from '../schema';
+import { InputField } from '../components/InputField';
 
 interface RegisterProps {}
 
@@ -21,7 +22,23 @@ export const Register: React.FC<RegisterProps> = ({}) => {
 					// const response = await TODO: fetch
 					console.log(values);
 				}}
-			></Formik>
+			>
+				{({ isSubmitting }) => (
+					<Form>
+						<Flex flexDirection={'column'} gap={4}>
+							<InputField name="email" label="Email" />
+							<InputField
+								name="password"
+								label="Password"
+								type="password"
+							/>
+						</Flex>
+						<Button isLoading={isSubmitting} mt={4} type="submit">
+							Register
+						</Button>
+					</Form>
+				)}
+			</Formik>
 		</Box>
 	);
 };
