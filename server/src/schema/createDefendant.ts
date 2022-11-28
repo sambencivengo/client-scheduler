@@ -8,7 +8,7 @@ const validatePhoneNumber = (value?: string) =>
 const schema = yup.object({
 	firstName: yup.string().trim().required('A first name is required'),
 	lastName: yup.string().trim().required('A last name is required'),
-	email: yup.string().email('Email must be a valid email').trim(),
+	email: yup.string().email('Email must be a valid email address').trim(),
 	phoneNumber: yup
 		.mixed()
 		.test(
