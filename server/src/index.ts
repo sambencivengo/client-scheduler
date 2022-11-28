@@ -17,7 +17,9 @@ const main = async () => {
 	try {
 		const app = express();
 
-		app.use(cors());
+		const RedisStore = connectRedis(session);
+		const redis = new Redis();
+
 		app.use(express.json());
 
 		// NOTE: Keep in as comment until deployment method is determined
@@ -26,6 +28,32 @@ const main = async () => {
 		// app.get('/*', (_, res) => {
 		// 	res.sendFile(path.join(__dirname, './client/build', 'index.html'));
 		// });
+
+		app.use(
+			cors<cors.CorsRequest>({
+				origin: ['http://localhost:3000'],
+				credentials: true,
+			})
+		);
+
+		app.use(
+			session({
+				name: 'qid',
+				store: new RedisStore({
+					client: redis,
+					disableTouch: true,
+				}),
+				cookie: {
+					maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+					httpOnly: true,
+					sameSite: 'lax', // csrf
+					secure: true, // TODO: switch to constant
+				},
+				saveUninitialized: false,
+				secret: ';kajbsdk;jabsd;kjabsd', //TODO: env variable
+				resave: false,
+			})
+		);
 
 		// Routes
 		app.use('/api/defendants', defendants);
