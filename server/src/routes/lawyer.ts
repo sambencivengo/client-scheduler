@@ -1,11 +1,6 @@
 import { Router } from 'express';
-import API from 'src/controllers';
+import API from '../controllers';
 
 export const lawyers = Router();
 
-lawyers.post('' /* TODO: lawyer post controllers*/);
-lawyers.get(
-	'',
-	(req, res) =>
-		res.send('in lawyers route') /* TODO: remove test route
-);
+lawyers.post('', API.Lawyers.post);
