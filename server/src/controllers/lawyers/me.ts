@@ -9,7 +9,6 @@ export const me: Handler = async (req, res) => {
 			res.sendStatus(400);
 			return;
 		}
-		console.log(lawyerId);
 
 		const lawyerDocument = await Lawyer.findById(lawyerId);
 
