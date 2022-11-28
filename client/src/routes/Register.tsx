@@ -5,9 +5,7 @@ import { Form, Formik } from 'formik';
 import { CreateLawyer } from '../schema';
 import { InputField } from '../components/InputField';
 
-interface RegisterProps {}
-
-export const Register: React.FC<RegisterProps> = ({}) => {
+export const Register: React.FC = () => {
 	return (
 		<Box
 			minWidth={{ base: 350, sm: 500 }}
@@ -18,9 +16,19 @@ export const Register: React.FC<RegisterProps> = ({}) => {
 			<Formik
 				initialValues={{ email: '', password: '' }}
 				validationSchema={CreateLawyer.uiSchema}
-				onSubmit={async (values, { setErrors }) => {
-					// const response = await TODO: fetch
-					console.log(values);
+				onSubmit={async ({ email, password }, { setErrors }) => {
+					const res = await fetch('/api/lawyers', {
+						method: 'POST',
+						headers: {
+							'content-type': 'application/json',
+						},
+						body: JSON.stringify({
+							email,
+							password,
+						}),
+					});
+
+					console.log(res);
 				}}
 			>
 				{(
