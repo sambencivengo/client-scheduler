@@ -8,7 +8,7 @@ import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ErrorAlert } from '../components/ErrorAlert';
 
-export const Register: React.FC = () => {
+export const Login: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [requestError, setRequestError] = React.useState<AxiosError>();
 	const navigate = useNavigate();
@@ -28,7 +28,7 @@ export const Register: React.FC = () => {
 			p={10}
 			borderRadius={20}
 		>
-			<Heading textAlign="center">Register</Heading>
+			<Heading textAlign="center">Login</Heading>
 			<Formik
 				validateOnChange={false}
 				validateOnBlur={false}
@@ -36,7 +36,7 @@ export const Register: React.FC = () => {
 				validationSchema={CreateLawyer.uiSchema}
 				onSubmit={async ({ email, password }, { setErrors }) => {
 					try {
-						const res = await axios.post('/api/lawyers', {
+						const res = await axios.post('/api/lawyers/login', {
 							email,
 							password,
 						});
@@ -64,7 +64,7 @@ export const Register: React.FC = () => {
 							/>
 						</Flex>
 						<Button isLoading={isSubmitting} mt={4} type="submit">
-							Register
+							Login
 						</Button>
 					</Form>
 				)}

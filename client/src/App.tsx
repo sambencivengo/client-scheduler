@@ -2,7 +2,7 @@ import { Box, Center } from '@chakra-ui/react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { NavBar } from './components/NavBar';
 import ErrorPage from './ErrorPage';
-import { Defendants, Home, Register } from './routes';
+import { Defendants, Home, Login, Register } from './routes';
 
 const router = createBrowserRouter([
 	{
@@ -17,6 +17,10 @@ const router = createBrowserRouter([
 	{
 		path: '/Register',
 		element: <Register />,
+	},
+	{
+		path: '/Login',
+		element: <Login />,
 	},
 ]);
 

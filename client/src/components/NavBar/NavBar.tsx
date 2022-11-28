@@ -34,6 +34,7 @@ export const NavBar = () => {
 			</Center>
 		);
 	}
+
 	// TODO: fix and switch to a flex with various links
 	return (
 		<Flex p={5} bgColor={colors.deepNavy} w={'100%'}>
