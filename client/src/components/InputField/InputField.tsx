@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { useField } from 'formik';
 import React, { InputHTMLAttributes } from 'react';
+import { colors } from '../../theme';
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
 	name: string;
@@ -22,7 +23,11 @@ export const InputField: React.FC<InputFieldProps> = ({
 		<FormControl isInvalid={!!error}>
 			<FormLabel htmlFor={field.name}>{label}</FormLabel>
 			<Input {...field} {...props} id={field.name} />
-			{error && <FormErrorMessage>{error}</FormErrorMessage>}
+			{error && (
+				<FormErrorMessage color={colors.warning}>
+					{error}
+				</FormErrorMessage>
+			)}
 		</FormControl>
 	);
 };

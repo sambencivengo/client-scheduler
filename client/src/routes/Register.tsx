@@ -4,6 +4,7 @@ import { colors } from '../theme';
 import { Form, Formik } from 'formik';
 import { CreateLawyer } from '../schema';
 import { InputField } from '../components/InputField';
+import axios from 'axios';
 
 export const Register: React.FC = () => {
 	return (
@@ -14,22 +15,30 @@ export const Register: React.FC = () => {
 			borderRadius={20}
 		>
 			<Formik
+				validateOnChange={false}
+				validateOnBlur={false}
 				initialValues={{ email: '', password: '' }}
 				validationSchema={CreateLawyer.uiSchema}
 				onSubmit={async ({ email, password }, { setErrors }) => {
-					const res = await fetch('/api/lawyers', {
-						// TODO: switch to axios
-						method: 'POST',
-						headers: {
-							'content-type': 'application/json',
-						},
-						body: JSON.stringify({
+					try {
+						const res = await axios.post('/api/lawyers', {
 							email,
 							password,
-						}),
-					});
+						});
 
-					console.log(res);
+						console.log(res.data);
+
+						// if (!res.ok) {
+						// 	console.log(res.statusText); // TODO: show error on FE
+						// 	return;
+						// }
+
+						// const data = await res.json();
+
+						// console.log(data);
+					} catch (error) {
+						console.log(error);
+					}
 				}}
 			>
 				{(
