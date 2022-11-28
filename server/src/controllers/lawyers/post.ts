@@ -1,6 +1,8 @@
 import { Handler } from 'express';
+import argon2 from 'argon2';
 import Schema from '../..//schema';
 import logger from '../../logger';
+import { Lawyer } from '../../models';
 
 export const post: Handler = async (req, res) => {
 	try {
@@ -15,10 +17,16 @@ export const post: Handler = async (req, res) => {
 		}
 
 		const { email, password } = body;
-		// TODO: hash password before saving to DB
+
+		const hashedPassword = await argon2.hash(password);
+
+		const lawyer = new Lawyer({
+			email,
+			password: hashedPassword,
+		});
 
 		// TODO: hook up to db to save lawyer
-		res.send({ email, password });
+		res.send(lawyer);
 	} catch (error) {
 		logger.error(error);
 		res.status(500).send('Unable to register lawyer');
