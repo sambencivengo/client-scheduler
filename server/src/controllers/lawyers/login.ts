@@ -33,7 +33,7 @@ export const login: Handler = async (req, res) => {
 		}
 
 		req.session.lawyerId = lawyer.id;
-		res.send(lawyer);
+		res.send({ email: lawyer.email, id: lawyer.id });
 	} catch (error) {
 		logger.error(error);
 		res.status(500).send('Unable to login');
