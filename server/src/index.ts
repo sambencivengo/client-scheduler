@@ -4,6 +4,9 @@ import * as dotenv_safe from 'dotenv-safe';
 import { connectDb } from './db';
 import logger from './logger';
 import { defendants } from './routes/defendants';
+import Redis from 'ioredis';
+import session from 'express-session';
+import connectRedis from 'connect-redis';
 
 dotenv_safe.config();
 
