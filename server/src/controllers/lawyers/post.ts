@@ -1,6 +1,6 @@
 import { Handler } from 'express';
 import argon2 from 'argon2';
-import Schema from '../..//schema';
+import Schema from '../../schema';
 import logger from '../../logger';
 import { Lawyer } from '../../models';
 
