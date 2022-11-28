@@ -1,3 +1,4 @@
 import { post } from './post';
+import { me } from './me';
 
-export { post };
+export { post, me };

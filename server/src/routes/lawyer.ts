@@ -3,4 +3,6 @@ import API from '../controllers';
 
 export const lawyers = Router();
 
+lawyers.use('/me', API.Lawyers.me);
+
 lawyers.post('', API.Lawyers.post);

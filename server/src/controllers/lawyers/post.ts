@@ -24,8 +24,9 @@ export const post: Handler = async (req, res) => {
 			email,
 			password: hashedPassword,
 		});
+		await lawyer.save();
+
 		req.session.lawyerId = lawyer.id;
-		// TODO: hook up to db to save lawyer
 		res.send(lawyer);
 	} catch (error) {
 		logger.error(error);
