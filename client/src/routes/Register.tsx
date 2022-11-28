@@ -23,7 +23,9 @@ export const Register: React.FC<RegisterProps> = ({}) => {
 					console.log(values);
 				}}
 			>
-				{({ isSubmitting }) => (
+				{(
+					{ isSubmitting } // TODO: fix validation so that it only fires off on submission
+				) => (
 					<Form>
 						<Flex flexDirection={'column'} gap={4}>
 							<InputField name="email" label="Email" />
