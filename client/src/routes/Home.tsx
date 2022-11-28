@@ -20,7 +20,7 @@ export const Home: React.FC = () => {
 				justifyContent={'space-evenly'}
 				wrap={'wrap'}
 			>
-				{showDefendantForm ? (
+				{showDefendantForm ? ( // TODO: eventual /api/me route, render login form or defendant form
 					<DefendantForm
 						setShowDefendantForm={setShowDefendantForm}
 						setName={setName}
