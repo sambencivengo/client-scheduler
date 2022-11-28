@@ -12,7 +12,7 @@ const schema = yup.object({
 		.string()
 		.trim()
 		.required('A password is required')
-		.length(
+		.min(
 			PASSWORD_LENGTH,
 			`Password must be at least ${PASSWORD_LENGTH} characters long`
 		),
