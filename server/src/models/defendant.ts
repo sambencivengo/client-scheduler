@@ -14,6 +14,7 @@ export const defendantSchema = new Schema<DefendantInterface>({
 		required: true,
 		enum: Object.values(MeetingType),
 	},
+	lawyer: { type: Schema.Types.ObjectId, ref: 'Lawyer', required: true },
 });
 
 // Model

@@ -5,6 +5,7 @@ import logger from '../../logger';
 export const me: Handler = async (req, res) => {
 	try {
 		const lawyerId = req.session.lawyerId;
+
 		if (!lawyerId) {
 			res.sendStatus(400);
 			return;
@@ -14,6 +15,7 @@ export const me: Handler = async (req, res) => {
 
 		if (!lawyerDocument) {
 			res.status(404).send('Unable to retrieve record of lawyer');
+			return;
 		}
 
 		const lawyer = {

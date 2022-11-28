@@ -5,6 +5,7 @@ import { LawyerInterface } from 'src/types/Lawyer';
 export const lawyerSchema = new Schema<LawyerInterface>({
 	email: { type: String, required: true, unique: true }, // TODO: add email validation
 	password: { type: String, required: true },
+	defendants: [{ type: Schema.Types.ObjectId, ref: 'Defendant' }],
 });
 
 // Model

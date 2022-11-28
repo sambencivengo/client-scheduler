@@ -1,3 +1,4 @@
+import { Schema } from 'mongoose';
 import { MeetingType } from './MeetingType';
 
 export interface DefendantInterface {
@@ -8,4 +9,5 @@ export interface DefendantInterface {
 	phoneNumber?: string;
 	dayOfContact: Date;
 	meetingType: MeetingType;
+	lawyer: Schema.Types.ObjectId;
 }

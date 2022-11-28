@@ -7,6 +7,9 @@ export const post: Handler = async (req, res) => {
 	try {
 		const { body } = req;
 
+		const lawyerId = req.session.lawyerId;
+		console.log({ lawyerId });
+
 		// TODO: util validation method
 		try {
 			await Schema.createDefendant.apiSchema.validate(body);
@@ -23,7 +26,10 @@ export const post: Handler = async (req, res) => {
 			email,
 			phoneNumber,
 			meetingType,
+			lawyer: lawyerId,
 		});
+
+		console.log(defendant);
 
 		await defendant.save();
 
