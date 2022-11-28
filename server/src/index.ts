@@ -47,7 +47,7 @@ const main = async () => {
 					maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
 					httpOnly: true,
 					sameSite: 'lax', // csrf
-					secure: true, // TODO: switch to constant
+					secure: false, // TODO: switch to constant
 				},
 				saveUninitialized: false,
 				secret: ';kajbsdk;jabsd;kjabsd', //TODO: env variable
@@ -58,7 +58,6 @@ const main = async () => {
 		// Routes
 		app.use('/api/defendants', defendants);
 		app.use('/api/lawyers', lawyers);
-		// TODO: appointments using calendly/outlook
 
 		const connect = async () => {
 			try {
