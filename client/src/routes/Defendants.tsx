@@ -1,12 +1,12 @@
-import { Center, Heading, Spinner, Flex, Box, VStack } from '@chakra-ui/react';
+import { Center, Heading, Spinner, Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 import axios, { AxiosError } from 'axios';
 import { DefendantCard } from '../components/DefendantCard';
-import { colors } from '../theme';
 import { DefendantInterface } from '../types/DefendantInterface';
+import { ErrorAlert } from '../components/ErrorAlert';
 
 export const Defendants: React.FC = () => {
-	const [isLoading, setIsLoading] = React.useState(true);
+	const [isLoading, setIsLoading] = React.useState(false);
 	const [defendants, setDefendants] = React.useState<DefendantInterface[]>(
 		[]
 	);
@@ -32,14 +32,7 @@ export const Defendants: React.FC = () => {
 		getDefendants();
 	}, []);
 
-	if (requestError) {
-		return (
-			<VStack m={90} p={10} borderRadius={20} bgColor={colors.red}>
-				<Heading>{requestError.code}</Heading>
-				<Heading size={'md'}>{requestError.message}</Heading>
-			</VStack>
-		);
-	}
+	if (requestError) return <ErrorAlert error={requestError} />;
 
 	if (isLoading) {
 		return (

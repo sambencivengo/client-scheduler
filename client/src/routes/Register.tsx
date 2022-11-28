@@ -1,12 +1,24 @@
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Spinner } from '@chakra-ui/react';
 import React from 'react';
 import { colors } from '../theme';
 import { Form, Formik } from 'formik';
 import { CreateLawyer } from '../schema';
 import { InputField } from '../components/InputField';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { ErrorAlert } from '../components/ErrorAlert';
 
 export const Register: React.FC = () => {
+	const [isLoading, setIsLoading] = React.useState(false);
+	const [requestError, setRequestError] = React.useState<AxiosError>();
+
+	if (isLoading) {
+		return (
+			<Center>
+				<Spinner />
+			</Center>
+		);
+	}
+
 	return (
 		<Box
 			minWidth={{ base: 350, sm: 500 }}
@@ -27,17 +39,11 @@ export const Register: React.FC = () => {
 						});
 
 						console.log(res.data);
-
-						// if (!res.ok) {
-						// 	console.log(res.statusText); // TODO: show error on FE
-						// 	return;
-						// }
-
-						// const data = await res.json();
-
-						// console.log(data);
+						setRequestError(undefined);
 					} catch (error) {
-						console.log(error);
+						setRequestError(error as AxiosError);
+						setIsLoading(false);
+						console.error(error);
 					}
 				}}
 			>
@@ -59,6 +65,7 @@ export const Register: React.FC = () => {
 					</Form>
 				)}
 			</Formik>
+			{requestError && <ErrorAlert error={requestError} />}
 		</Box>
 	);
 };
