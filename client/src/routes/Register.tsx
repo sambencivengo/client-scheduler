@@ -5,11 +5,13 @@ import { Form, Formik } from 'formik';
 import { CreateLawyer } from '../schema';
 import { InputField } from '../components/InputField';
 import axios, { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { ErrorAlert } from '../components/ErrorAlert';
 
 export const Register: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [requestError, setRequestError] = React.useState<AxiosError>();
+	const navigate = useNavigate();
 
 	if (isLoading) {
 		return (
@@ -37,9 +39,10 @@ export const Register: React.FC = () => {
 							email,
 							password,
 						});
-
-						console.log(res.data);
+						setIsLoading(true);
+						navigate('/');
 						setRequestError(undefined);
+						console.log(res.data);
 					} catch (error) {
 						setRequestError(error as AxiosError);
 						setIsLoading(false);
