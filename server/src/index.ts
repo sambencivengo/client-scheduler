@@ -17,10 +17,15 @@ const main = async () => {
 	try {
 		const app = express();
 
+		app.use(
+			cors<cors.CorsRequest>({
+				origin: ['http://localhost:3000'],
+				credentials: true,
+			})
+		);
+
 		const RedisStore = connectRedis(session);
 		const redis = new Redis();
-
-		app.use(express.json());
 
 		// NOTE: Keep in as comment until deployment method is determined
 		// app.use(express.static(path.join(__dirname, './client/build')));
@@ -28,13 +33,6 @@ const main = async () => {
 		// app.get('/*', (_, res) => {
 		// 	res.sendFile(path.join(__dirname, './client/build', 'index.html'));
 		// });
-
-		app.use(
-			cors<cors.CorsRequest>({
-				origin: ['http://localhost:3000'],
-				credentials: true,
-			})
-		);
 
 		app.use(
 			session({
@@ -51,9 +49,11 @@ const main = async () => {
 				},
 				saveUninitialized: false,
 				secret: ';kajbsdk;jabsd;kjabsd', //TODO: env variable
-				resave: false,
+				resave: true,
 			})
 		);
+
+		app.use(express.json());
 
 		// Routes
 		app.use('/api/defendants', defendants);

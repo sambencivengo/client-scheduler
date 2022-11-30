@@ -1,24 +1,32 @@
 import { Handler } from 'express';
 import logger from '../../logger';
 import Schema from '../../schema';
-import { Defendant } from '../../models';
+import { Defendant, Lawyer } from '../../models';
 
 export const post: Handler = async (req, res) => {
 	try {
-		const { body } = req;
-
 		const lawyerId = req.session.lawyerId;
-		console.log({ lawyerId });
 
+		console.log(req.session.id);
+
+		// if (!lawyerId) {
+		// 	res.sendStatus(400);
+		// 	return;
+		// }
 		// TODO: util validation method
 		try {
-			await Schema.createDefendant.apiSchema.validate(body);
+			await Schema.createDefendant.apiSchema.validate(req.body);
 		} catch (error) {
 			res.status(400).send(`Validation failed: ${error}`);
 			return;
 		}
 
-		const { firstName, lastName, email, phoneNumber, meetingType } = body;
+		const lawyer = await Lawyer.findOne({});
+
+		const { firstName, lastName, email, phoneNumber, meetingType } =
+			req.body;
+
+		console.log(req.body);
 
 		const defendant = new Defendant({
 			firstName,
@@ -26,10 +34,8 @@ export const post: Handler = async (req, res) => {
 			email,
 			phoneNumber,
 			meetingType,
-			lawyer: lawyerId,
+			lawyer: lawyer?.id,
 		});
-
-		console.log(defendant);
 
 		await defendant.save();
 
