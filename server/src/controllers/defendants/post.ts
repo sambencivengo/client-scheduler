@@ -7,12 +7,8 @@ export const post: Handler = async (req, res) => {
 	try {
 		const lawyerId = req.session.lawyerId;
 
-		console.log(req.session.id);
+		console.log(`in defendants post ${lawyerId}`);
 
-		// if (!lawyerId) {
-		// 	res.sendStatus(400);
-		// 	return;
-		// }
 		// TODO: util validation method
 		try {
 			await Schema.createDefendant.apiSchema.validate(req.body);

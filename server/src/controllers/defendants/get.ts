@@ -26,7 +26,7 @@ export const get: Handler = async (req, res) => {
 	// TODO: set up query params so Bekah can filter results based on contact date or scheduled date
 
 	const { lawyerId } = req.session;
-	console.log(lawyerId);
+	console.log(`in defendants GET: ${lawyerId}`);
 
 	try {
 		await Schema.getDefendant.apiSchema.validate({ ...req.query });
@@ -58,7 +58,6 @@ export const get: Handler = async (req, res) => {
 					},
 			  }
 			: undefined;
-	console.log(filter);
 
 	try {
 		const defendants = await Defendant.find({
@@ -68,7 +67,6 @@ export const get: Handler = async (req, res) => {
 			// },
 			// ...filter,
 		});
-		console.log(defendants.forEach((def) => def.lawyer));
 
 		res.send(defendants);
 	} catch (error) {
