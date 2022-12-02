@@ -1,17 +1,10 @@
 import { Handler } from 'express';
 import logger from '../../logger';
 import Schema from '../../schema';
-import { Defendant, Lawyer } from '../../models';
+import { Defendant } from '../../models';
 
 export const post: Handler = async (req, res) => {
 	try {
-		const lawyerId = req.session.lawyerId;
-
-		if (!lawyerId) {
-			res.sendStatus(400);
-			return;
-		}
-
 		// TODO: util validation method
 		try {
 			await Schema.createDefendant.apiSchema.validate(req.body);
@@ -29,7 +22,7 @@ export const post: Handler = async (req, res) => {
 			email,
 			phoneNumber,
 			meetingType,
-			lawyer: lawyerId,
+			lawyer: req.session.lawyerId,
 		});
 
 		await defendant.save();
