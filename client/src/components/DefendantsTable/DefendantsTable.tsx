@@ -8,6 +8,7 @@ import {
 	Td,
 } from '@chakra-ui/react';
 import React from 'react';
+import dayjs from 'dayjs';
 import { DefendantInterface } from '../../types/DefendantInterface';
 
 interface DefendantsTableProps {
@@ -24,17 +25,23 @@ export const DefendantsTable: React.FC<DefendantsTableProps> = ({
 					<Tr>
 						<Th>Name</Th>
 						<Th>Number</Th>
+						<Th>Date Contacted</Th>
 						<Th>Email</Th>
 						<Th>Meeting Type</Th>
 					</Tr>
 				</Thead>
 				<Tbody>
-					{defendants.map((defendant) => (
-						<Tr>
+					{defendants.map((defendant, idx) => (
+						<Tr key={idx}>
 							<Td>
 								{defendant.firstName} {defendant.lastName}
 							</Td>
 							<Td>{defendant.phoneNumber ?? 'N/A'}</Td>
+							<Td>
+								{dayjs(defendant.dayOfContact).format(
+									'MM/DD/YYYY'
+								)}
+							</Td>
 							<Td>{defendant.email ?? 'N/A'}</Td>
 							<Td>{defendant.meetingType}</Td>
 						</Tr>
