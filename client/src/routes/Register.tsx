@@ -36,14 +36,13 @@ export const Register: React.FC = () => {
 				validationSchema={CreateLawyer.uiSchema}
 				onSubmit={async ({ email, password }, { setErrors }) => {
 					try {
-						const res = await axios.post('/api/lawyers', {
+						await axios.post('/api/lawyers', {
 							email,
 							password,
 						});
 						setIsLoading(true);
 						navigate('/');
 						setRequestError(undefined);
-						console.log(res.data);
 					} catch (error) {
 						setRequestError(error as AxiosError);
 						setIsLoading(false);

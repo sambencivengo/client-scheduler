@@ -26,7 +26,6 @@ export const get: Handler = async (req, res) => {
 	// TODO: set up query params so Bekah can filter results based on contact date or scheduled date
 
 	const { lawyerId } = req.session;
-	console.log(`in defendants GET: ${lawyerId}`);
 
 	try {
 		await Schema.getDefendant.apiSchema.validate({ ...req.query });
@@ -66,6 +65,7 @@ export const get: Handler = async (req, res) => {
 			// 	$lte: dayOfContactEndDate,
 			// },
 			// ...filter,
+			lawyer: lawyerId,
 		});
 
 		res.send(defendants);

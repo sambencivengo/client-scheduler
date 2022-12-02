@@ -7,7 +7,10 @@ export const post: Handler = async (req, res) => {
 	try {
 		const lawyerId = req.session.lawyerId;
 
-		console.log(`in defendants post: ${lawyerId}`);
+		if (!lawyerId) {
+			res.sendStatus(400);
+			return;
+		}
 
 		// TODO: util validation method
 		try {
@@ -16,8 +19,6 @@ export const post: Handler = async (req, res) => {
 			res.status(400).send(`Validation failed: ${error}`);
 			return;
 		}
-
-		const lawyer = await Lawyer.findOne({});
 
 		const { firstName, lastName, email, phoneNumber, meetingType } =
 			req.body;
@@ -28,7 +29,7 @@ export const post: Handler = async (req, res) => {
 			email,
 			phoneNumber,
 			meetingType,
-			lawyer: lawyer?.id,
+			lawyer: lawyerId,
 		});
 
 		await defendant.save();
