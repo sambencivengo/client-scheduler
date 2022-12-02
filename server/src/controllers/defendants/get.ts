@@ -3,6 +3,8 @@ import logger from '../../logger';
 import { Defendant } from '../../models';
 import dayjs from 'dayjs';
 import Schema from '../../schema';
+import { FilterQuery } from 'mongoose';
+import { DefendantInterface } from '../../types';
 
 enum BoundaryType {
 	Start = 'Start',
@@ -48,23 +50,26 @@ export const get: Handler = async (req, res) => {
 		BoundaryType.End
 	);
 
-	const filter =
-		dayOfContactStartDate || dayOfContactEndDate
-			? {
-					dayOfContact: {
-						$gte: dayOfContactStartDate,
-						$lte: dayOfContactEndDate,
-					},
-			  }
-			: undefined;
+	const filter: FilterQuery<DefendantInterface> = {};
+
+	if (dayOfContactStartDate && dayOfContactEndDate) {
+		filter.dayOfContact = {
+			$gte: dayOfContactStartDate,
+			$lte: dayOfContactEndDate,
+		};
+	} else if (dayOfContactEndDate) {
+		filter.dayOfContact = {
+			$lte: dayOfContactEndDate,
+		};
+	} else if (dayOfContactStartDate) {
+		filter.dayOfContact = {
+			$gte: dayOfContactStartDate,
+		};
+	}
 
 	try {
 		const defendants = await Defendant.find({
-			// dayOfContact: {
-			// 	$gte: dayOfContactStartDate,
-			// 	$lte: dayOfContactEndDate,
-			// },
-			// ...filter,
+			...filter,
 			lawyer: lawyerId,
 		});
 
