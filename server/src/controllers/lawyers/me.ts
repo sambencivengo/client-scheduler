@@ -4,7 +4,7 @@ import logger from '../../logger';
 
 export const me: Handler = async (req, res) => {
 	try {
-		const lawyerId = req.session.lawyerId;
+		const { lawyerId } = req.session;
 
 		if (!lawyerId) {
 			res.sendStatus(400);

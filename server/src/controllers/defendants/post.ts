@@ -7,7 +7,7 @@ export const post: Handler = async (req, res) => {
 	try {
 		const lawyerId = req.session.lawyerId;
 
-		console.log(`in defendants post ${lawyerId}`);
+		console.log(`in defendants post: ${lawyerId}`);
 
 		// TODO: util validation method
 		try {
@@ -21,8 +21,6 @@ export const post: Handler = async (req, res) => {
 
 		const { firstName, lastName, email, phoneNumber, meetingType } =
 			req.body;
-
-		console.log(req.body);
 
 		const defendant = new Defendant({
 			firstName,

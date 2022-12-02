@@ -65,7 +65,8 @@ export const DefendantForm = ({
 			try {
 				const res = await axios.post(
 					'http://localhost:8000/api/defendants',
-					payload
+					payload,
+					{ withCredentials: true }
 				);
 
 				const defendant = res.data as DefendantInterface;
