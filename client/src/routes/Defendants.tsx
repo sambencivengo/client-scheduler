@@ -6,7 +6,8 @@ import {
 	Box,
 	useBreakpointValue,
 	Button,
-	VStack,
+	HStack,
+	CloseButton,
 } from '@chakra-ui/react';
 import React from 'react';
 import axios, { AxiosError } from 'axios';
@@ -25,8 +26,14 @@ export const Defendants: React.FC = () => {
 	const [requestError, setRequestError] = React.useState<AxiosError>();
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 
-	const [dayOfContactStart, setDayOfContactStart] = React.useState<Date>();
-	const [dayOfContactEnd, setDayOfContactEnd] = React.useState<Date>();
+	const [dayOfContactStart, setDayOfContactStart] = React.useState<
+		Date | undefined
+	>(
+		dayjs().subtract(7, 'days').toDate() // Set start at 1 week ago
+	);
+	const [dayOfContactEnd, setDayOfContactEnd] = React.useState<
+		Date | undefined
+	>(new Date());
 
 	const query = {
 		dayOfContactStart: dayOfContactStart
@@ -73,29 +80,41 @@ export const Defendants: React.FC = () => {
 	return (
 		<Flex direction={'column'} gap={10}>
 			<Heading textAlign={'center'}>Defendants</Heading>
-			<VStack w="full">
-				<Flex justifyContent={'space-evenly'}>
-					<Box>
-						<Heading textAlign="center" size="sm">
-							Start Date
-						</Heading>
+			<Flex
+				justifyContent={'space-evenly'}
+				flexDir={isMobile ? 'column' : 'row'}
+				w="full"
+				gap={3}
+			>
+				<Box>
+					<Heading mb={3} textAlign="center" size="sm">
+						Start Date
+					</Heading>
+					<HStack>
 						<SingleDatepicker
 							date={dayOfContactStart}
 							onDateChange={setDayOfContactStart}
 						/>
-					</Box>
-					<Box>
-						<Heading textAlign="center" size="sm">
-							End Date
-						</Heading>
+						<CloseButton />
+					</HStack>
+				</Box>
+				<Box>
+					<Heading mb={3} textAlign="center" size="sm">
+						End Date
+					</Heading>
+					<HStack>
 						<SingleDatepicker
 							date={dayOfContactEnd}
 							onDateChange={setDayOfContactEnd}
 						/>
-					</Box>
-				</Flex>
+
+						<CloseButton />
+					</HStack>
+				</Box>
+			</Flex>
+			<Center>
 				<Button onClick={() => getDefendants()}>Update Query</Button>
-			</VStack>
+			</Center>
 			{isMobile ? (
 				<Flex
 					gap={5}
