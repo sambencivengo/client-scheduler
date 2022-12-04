@@ -25,24 +25,19 @@ export const Defendants: React.FC = () => {
 	const [requestError, setRequestError] = React.useState<AxiosError>();
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 
-	const [dayOfContactStart, setDayOfContactStart] = React.useState<
-		Date | undefined
-	>(
+	const [startDate, setStartDate] = React.useState<Date | undefined>(
 		dayjs().subtract(7, 'days').toDate() // Set start at 1 week ago
 	);
-	const [dayOfContactEnd, setDayOfContactEnd] = React.useState<
-		Date | undefined
-	>(new Date());
+	const [endDate, setEndDate] = React.useState<Date | undefined>(new Date());
 
 	React.useEffect(() => {
 		const queryString = new URLSearchParams({
-			dayOfContactStart: dayOfContactStart
-				? dayjs(dayOfContactStart).format('YYYY-MM-DD')
+			dayOfContactStart: startDate
+				? dayjs(startDate).format('YYYY-MM-DD')
 				: '',
-			dayOfContactEnd: dayOfContactEnd
-				? dayjs(dayOfContactEnd).format('YYYY-MM-DD')
-				: '',
+			dayOfContactEnd: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
 		});
+		console.log(queryString.toString());
 
 		const getDefendants = async (): Promise<void> => {
 			try {
@@ -62,7 +57,7 @@ export const Defendants: React.FC = () => {
 			}
 		};
 		getDefendants();
-	}, [dayOfContactStart, dayOfContactEnd]);
+	}, [startDate, endDate]);
 
 	if (requestError) return <ErrorAlert error={requestError} />;
 
@@ -89,10 +84,9 @@ export const Defendants: React.FC = () => {
 					</Heading>
 					<HStack>
 						<SingleDatepicker
-							date={dayOfContactStart}
-							onDateChange={setDayOfContactStart}
+							date={startDate}
+							onDateChange={setStartDate}
 						/>
-						<CloseButton />
 					</HStack>
 				</Box>
 				<Box>
@@ -101,14 +95,12 @@ export const Defendants: React.FC = () => {
 					</Heading>
 					<HStack>
 						<SingleDatepicker
-							date={dayOfContactEnd}
-							onDateChange={setDayOfContactEnd}
+							date={endDate}
+							onDateChange={setEndDate}
 						/>
-						<CloseButton />
 					</HStack>
 				</Box>
 			</Flex>
-
 			{isMobile ? (
 				<Flex
 					gap={5}
