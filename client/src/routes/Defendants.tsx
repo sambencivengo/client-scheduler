@@ -14,6 +14,7 @@ import { ErrorAlert } from '../components/ErrorAlert';
 import dayjs from 'dayjs';
 import { DefendantsTable } from '../components/DefendantsTable';
 import { DefendantQueryFilter } from '../components/DefendantQueryFilter';
+import { MeetingType } from '../types/MeetingType';
 
 export const Defendants: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -27,6 +28,7 @@ export const Defendants: React.FC = () => {
 		dayjs().subtract(7, 'days').toDate() // Set start at 1 week ago
 	);
 	const [endDate, setEndDate] = React.useState<Date>(new Date());
+	const [meetingType, setMeetingType] = React.useState<MeetingType>();
 
 	React.useEffect(() => {
 		const queryString = new URLSearchParams({
@@ -34,6 +36,7 @@ export const Defendants: React.FC = () => {
 				? dayjs(startDate).format('YYYY-MM-DD')
 				: '',
 			dayOfContactEnd: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
+			meetingType: meetingType ?? '',
 		});
 
 		const getDefendants = async (): Promise<void> => {
@@ -54,7 +57,7 @@ export const Defendants: React.FC = () => {
 			}
 		};
 		getDefendants();
-	}, [startDate, endDate]);
+	}, [startDate, endDate, meetingType]);
 
 	if (requestError) return <ErrorAlert error={requestError} />;
 
@@ -70,6 +73,8 @@ export const Defendants: React.FC = () => {
 		<Flex direction={'column'} gap={10}>
 			<Heading textAlign={'center'}>Defendants</Heading>
 			<DefendantQueryFilter
+				meetingType={meetingType}
+				setMeetingType={setMeetingType}
 				endDate={endDate}
 				startDate={startDate}
 				setStartDate={setStartDate}

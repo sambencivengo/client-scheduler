@@ -38,6 +38,7 @@ export const get: Handler = async (req, res) => {
 	const {
 		dayOfContactStart: dayOfContactStartString,
 		dayOfContactEnd: dayOfContactEndString,
+		meetingType,
 	} = req.query;
 
 	const dayOfContactStartDate = createDateBoundaryOrUndefined(
@@ -53,6 +54,10 @@ export const get: Handler = async (req, res) => {
 		startDate: dayOfContactStartDate,
 		endDate: dayOfContactEndDate,
 	});
+
+	if (meetingType) {
+		filter.meetingType = meetingType;
+	}
 
 	try {
 		const defendants = await Defendant.find({

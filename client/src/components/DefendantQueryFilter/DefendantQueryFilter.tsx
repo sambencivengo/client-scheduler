@@ -16,6 +16,10 @@ interface DefendantQueryFilterProps {
 	setStartDate: React.Dispatch<React.SetStateAction<Date>>;
 	endDate: Date;
 	setEndDate: React.Dispatch<React.SetStateAction<Date>>;
+	meetingType: MeetingType | undefined;
+	setMeetingType: React.Dispatch<
+		React.SetStateAction<MeetingType | undefined>
+	>;
 }
 
 export const DefendantQueryFilter: React.FC<DefendantQueryFilterProps> = ({
@@ -23,6 +27,8 @@ export const DefendantQueryFilter: React.FC<DefendantQueryFilterProps> = ({
 	endDate,
 	setStartDate,
 	setEndDate,
+	meetingType,
+	setMeetingType,
 }) => {
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -59,11 +65,18 @@ export const DefendantQueryFilter: React.FC<DefendantQueryFilterProps> = ({
 						<Heading mb={3} textAlign="center" size="sm">
 							Meeting Type
 						</Heading>
-						<Select placeholder="Select option">
-							<option value="option1">
+						<Select
+							onChange={(e) =>
+								setMeetingType(e.target.value as MeetingType)
+							}
+							placeholder="Select option"
+						>
+							<option value={MeetingType.InPerson}>
 								{MeetingType.InPerson}
 							</option>
-							<option value="option1">{MeetingType.Phone}</option>
+							<option value={MeetingType.Phone}>
+								{MeetingType.Phone}
+							</option>
 						</Select>
 					</Box>
 				</Flex>
