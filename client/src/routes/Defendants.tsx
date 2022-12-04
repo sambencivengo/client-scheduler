@@ -13,7 +13,7 @@ import { DefendantInterface } from '../types/DefendantInterface';
 import { ErrorAlert } from '../components/ErrorAlert';
 import dayjs from 'dayjs';
 import { DefendantsTable } from '../components/DefendantsTable';
-import { DefendantDateRange } from '../components/DefendantDateRange';
+import { DefendantQueryFilter } from '../components/DefendantQueryFilter';
 
 export const Defendants: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -69,7 +69,7 @@ export const Defendants: React.FC = () => {
 	return (
 		<Flex direction={'column'} gap={10}>
 			<Heading textAlign={'center'}>Defendants</Heading>
-			<DefendantDateRange
+			<DefendantQueryFilter
 				endDate={endDate}
 				startDate={startDate}
 				setStartDate={setStartDate}

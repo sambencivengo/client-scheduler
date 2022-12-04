@@ -5,18 +5,20 @@ import {
 	Heading,
 	useBreakpointValue,
 	Center,
+	Select,
 } from '@chakra-ui/react';
 import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import React from 'react';
+import { MeetingType } from '../../types/MeetingType';
 
-interface DefendantDateRangeProps {
+interface DefendantQueryFilterProps {
 	startDate: Date;
 	setStartDate: React.Dispatch<React.SetStateAction<Date>>;
 	endDate: Date;
 	setEndDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-export const DefendantDateRange: React.FC<DefendantDateRangeProps> = ({
+export const DefendantQueryFilter: React.FC<DefendantQueryFilterProps> = ({
 	startDate,
 	endDate,
 	setStartDate,
@@ -52,8 +54,21 @@ export const DefendantDateRange: React.FC<DefendantDateRangeProps> = ({
 							onDateChange={setEndDate}
 						/>
 					</Box>
+
+					<Box>
+						<Heading mb={3} textAlign="center" size="sm">
+							Meeting Type
+						</Heading>
+						<Select placeholder="Select option">
+							<option value="option1">
+								{MeetingType.InPerson}
+							</option>
+							<option value="option1">{MeetingType.Phone}</option>
+						</Select>
+					</Box>
 				</Flex>
 			</Center>
+
 			<Text textAlign="center" opacity={0.6} as="i">
 				Date range will default to the last 7 days
 			</Text>
