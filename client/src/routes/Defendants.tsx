@@ -5,18 +5,15 @@ import {
 	Flex,
 	Box,
 	useBreakpointValue,
-	HStack,
-	CloseButton,
-	Text,
 } from '@chakra-ui/react';
 import React from 'react';
 import axios, { AxiosError } from 'axios';
 import { DefendantCard } from '../components/DefendantCard';
-import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import { DefendantInterface } from '../types/DefendantInterface';
 import { ErrorAlert } from '../components/ErrorAlert';
 import dayjs from 'dayjs';
 import { DefendantsTable } from '../components/DefendantsTable';
+import { DefendantDateRange } from '../components/DefendantDateRange';
 
 export const Defendants: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -26,10 +23,10 @@ export const Defendants: React.FC = () => {
 	const [requestError, setRequestError] = React.useState<AxiosError>();
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 
-	const [startDate, setStartDate] = React.useState<Date | undefined>(
+	const [startDate, setStartDate] = React.useState<Date>(
 		dayjs().subtract(7, 'days').toDate() // Set start at 1 week ago
 	);
-	const [endDate, setEndDate] = React.useState<Date | undefined>(new Date());
+	const [endDate, setEndDate] = React.useState<Date>(new Date());
 
 	React.useEffect(() => {
 		const queryString = new URLSearchParams({
@@ -38,7 +35,6 @@ export const Defendants: React.FC = () => {
 				: '',
 			dayOfContactEnd: endDate ? dayjs(endDate).format('YYYY-MM-DD') : '',
 		});
-		console.log(queryString.toString());
 
 		const getDefendants = async (): Promise<void> => {
 			try {
@@ -73,39 +69,12 @@ export const Defendants: React.FC = () => {
 	return (
 		<Flex direction={'column'} gap={10}>
 			<Heading textAlign={'center'}>Defendants</Heading>
-			<Flex
-				justifyContent={'space-evenly'}
-				flexDir={isMobile ? 'column' : 'row'}
-				w="full"
-				gap={3}
-			>
-				<Box>
-					<Heading mb={3} textAlign="center" size="sm">
-						Start Date
-					</Heading>
-					<HStack>
-						<SingleDatepicker
-							date={startDate}
-							onDateChange={setStartDate}
-						/>
-					</HStack>
-				</Box>
-				<Box>
-					<Heading mb={3} textAlign="center" size="sm">
-						End Date
-					</Heading>
-					<HStack>
-						<SingleDatepicker
-							date={endDate}
-							onDateChange={setEndDate}
-						/>
-					</HStack>
-				</Box>
-			</Flex>
-			<Text textAlign="center" opacity={0.6} as="i">
-				Date range will default to the last 7 days
-			</Text>
-
+			<DefendantDateRange
+				endDate={endDate}
+				startDate={startDate}
+				setStartDate={setStartDate}
+				setEndDate={setEndDate}
+			/>
 			{isMobile ? (
 				<Flex
 					gap={5}

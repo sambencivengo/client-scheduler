@@ -2,8 +2,6 @@ import {
 	Text,
 	Flex,
 	Link,
-	Center,
-	Spinner,
 	Menu,
 	MenuButton,
 	Button,
@@ -21,7 +19,6 @@ interface Lawyer {
 }
 
 export const NavBar = () => {
-	const [isLoading, setIsLoading] = React.useState(true);
 	const [lawyer, setLawyer] = React.useState<Lawyer>();
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -29,9 +26,7 @@ export const NavBar = () => {
 		try {
 			const { data } = await axios.get('/api/lawyers/me');
 			setLawyer(data);
-			setIsLoading(false);
 		} catch (error) {
-			setIsLoading(false);
 			console.error(error);
 		}
 	};
@@ -39,14 +34,6 @@ export const NavBar = () => {
 	React.useEffect(() => {
 		getMe();
 	}, []);
-
-	if (isLoading) {
-		return (
-			<Center>
-				<Spinner />
-			</Center>
-		);
-	}
 
 	const mobileMenu = () => (
 		<Flex marginLeft={'auto'}>
