@@ -34,7 +34,7 @@ export const Login: React.FC = () => {
 				validateOnBlur={false}
 				initialValues={{ email: '', password: '' }}
 				validationSchema={CreateLawyer.uiSchema}
-				onSubmit={async ({ email, password }, { setErrors }) => {
+				onSubmit={async ({ email, password }) => {
 					try {
 						await axios.post('/api/lawyers/login', {
 							email,
