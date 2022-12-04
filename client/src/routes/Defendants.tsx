@@ -7,6 +7,7 @@ import {
 	useBreakpointValue,
 	HStack,
 	CloseButton,
+	Text,
 } from '@chakra-ui/react';
 import React from 'react';
 import axios, { AxiosError } from 'axios';
@@ -101,6 +102,10 @@ export const Defendants: React.FC = () => {
 					</HStack>
 				</Box>
 			</Flex>
+			<Text textAlign="center" opacity={0.6} as="i">
+				Date range will default to the last 7 days
+			</Text>
+
 			{isMobile ? (
 				<Flex
 					gap={5}
