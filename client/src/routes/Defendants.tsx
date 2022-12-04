@@ -5,7 +5,6 @@ import {
 	Flex,
 	Box,
 	useBreakpointValue,
-	Button,
 	HStack,
 	CloseButton,
 } from '@chakra-ui/react';
@@ -35,37 +34,35 @@ export const Defendants: React.FC = () => {
 		Date | undefined
 	>(new Date());
 
-	const query = {
-		dayOfContactStart: dayOfContactStart
-			? dayjs(dayOfContactStart).format('YYYY-MM-DD')
-			: '',
-		dayOfContactEnd: dayOfContactEnd
-			? dayjs(dayOfContactEnd).format('YYYY-MM-DD')
-			: '',
-	};
-	const queryString = new URLSearchParams(query);
+	React.useEffect(() => {
+		const queryString = new URLSearchParams({
+			dayOfContactStart: dayOfContactStart
+				? dayjs(dayOfContactStart).format('YYYY-MM-DD')
+				: '',
+			dayOfContactEnd: dayOfContactEnd
+				? dayjs(dayOfContactEnd).format('YYYY-MM-DD')
+				: '',
+		});
 
-	const getDefendants = async (): Promise<void> => {
-		try {
-			const { data } = await axios.get(
-				`/api/defendants?${queryString.toString()}`
-			);
-			setDefendants(data);
-			setIsLoading(false);
-		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				setRequestError(error);
+		const getDefendants = async (): Promise<void> => {
+			try {
+				const { data } = await axios.get(
+					`/api/defendants?${queryString.toString()}`
+				);
+				setDefendants(data);
 				setIsLoading(false);
-				console.error(error);
-			} else {
-				console.error(error);
+			} catch (error) {
+				if (axios.isAxiosError(error)) {
+					setRequestError(error);
+					setIsLoading(false);
+					console.error(error);
+				} else {
+					console.error(error);
+				}
 			}
-		}
-	};
-
-	// React.useEffect(() => {
-	// 	getDefendants();
-	// }, []);
+		};
+		getDefendants();
+	}, [dayOfContactStart, dayOfContactEnd]);
 
 	if (requestError) return <ErrorAlert error={requestError} />;
 
@@ -107,14 +104,11 @@ export const Defendants: React.FC = () => {
 							date={dayOfContactEnd}
 							onDateChange={setDayOfContactEnd}
 						/>
-
 						<CloseButton />
 					</HStack>
 				</Box>
 			</Flex>
-			<Center>
-				<Button onClick={() => getDefendants()}>Update Query</Button>
-			</Center>
+
 			{isMobile ? (
 				<Flex
 					gap={5}
