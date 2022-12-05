@@ -18,9 +18,9 @@ import { MeetingType } from '../types/MeetingType';
 
 export const Defendants: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
-	const [defendants, setDefendants] = React.useState<DefendantInterface[]>(
-		[]
-	);
+	const [defendants, setDefendants] = React.useState<
+		DefendantInterface[] | null
+	>(null);
 	const [requestError, setRequestError] = React.useState<AxiosError>();
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -44,6 +44,7 @@ export const Defendants: React.FC = () => {
 				const { data } = await axios.get(
 					`/api/defendants?${queryString.toString()}`
 				);
+
 				setDefendants(data);
 				setIsLoading(false);
 			} catch (error) {
@@ -61,7 +62,7 @@ export const Defendants: React.FC = () => {
 
 	if (requestError) return <ErrorAlert error={requestError} />;
 
-	if (isLoading) {
+	if (!defendants || isLoading) {
 		return (
 			<Center>
 				<Spinner />
@@ -73,7 +74,6 @@ export const Defendants: React.FC = () => {
 		<Flex direction={'column'} gap={10}>
 			<Heading textAlign={'center'}>Defendants</Heading>
 			<DefendantQueryFilter
-				meetingType={meetingType}
 				setMeetingType={setMeetingType}
 				endDate={endDate}
 				startDate={startDate}

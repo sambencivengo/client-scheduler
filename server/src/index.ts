@@ -8,6 +8,7 @@ import Redis from 'ioredis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { lawyers } from './routes/lawyer';
+import path from 'path';
 
 dotenv_safe.config();
 
@@ -26,13 +27,6 @@ const main = async () => {
 
 		const RedisStore = connectRedis(session);
 		const redis = new Redis();
-
-		// NOTE: Keep in as comment until deployment method is determined
-		// app.use(express.static(path.join(__dirname, './client/build')));
-
-		// app.get('/*', (_, res) => {
-		// 	res.sendFile(path.join(__dirname, './client/build', 'index.html'));
-		// });
 
 		app.use(
 			session({
@@ -58,6 +52,15 @@ const main = async () => {
 		// Routes
 		app.use('/api/defendants', defendants);
 		app.use('/api/lawyers', lawyers);
+
+		// NOTE: Keep in as comment until deployment method is determined
+		app.use(express.static(path.join(__dirname, '../../client/build')));
+
+		app.get('/*', (_, res) => {
+			res.sendFile(
+				path.join(__dirname, '../../client/build', 'index.html')
+			);
+		});
 
 		const connect = async () => {
 			try {

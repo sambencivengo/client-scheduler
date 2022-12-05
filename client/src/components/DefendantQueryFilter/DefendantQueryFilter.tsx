@@ -16,7 +16,6 @@ interface DefendantQueryFilterProps {
 	setStartDate: React.Dispatch<React.SetStateAction<Date>>;
 	endDate: Date;
 	setEndDate: React.Dispatch<React.SetStateAction<Date>>;
-	meetingType: MeetingType | undefined;
 	setMeetingType: React.Dispatch<
 		React.SetStateAction<MeetingType | undefined>
 	>;
@@ -27,7 +26,6 @@ export const DefendantQueryFilter: React.FC<DefendantQueryFilterProps> = ({
 	endDate,
 	setStartDate,
 	setEndDate,
-	meetingType,
 	setMeetingType,
 }) => {
 	const isMobile = useBreakpointValue({ base: true, lg: false });
