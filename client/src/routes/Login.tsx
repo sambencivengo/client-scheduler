@@ -4,14 +4,13 @@ import { colors } from '../theme';
 import { Form, Formik } from 'formik';
 import { CreateLawyer } from '../schema';
 import { InputField } from '../components/InputField';
-import axios, { AxiosError } from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { ErrorAlert } from '../components/ErrorAlert';
+import { useNavigate } from 'react-router-dom';
+import { useLawyer } from '../components/LawyerProvider';
 
 export const Login: React.FC = () => {
-	const [isLoading, setIsLoading] = React.useState(false);
-	const [requestError, setRequestError] = React.useState<AxiosError>();
 	const navigate = useNavigate();
+	const { isLoading, login, requestError } = useLawyer();
 
 	if (isLoading) {
 		return (
@@ -34,25 +33,14 @@ export const Login: React.FC = () => {
 				validateOnBlur={false}
 				initialValues={{ email: '', password: '' }}
 				validationSchema={CreateLawyer.uiSchema}
-				onSubmit={async ({ email, password }) => {
-					try {
-						await axios.post('/api/lawyers/login', {
-							email,
-							password,
-						});
-						setIsLoading(true);
+				onSubmit={async (args) => {
+					const success = await login(args);
+					if (success) {
 						navigate('/');
-						setRequestError(undefined);
-					} catch (error) {
-						setRequestError(error as AxiosError);
-						setIsLoading(false);
-						console.error(error);
 					}
 				}}
 			>
-				{(
-					{ isSubmitting } // TODO: fix validation so that it only fires off on submission
-				) => (
+				{({ isSubmitting }) => (
 					<Form>
 						<Flex flexDirection={'column'} gap={4}>
 							<InputField name="email" label="Email" />

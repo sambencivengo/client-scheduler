@@ -13,8 +13,9 @@ import { DefendantInterface } from '../types/DefendantInterface';
 import { ErrorAlert } from '../components/ErrorAlert';
 import dayjs from 'dayjs';
 import { DefendantsTable } from '../components/DefendantsTable';
-import { DefendantQueryFilter } from '../components/DefendantQueryFilter';
+
 import { MeetingType } from '../types/MeetingType';
+import { DefendantQueryFilter } from '../components/DefendantQueryFilter';
 
 export const Defendants: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(false);

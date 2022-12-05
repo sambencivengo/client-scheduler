@@ -28,9 +28,13 @@ const main = async () => {
 		const RedisStore = connectRedis(session);
 		const redis = new Redis();
 
+		if (!process.env.COOKIE_SECRET) {
+			throw new Error('Unable to grab cookie_secret from env');
+		}
+
 		app.use(
 			session({
-				name: 'qid',
+				name: process.env.COOKIE_NAME,
 				store: new RedisStore({
 					client: redis,
 					disableTouch: true,
@@ -42,7 +46,7 @@ const main = async () => {
 					secure: false, // TODO: switch to constant
 				},
 				saveUninitialized: false,
-				secret: ';kajbsdk;jabsd;kjabsd', //TODO: env variable
+				secret: process.env.COOKIE_SECRET,
 				resave: true,
 			})
 		);

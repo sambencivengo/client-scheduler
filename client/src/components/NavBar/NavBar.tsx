@@ -12,28 +12,11 @@ import {
 import axios from 'axios';
 import React from 'react';
 import { colors } from '../../theme';
-
-interface Lawyer {
-	email: string;
-	id: string;
-}
+import { useLawyer } from '../LawyerProvider';
 
 export const NavBar = () => {
-	const [lawyer, setLawyer] = React.useState<Lawyer>();
 	const isMobile = useBreakpointValue({ base: true, lg: false });
-
-	const getMe = async () => {
-		try {
-			const { data } = await axios.get('/api/lawyers/me');
-			setLawyer(data);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	React.useEffect(() => {
-		getMe();
-	}, []);
+	const { lawyer } = useLawyer();
 
 	const mobileMenu = () => (
 		<Flex marginLeft={'auto'}>
@@ -63,12 +46,7 @@ export const NavBar = () => {
 	// TODO: fix and switch to a flex with various links
 	return (
 		<Flex p={5} bgColor={colors.deepNavy} w={'100%'}>
-			{!lawyer ? (
-				<Flex gap={3} ml="auto">
-					<Link href="/register">Register</Link>
-					<Link href="/login">Login</Link>
-				</Flex>
-			) : (
+			{lawyer ? (
 				<React.Fragment>
 					<Flex gap={3}>
 						<Link href="/">Home</Link>
@@ -76,6 +54,11 @@ export const NavBar = () => {
 					</Flex>
 					{navType}
 				</React.Fragment>
+			) : (
+				<Flex gap={3} ml="auto">
+					<Link href="/register">Register</Link>
+					<Link href="/login">Login</Link>
+				</Flex>
 			)}
 		</Flex>
 	);
