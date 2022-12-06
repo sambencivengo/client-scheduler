@@ -35,6 +35,7 @@
 		"yup": "^0.32.11"
 	},
 	"scripts": {
+		"build-dist": "tsc",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",

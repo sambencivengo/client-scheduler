@@ -9,7 +9,6 @@ import {
 	MenuList,
 	useBreakpointValue,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import React from 'react';
 import { colors } from '../../theme';
 import { useLawyer } from '../LawyerProvider';
