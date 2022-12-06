@@ -58,12 +58,10 @@ const main = async () => {
 		app.use('/api/lawyers', lawyers);
 
 		// NOTE: Keep in as comment until deployment method is determined
-		app.use(express.static(path.join(__dirname, '../../client/build')));
+		app.use(express.static(path.join(__dirname, '../client/build')));
 
 		app.get('/*', (_, res) => {
-			res.sendFile(
-				path.join(__dirname, '../../client/build', 'index.html')
-			);
+			res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 		});
 
 		const connect = async () => {
