@@ -19,7 +19,10 @@ const main = async () => {
 
 		app.use(
 			cors<cors.CorsRequest>({
-				origin: ['http://localhost:3000'],
+				origin: [
+					'http://localhost:3000',
+					// 'https://defendant-scheduler.onrender.com/',
+				],
 				credentials: true,
 			})
 		);
