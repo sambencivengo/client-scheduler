@@ -12,7 +12,7 @@
 		"migrate": "mikro-orm migration:up",
 		"clean": "rm -rf dist",
 		"deploy": "git add . && git commit -m Heroku && git push heroku master",
-		"start": "yarn && redis-server && yarn tsc && yarn start",
+		"start": "yarn && yarn tsc && yarn start",
 		"build": "cd client && yarn && yarn build"
 	},
 	"keywords": [],
