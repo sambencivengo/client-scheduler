@@ -61,6 +61,8 @@ const main = async () => {
 		const connect = async () => {
 			try {
 				await connectDb(process.env.MONGO_URI ?? '');
+				mongoose.set('strictQuery', false);
+
 				logger.info('Database is connected 🔌 ✅');
 			} catch (error) {
 				logger.crit('❌ Unable to connect to the database ❌');
