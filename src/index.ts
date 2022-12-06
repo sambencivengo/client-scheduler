@@ -8,7 +8,9 @@ import { defendants } from './routes/defendants';
 import session from 'express-session';
 import { lawyers } from './routes/lawyer';
 import path from 'path';
+import createMemoryStore from 'memorystore';
 
+const MemoryStore = createMemoryStore(session);
 const port = process.env.PORT || 8000;
 
 const main = async () => {
@@ -27,6 +29,9 @@ const main = async () => {
 
 		app.use(
 			session({
+				store: new MemoryStore({
+					checkPeriod: 86400000,
+				}),
 				name: process.env.COOKIE_NAME,
 				cookie: {
 					maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
