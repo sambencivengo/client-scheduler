@@ -1,3 +1,5 @@
-export * from './Defendant';
-export * from './Lawyer';
-export * from './MeetingType';
+import { DefendantInterface } from './Defendant';
+import { LawyerInterface } from './Lawyer';
+import { MeetingType } from './MeetingType';
+
+export { DefendantInterface, LawyerInterface, MeetingType };
