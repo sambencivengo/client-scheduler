@@ -1,13 +1,11 @@
-import * as dotenv from 'dotenv'; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import { connectDb } from './db';
 import logger from './logger';
 import { defendants } from './routes/defendants';
-import Redis from 'ioredis';
 import session from 'express-session';
-import connectRedis from 'connect-redis';
 import { lawyers } from './routes/lawyer';
 import path from 'path';
 
@@ -23,10 +21,6 @@ const main = async () => {
 				credentials: true,
 			})
 		);
-
-		const RedisStore = connectRedis(session);
-		const redis = new Redis();
-
 		if (!process.env.COOKIE_SECRET) {
 			throw new Error('Unable to grab cookie_secret from env');
 		}
@@ -34,10 +28,6 @@ const main = async () => {
 		app.use(
 			session({
 				name: process.env.COOKIE_NAME,
-				store: new RedisStore({
-					client: redis,
-					disableTouch: true,
-				}),
 				cookie: {
 					maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
 					httpOnly: true,
