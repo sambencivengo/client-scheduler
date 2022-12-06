@@ -118,7 +118,7 @@ export const DefendantForm = ({
 					onSubmit={formik.handleSubmit}
 					onReset={formik.handleReset}
 				>
-					<FormControl id="firstName">
+					<FormControl isRequired id="firstName">
 						<FormLabel>First Name</FormLabel>
 						<Input
 							id="firstName"
@@ -132,7 +132,7 @@ export const DefendantForm = ({
 						</FormHelperText>
 					</FormControl>
 
-					<FormControl id="lastName">
+					<FormControl isRequired id="lastName">
 						<FormLabel>Last Name</FormLabel>
 						<Input
 							id="lastName"
