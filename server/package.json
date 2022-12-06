@@ -7,6 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon dist/index.js",
 		"watch": "tsc -w",
+		"start": "node dist/index.js",
 		"migration:create": "mikro-orm migration:create",
 		"migrate": "mikro-orm migration:up",
 		"clean": "rm -rf dist",
