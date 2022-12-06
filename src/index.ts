@@ -1,6 +1,7 @@
+import * as dotenv from 'dotenv'; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config();
 import express from 'express';
 import cors from 'cors';
-import * as dotenv_safe from 'dotenv-safe';
 import { connectDb } from './db';
 import logger from './logger';
 import { defendants } from './routes/defendants';
@@ -9,8 +10,6 @@ import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { lawyers } from './routes/lawyer';
 import path from 'path';
-
-dotenv_safe.config();
 
 const port = process.env.PORT || 8000;
 
