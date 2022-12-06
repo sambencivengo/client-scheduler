@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { DefendantInterface } from 'src/types/Defendant';
+import { DefendantInterface } from '../types/Defendant';
 import { MeetingType } from '../types';
 
 // Schema

@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { LawyerInterface } from 'src/types/Lawyer';
+import { LawyerInterface } from '../types/Lawyer';
 
 // Schema
 export const lawyerSchema = new Schema<LawyerInterface>({
