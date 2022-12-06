@@ -13,7 +13,7 @@
 		"clean": "rm -rf dist",
 		"deploy": "git add . && git commit -m Heroku && git push heroku master",
 		"start": "node dist/index.js",
-		"build": "yarn tsc && cd client && yarn && yarn build"
+		"build": "yarn tsc && redis-server && cd client && yarn && yarn build"
 	},
 	"keywords": [],
 	"author": "",
