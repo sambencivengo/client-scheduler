@@ -1,33 +1,32 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Button, Heading, VStack } from '@chakra-ui/react';
 import React from 'react';
-import { Calendar } from '../components/Calendar';
-import { DefendantForm } from '../components/DefendantForm';
-import { HomePage } from '../components/HomePage';
 import { useLawyer } from '../components/LawyerProvider';
+import { colors } from '../theme';
 import { Login } from './Login';
+import { useNavigate } from 'react-router-dom';
 
 export const Home: React.FC = () => {
 	const { lawyer } = useLawyer();
-	const [name, setName] = React.useState('');
-	const [email, setEmail] = React.useState('');
-
+	const navigate = useNavigate();
 	if (!lawyer) {
 		return <Login />;
 	}
 
 	return (
-		<Flex id="home" direction={'column'} gap={10}>
-			<Flex
-				gap={5}
-				// bgColor={colors.greyBlue} //TODO: change bg color?
-				borderRadius={20}
-				w={'100%'}
-				h={'100%'}
-				justifyContent={'space-evenly'}
-				wrap={'wrap'}
-			>
-				<HomePage />
-			</Flex>
-		</Flex>
+		<Box
+			minWidth={{ base: 350, sm: 500 }}
+			bgColor={colors.deepNavy}
+			p={10}
+			borderRadius={20}
+		>
+			<VStack gap={5}>
+				<Heading size="lg" textAlign="center">
+					Welcome {lawyer?.email}!
+				</Heading>
+				<Button onClick={() => navigate('/defendantForm')}>
+					New Defendant
+				</Button>
+			</VStack>
+		</Box>
 	);
 };

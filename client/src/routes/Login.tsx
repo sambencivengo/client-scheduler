@@ -1,12 +1,4 @@
-import {
-	Box,
-	Button,
-	Center,
-	Image,
-	Flex,
-	Heading,
-	Spinner,
-} from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Heading, Spinner } from '@chakra-ui/react';
 import React from 'react';
 import { colors } from '../theme';
 import { Form, Formik } from 'formik';
