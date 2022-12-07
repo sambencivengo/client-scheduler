@@ -10,7 +10,6 @@ export const Home: React.FC = () => {
 	const [showDefendantForm, setShowDefendantForm] = React.useState(true);
 	const [name, setName] = React.useState('');
 	const [email, setEmail] = React.useState('');
-	console.log(lawyer);
 
 	if (!lawyer) {
 		return <Login />;
