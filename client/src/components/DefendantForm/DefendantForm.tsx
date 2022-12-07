@@ -21,18 +21,12 @@ import { DefendantInterface } from '../../types/DefendantInterface';
 
 import { MeetingType } from '../../types/MeetingType';
 
-interface DefendantFormProps {
-	setShowDefendantForm: React.Dispatch<React.SetStateAction<boolean>>;
-	setName: React.Dispatch<React.SetStateAction<string>>;
-	setEmail: React.Dispatch<React.SetStateAction<string>>;
-}
+interface DefendantFormProps {}
 
-export const DefendantForm = ({
-	setShowDefendantForm,
-	setEmail,
-	setName,
-}: DefendantFormProps) => {
+export const DefendantForm = () => {
 	const [validateWhileTyping, setValidateWhileTyping] = React.useState(false);
+	const [name, setName] = React.useState('');
+	const [email, setEmail] = React.useState('');
 
 	const toast = useToast();
 
@@ -81,8 +75,6 @@ export const DefendantForm = ({
 					containerStyle: { background: colors.navy },
 					position: 'top',
 				});
-
-				setShowDefendantForm(false);
 			} catch (error) {
 				console.error(error);
 				toast({
