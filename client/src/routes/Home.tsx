@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
 		>
 			<VStack gap={5}>
 				<Heading size="lg" textAlign="center">
-					Welcome {lawyer?.email}!
+					Welcome, {lawyer?.email}!
 				</Heading>
 				<Button onClick={() => navigate('/defendantForm')}>
 					New Defendant
