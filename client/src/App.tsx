@@ -14,11 +14,12 @@ const App = () => (
 						<Route path="/" element={<Home />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
+
+						<Route path="/defendants" element={<Defendants />} />
 						<Route
-							path="/defendant-form"
+							path="/defendants/new"
 							element={<DefendantForm />}
 						/>
-						<Route path="/defendants" element={<Defendants />} />
 					</Routes>
 				</Center>
 			</Box>

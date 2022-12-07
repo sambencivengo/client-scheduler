@@ -30,9 +30,9 @@ export const NavBar = () => {
 				<MenuButton as={Button}>Menu</MenuButton>
 				<MenuList>
 					<MenuItem>
-						<Button>
-							<Link to={'/'}>{lawyer?.email}</Link>
-						</Button>
+						<Link to={'/'}>
+							<Button>{lawyer?.email}</Button>
+						</Link>
 					</MenuItem>
 					<MenuItem>
 						<Button onClick={logoutFunc}>Logout</Button>
@@ -42,36 +42,36 @@ export const NavBar = () => {
 		</Flex>
 	) : (
 		<Flex gap={3} ml="auto">
-			<Button>
-				<Link to="/">{lawyer?.email}</Link>
-			</Button>
+			<Link to="/">
+				<Button>{lawyer?.email}</Button>
+			</Link>
+
 			<Button onClick={logoutFunc}>Logout</Button>
 		</Flex>
 	);
 
-	// TODO: fix and switch to a flex with various links
 	return (
 		<Flex p={5} bgColor={colors.deepNavy} w={'100%'}>
 			{lawyer ? (
 				<React.Fragment>
 					<Flex gap={3}>
-						<Button>
-							<Link to="/defendant-form">Form</Link>
-						</Button>
-						<Button>
-							<Link to="/defendants">Defendants</Link>
-						</Button>
+						<Link to="/defendants/new">
+							<Button>Add</Button>
+						</Link>
+						<Link to="/defendants">
+							<Button>Defendants</Button>
+						</Link>
 					</Flex>
 					{navType}
 				</React.Fragment>
 			) : (
 				<Flex gap={3} ml="auto">
-					<Button>
-						<Link to="/register">Register</Link>
-					</Button>
-					<Button>
-						<Link to="/login">Login</Link>
-					</Button>
+					<Link to="/register">
+						<Button>Register</Button>
+					</Link>
+					<Link to="/login">
+						<Button>Login</Button>
+					</Link>
 				</Flex>
 			)}
 		</Flex>

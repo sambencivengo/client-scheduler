@@ -24,7 +24,7 @@ export const Home: React.FC = () => {
 					Welcome, {lawyer?.email}!
 				</Heading>
 				<Button>
-					<Link to={'/defendant-form'}>New Defendant</Link>
+					<Link to={'/defendants/new'}>New Defendant</Link>
 				</Button>
 			</VStack>
 		</Box>
