@@ -3,11 +3,10 @@ import React from 'react';
 import { useLawyer } from '../components/LawyerProvider';
 import { colors } from '../theme';
 import { Login } from './Login';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const Home: React.FC = () => {
 	const { lawyer } = useLawyer();
-	const navigate = useNavigate();
 
 	if (!lawyer) {
 		return <Login />;
@@ -24,8 +23,8 @@ export const Home: React.FC = () => {
 				<Heading size="lg" textAlign="center">
 					Welcome, {lawyer?.email}!
 				</Heading>
-				<Button onClick={() => navigate('/defendantForm')}>
-					New Defendant
+				<Button>
+					<Link to={'/defendant-form'}>New Defendant</Link>
 				</Button>
 			</VStack>
 		</Box>

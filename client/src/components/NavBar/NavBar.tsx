@@ -1,6 +1,5 @@
 import {
 	Flex,
-	Link,
 	Menu,
 	MenuButton,
 	Button,
@@ -9,7 +8,7 @@ import {
 	useBreakpointValue,
 } from '@chakra-ui/react';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { colors } from '../../theme';
 import { useLawyer } from '../LawyerProvider';
 
@@ -31,8 +30,8 @@ export const NavBar = () => {
 				<MenuButton as={Button}>Menu</MenuButton>
 				<MenuList>
 					<MenuItem>
-						<Button onClick={() => navigate('/')}>
-							{lawyer?.email}
+						<Button>
+							<Link to={'/'}>{lawyer?.email}</Link>
 						</Button>
 					</MenuItem>
 					<MenuItem>
@@ -43,8 +42,10 @@ export const NavBar = () => {
 		</Flex>
 	) : (
 		<Flex gap={3} ml="auto">
-			<Link href="/">{lawyer?.email}</Link>
-			<Link onClick={logoutFunc}>Logout</Link>
+			<Button>
+				<Link to="/">{lawyer?.email}</Link>
+			</Button>
+			<Button onClick={logoutFunc}>Logout</Button>
 		</Flex>
 	);
 
@@ -54,15 +55,23 @@ export const NavBar = () => {
 			{lawyer ? (
 				<React.Fragment>
 					<Flex gap={3}>
-						<Link href="/defendantForm">Form</Link>
-						<Link href="/defendants">Defendants</Link>
+						<Button>
+							<Link to="/defendant-form">Form</Link>
+						</Button>
+						<Button>
+							<Link to="/defendants">Defendants</Link>
+						</Button>
 					</Flex>
 					{navType}
 				</React.Fragment>
 			) : (
 				<Flex gap={3} ml="auto">
-					<Link href="/register">Register</Link>
-					<Link href="/login">Login</Link>
+					<Button>
+						<Link to="/register">Register</Link>
+					</Button>
+					<Button>
+						<Link to="/login">Login</Link>
+					</Button>
 				</Flex>
 			)}
 		</Flex>
