@@ -18,42 +18,33 @@ export const NavBar = () => {
 	const { lawyer, logout } = useLawyer();
 	const navigate = useNavigate();
 
-	const mobileMenu = () => (
-		<Flex marginLeft={'auto'}>
-			<Menu>
-				<MenuButton as={Button}>Menu</MenuButton>
-				<MenuList>
-					<MenuItem>
-						<Button as="link" href="/">
-							{lawyer?.email}
-						</Button>
-					</MenuItem>
-					<MenuItem>
-						<Link onClick={logoutFunc} as="button">
-							Logout
-						</Link>
-					</MenuItem>
-				</MenuList>
-			</Menu>
-		</Flex>
-	);
-
 	const logoutFunc = async () => {
 		const success = await logout();
-
 		if (success) {
 			navigate('/login');
 		}
 	};
 
 	const navType = isMobile ? (
-		mobileMenu()
+		<Flex marginLeft={'auto'}>
+			<Menu>
+				<MenuButton as={Button}>Menu</MenuButton>
+				<MenuList>
+					<MenuItem>
+						<Button onClick={() => navigate('/')}>
+							{lawyer?.email}
+						</Button>
+					</MenuItem>
+					<MenuItem>
+						<Button onClick={logoutFunc}>Logout</Button>
+					</MenuItem>
+				</MenuList>
+			</Menu>
+		</Flex>
 	) : (
 		<Flex gap={3} ml="auto">
 			<Link href="/">{lawyer?.email}</Link>
-			<Link onClick={logoutFunc} as="button">
-				Logout
-			</Link>
+			<Link onClick={logoutFunc}>Logout</Link>
 		</Flex>
 	);
 
