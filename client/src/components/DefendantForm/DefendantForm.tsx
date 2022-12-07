@@ -192,7 +192,6 @@ export const DefendantForm = () => {
 							</Stack>
 						</RadioGroup>
 					</Flex>
-					{/* </Center> */}
 
 					<Center>
 						<Button
