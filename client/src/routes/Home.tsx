@@ -2,11 +2,19 @@ import { Flex, Heading } from '@chakra-ui/react';
 import React from 'react';
 import { Calendar } from '../components/Calendar';
 import { DefendantForm } from '../components/DefendantForm';
+import { useLawyer } from '../components/LawyerProvider';
+import { Login } from './Login';
 
 export const Home: React.FC = () => {
+	const { lawyer } = useLawyer();
 	const [showDefendantForm, setShowDefendantForm] = React.useState(true);
 	const [name, setName] = React.useState('');
 	const [email, setEmail] = React.useState('');
+	console.log(lawyer);
+
+	if (!lawyer) {
+		return <Login />;
+	}
 
 	return (
 		<Flex id="home" direction={'column'} gap={10}>
