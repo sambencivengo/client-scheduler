@@ -56,7 +56,7 @@ export const NavBar = () => {
 				<React.Fragment>
 					<Flex gap={3}>
 						<Link to="/defendants/new">
-							<Button>Add</Button>
+							<Button>New</Button>
 						</Link>
 						<Link to="/defendants">
 							<Button>Defendants</Button>
