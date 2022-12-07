@@ -28,7 +28,7 @@ const LawyerContext = React.createContext<LawyerContextData>({
 });
 
 export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const [lawyer, setLawyer] = React.useState<Lawyer | null>(null);
 	const [requestError, setRequestError] = React.useState<AxiosError | null>(
 		null
@@ -38,6 +38,7 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 		try {
 			const { data } = await axios.get('/api/lawyers/me');
 			setLawyer(data);
+			setIsLoading(false);
 		} catch (error) {
 			console.error(error);
 		}
@@ -61,7 +62,7 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 				email,
 				password,
 			});
-			setIsLoading(true);
+			setIsLoading(false);
 			setRequestError(null);
 			getMe();
 			return true;
