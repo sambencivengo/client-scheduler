@@ -173,7 +173,8 @@ export const DefendantForm = () => {
 						</FormHelperText>
 					</FormControl>
 
-					<Center>
+					<Flex justifyContent={'space-between'}>
+						<FormLabel>Meeting Type</FormLabel>
 						<RadioGroup
 							onChange={(value: MeetingType) =>
 								formik.setFieldValue('meetingType', value)
@@ -190,7 +191,8 @@ export const DefendantForm = () => {
 								</Radio>
 							</Stack>
 						</RadioGroup>
-					</Center>
+					</Flex>
+					{/* </Center> */}
 
 					<Center>
 						<Button
