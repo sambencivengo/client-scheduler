@@ -1,15 +1,13 @@
 import { Handler } from 'express';
 
 export const logout: Handler = (req, res) => {
-	if (req.session) {
-		req.session.destroy((err) => {
-			if (err) {
-				res.status(400).send('Unable to log out');
-			} else {
-				res.send('Logout successful');
-			}
-		});
-	} else {
-		res.end();
+	try {
+		if (req.session) {
+			req.session.destroy(() => res.sendStatus(200));
+		} else {
+			res.sendStatus(400);
+		}
+	} catch (error) {
+		res.status(500).send('Unable to logout');
 	}
 };

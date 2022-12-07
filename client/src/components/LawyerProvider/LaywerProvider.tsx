@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import React from 'react';
+
 import { Lawyer } from '../../types/Lawyer';
 
 interface LawyerProviderProps {
@@ -11,6 +12,7 @@ interface LawyerContextData {
 	requestError: AxiosError | null;
 	lawyer: Lawyer | null;
 	login: (a: LoginArgs) => Promise<boolean>;
+	logout: () => Promise<void>;
 }
 interface LoginArgs {
 	email: string;
@@ -22,6 +24,7 @@ const LawyerContext = React.createContext<LawyerContextData>({
 	isLoading: true,
 	requestError: null,
 	login: async () => false,
+	logout: async () => {},
 });
 
 export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
@@ -37,6 +40,14 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 			setLawyer(data);
 		} catch (error) {
 			console.error(error);
+		}
+	};
+
+	const logout = async (): Promise<void> => {
+		try {
+			await axios.delete(`/api/lawyers/logout`);
+		} catch (error) {
+			console.error('error');
 		}
 	};
 
@@ -64,7 +75,7 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 
 	return (
 		<LawyerContext.Provider
-			value={{ lawyer, login, isLoading, requestError }}
+			value={{ logout, lawyer, login, isLoading, requestError }}
 		>
 			{children}
 		</LawyerContext.Provider>

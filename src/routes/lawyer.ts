@@ -7,3 +7,4 @@ lawyers.use('/me', API.Lawyers.me);
 
 lawyers.post('', API.Lawyers.post);
 lawyers.post('/login', API.Lawyers.login);
+lawyers.delete('/logout', API.Lawyers.logout);

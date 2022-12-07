@@ -25,9 +25,9 @@ export const NavBar = () => {
 					<MenuItem>
 						<Text>{lawyer?.email}</Text>
 					</MenuItem>
-					<MenuItem>
-						<Link>Logout</Link>
-					</MenuItem>
+					{/* <MenuItem>
+						<Link>Logout</Link>  TODO: Work on logout/session destruction 
+					</MenuItem> */}
 				</MenuList>
 			</Menu>
 		</Flex>
@@ -38,7 +38,7 @@ export const NavBar = () => {
 	) : (
 		<Flex gap={3} ml="auto">
 			<Link href="/">{lawyer?.email}</Link>
-			<Link>Logout</Link>
+			{/* <Link>Logout</Link>  TODO: Work on logout/session destruction */}
 		</Flex>
 	);
 
