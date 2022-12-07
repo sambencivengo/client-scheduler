@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export const Home: React.FC = () => {
 	const { lawyer } = useLawyer();
 	const navigate = useNavigate();
+
 	if (!lawyer) {
 		return <Login />;
 	}

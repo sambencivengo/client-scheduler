@@ -1,5 +1,9 @@
 import { Box, Center } from '@chakra-ui/react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+	BrowserRouter,
+	createBrowserRouter,
+	RouterProvider,
+} from 'react-router-dom';
 import { DefendantForm } from './components/DefendantForm';
 import { NavBar } from './components/NavBar';
 import ErrorPage from './ErrorPage';
@@ -14,18 +18,22 @@ const router = createBrowserRouter([
 	{
 		path: '/defendantForm',
 		element: <DefendantForm />,
+		errorElement: <ErrorPage />,
 	},
 	{
 		path: '/defendants',
 		element: <Defendants />,
+		errorElement: <ErrorPage />,
 	},
 	{
 		path: '/register',
 		element: <Register />,
+		errorElement: <ErrorPage />,
 	},
 	{
 		path: '/login',
 		element: <Login />,
+		errorElement: <ErrorPage />,
 	},
 ]);
 

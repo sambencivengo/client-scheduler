@@ -12,7 +12,7 @@ interface LawyerContextData {
 	requestError: AxiosError | null;
 	lawyer: Lawyer | null;
 	login: (a: LoginArgs) => Promise<boolean>;
-	logout: () => Promise<void>;
+	logout: () => Promise<boolean>;
 }
 interface LoginArgs {
 	email: string;
@@ -24,7 +24,7 @@ const LawyerContext = React.createContext<LawyerContextData>({
 	isLoading: true,
 	requestError: null,
 	login: async () => false,
-	logout: async () => {},
+	logout: async () => false,
 });
 
 export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
@@ -34,21 +34,26 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 		null
 	);
 
-	const getMe = async () => {
+	const getMe = async (): Promise<void> => {
 		try {
 			const { data } = await axios.get('/api/lawyers/me');
 			setLawyer(data);
 			setIsLoading(false);
 		} catch (error) {
 			console.error(error);
+			setIsLoading(false);
 		}
 	};
 
-	const logout = async (): Promise<void> => {
+	const logout = async (): Promise<boolean> => {
+		console.log('in logout');
+
 		try {
 			await axios.delete(`/api/lawyers/logout`);
+			return true;
 		} catch (error) {
 			console.error('error');
+			return false;
 		}
 	};
 

@@ -10,12 +10,13 @@ import {
 	useBreakpointValue,
 } from '@chakra-ui/react';
 import React from 'react';
+import { redirect } from 'react-router-dom';
 import { colors } from '../../theme';
 import { useLawyer } from '../LawyerProvider';
 
 export const NavBar = () => {
 	const isMobile = useBreakpointValue({ base: true, lg: false });
-	const { lawyer } = useLawyer();
+	const { lawyer, logout } = useLawyer();
 
 	const mobileMenu = () => (
 		<Flex marginLeft={'auto'}>
@@ -23,22 +24,35 @@ export const NavBar = () => {
 				<MenuButton as={Button}>Menu</MenuButton>
 				<MenuList>
 					<MenuItem>
-						<Text>{lawyer?.email}</Text>
+						<Button as="link" href="/">
+							{lawyer?.email}
+						</Button>
 					</MenuItem>
-					{/* <MenuItem>
-						<Link>Logout</Link>  TODO: Work on logout/session destruction 
-					</MenuItem> */}
+					<MenuItem>
+						<Link onClick={logoutFunc} as="button">
+							Logout
+						</Link>
+					</MenuItem>
 				</MenuList>
 			</Menu>
 		</Flex>
 	);
+
+	const logoutFunc = async () => {
+		const success = await logout();
+		if (success) {
+			redirect('/login');
+		}
+	};
 
 	const navType = isMobile ? (
 		mobileMenu()
 	) : (
 		<Flex gap={3} ml="auto">
 			<Link href="/">{lawyer?.email}</Link>
-			{/* <Link>Logout</Link>  TODO: Work on logout/session destruction */}
+			<Link onClick={logoutFunc} as="button">
+				Logout
+			</Link>
 		</Flex>
 	);
 
