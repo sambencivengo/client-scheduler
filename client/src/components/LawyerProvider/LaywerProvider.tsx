@@ -41,15 +41,15 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 			setIsLoading(false);
 		} catch (error) {
 			console.error(error);
+			setLawyer(null);
 			setIsLoading(false);
 		}
 	};
 
 	const logout = async (): Promise<boolean> => {
-		console.log('in logout');
-
 		try {
 			await axios.delete(`/api/lawyers/logout`);
+			getMe();
 			return true;
 		} catch (error) {
 			console.error('error');

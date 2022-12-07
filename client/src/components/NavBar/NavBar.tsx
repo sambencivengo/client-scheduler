@@ -1,5 +1,4 @@
 import {
-	Text,
 	Flex,
 	Link,
 	Menu,
@@ -9,14 +8,16 @@ import {
 	MenuList,
 	useBreakpointValue,
 } from '@chakra-ui/react';
+import { getMaxListeners } from 'process';
 import React from 'react';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { colors } from '../../theme';
 import { useLawyer } from '../LawyerProvider';
 
 export const NavBar = () => {
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 	const { lawyer, logout } = useLawyer();
+	const navigate = useNavigate();
 
 	const mobileMenu = () => (
 		<Flex marginLeft={'auto'}>
@@ -40,8 +41,9 @@ export const NavBar = () => {
 
 	const logoutFunc = async () => {
 		const success = await logout();
+
 		if (success) {
-			redirect('/login');
+			navigate('/login');
 		}
 	};
 
