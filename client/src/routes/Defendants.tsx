@@ -24,7 +24,6 @@ export const Defendants: React.FC = () => {
 	>(null);
 	const [requestError, setRequestError] = React.useState<AxiosError>();
 	const isMobile = useBreakpointValue({ base: true, lg: false });
-
 	const [startDate, setStartDate] = React.useState<Date>(
 		dayjs().subtract(7, 'days').toDate() // Set start at 1 week ago
 	);
