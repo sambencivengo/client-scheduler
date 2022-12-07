@@ -37,7 +37,7 @@ export const NavBar = () => {
 		mobileMenu()
 	) : (
 		<Flex gap={3} ml="auto">
-			<Text>{lawyer?.email}</Text>
+			<Link href="/">{lawyer?.email}</Link>
 			<Link>Logout</Link>
 		</Flex>
 	);
@@ -48,7 +48,7 @@ export const NavBar = () => {
 			{lawyer ? (
 				<React.Fragment>
 					<Flex gap={3}>
-						<Link href="/">Home</Link>
+						<Link href="/defendantForm">Form</Link>
 						<Link href="/defendants">Defendants</Link>
 					</Flex>
 					{navType}
