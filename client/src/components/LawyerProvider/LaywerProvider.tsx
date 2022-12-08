@@ -11,10 +11,11 @@ interface LawyerContextData {
 	isLoading: boolean;
 	requestError: AxiosError | null;
 	lawyer: Lawyer | null;
-	login: (a: LoginArgs) => Promise<boolean>;
+	login: (a: LoginAndRegisterArgs) => Promise<boolean>;
 	logout: () => Promise<boolean>;
+	register: (a: LoginAndRegisterArgs) => Promise<boolean>;
 }
-interface LoginArgs {
+interface LoginAndRegisterArgs {
 	email: string;
 	password: string;
 }
@@ -25,6 +26,7 @@ const LawyerContext = React.createContext<LawyerContextData>({
 	requestError: null,
 	login: async () => false,
 	logout: async () => false,
+	register: async () => false,
 });
 
 export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
@@ -61,7 +63,7 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 		getMe();
 	}, []);
 
-	const login = async ({ email, password }: LoginArgs) => {
+	const login = async ({ email, password }: LoginAndRegisterArgs) => {
 		try {
 			await axios.post('/api/lawyers/login', {
 				email,
@@ -79,9 +81,26 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 		}
 	};
 
+	const register = async ({ email, password }: LoginAndRegisterArgs) => {
+		try {
+			await axios.post('/api/lawyers', {
+				email,
+				password,
+			});
+			setIsLoading(false);
+			getMe();
+			return true;
+		} catch (error) {
+			setRequestError(error as AxiosError);
+			setIsLoading(false);
+			console.error(error);
+			return false;
+		}
+	};
+
 	return (
 		<LawyerContext.Provider
-			value={{ logout, lawyer, login, isLoading, requestError }}
+			value={{ register, logout, lawyer, login, isLoading, requestError }}
 		>
 			{children}
 		</LawyerContext.Provider>

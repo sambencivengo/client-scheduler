@@ -4,14 +4,13 @@ import { colors } from '../theme';
 import { Form, Formik } from 'formik';
 import { CreateLawyer } from '../schema';
 import { InputField } from '../components/InputField';
-import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ErrorAlert } from '../components/ErrorAlert';
+import { useLawyer } from '../components/LawyerProvider';
 
 export const Register: React.FC = () => {
-	const [isLoading, setIsLoading] = React.useState(false);
-	const [requestError, setRequestError] = React.useState<AxiosError>();
 	const navigate = useNavigate();
+	const { register, isLoading, requestError } = useLawyer();
 
 	if (isLoading) {
 		return (
@@ -34,19 +33,10 @@ export const Register: React.FC = () => {
 				validateOnBlur={false}
 				initialValues={{ email: '', password: '' }}
 				validationSchema={CreateLawyer.uiSchema}
-				onSubmit={async ({ email, password }, { setErrors }) => {
-					try {
-						await axios.post('/api/lawyers', {
-							email,
-							password,
-						});
-						setIsLoading(true);
+				onSubmit={async ({ email, password }) => {
+					const success = await register({ email, password });
+					if (success) {
 						navigate('/');
-						setRequestError(undefined);
-					} catch (error) {
-						setRequestError(error as AxiosError);
-						setIsLoading(false);
-						console.error(error);
 					}
 				}}
 			>

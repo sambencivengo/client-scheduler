@@ -17,7 +17,7 @@ export const NavBar = () => {
 	const { lawyer, logout } = useLawyer();
 	const navigate = useNavigate();
 
-	const logoutFunc = async () => {
+	const logoutFunc = async (): Promise<void> => {
 		const success = await logout();
 		if (success) {
 			navigate('/login');
