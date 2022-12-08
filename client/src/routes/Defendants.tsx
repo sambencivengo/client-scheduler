@@ -42,7 +42,8 @@ export const Defendants: React.FC = () => {
 		const getDefendants = async (): Promise<void> => {
 			try {
 				const { data } = await axios.get(
-					`/api/defendants?${queryString.toString()}`
+					`/api/defendants?${queryString.toString()}`,
+					{ withCredentials: true }
 				);
 
 				setDefendants(data);
