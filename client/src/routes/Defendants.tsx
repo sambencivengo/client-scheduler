@@ -46,8 +46,6 @@ export const Defendants: React.FC = () => {
 					{ withCredentials: true }
 				);
 
-				console.log({ data });
-
 				setDefendants(data);
 				setIsLoading(false);
 			} catch (error) {
