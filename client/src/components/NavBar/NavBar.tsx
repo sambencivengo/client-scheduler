@@ -30,12 +30,10 @@ export const NavBar = () => {
 				<MenuButton as={Button}>Menu</MenuButton>
 				<MenuList>
 					<MenuItem>
-						<Link to={'/'}>
-							<Button>{lawyer?.email}</Button>
-						</Link>
+						<Link to={'/'}>{lawyer?.email}</Link>
 					</MenuItem>
-					<MenuItem>
-						<Button onClick={logoutFunc}>Logout</Button>
+					<MenuItem textAlign={'right'} onClick={logoutFunc}>
+						Logout
 					</MenuItem>
 				</MenuList>
 			</Menu>
@@ -56,7 +54,7 @@ export const NavBar = () => {
 				<React.Fragment>
 					<Flex gap={3}>
 						<Link to="/defendants/new">
-							<Button>New</Button>
+							<Button>Add</Button>
 						</Link>
 						<Link to="/defendants">
 							<Button>Defendants</Button>
