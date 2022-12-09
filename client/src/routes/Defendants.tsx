@@ -13,7 +13,6 @@ import { DefendantInterface } from '../types/DefendantInterface';
 import { ErrorAlert } from '../components/ErrorAlert';
 import dayjs from 'dayjs';
 import { DefendantsTable } from '../components/DefendantsTable';
-
 import { MeetingType } from '../types/MeetingType';
 import { DefendantQueryFilter } from '../components/DefendantQueryFilter';
 

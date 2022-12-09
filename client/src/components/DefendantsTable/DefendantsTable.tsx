@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import dayjs from 'dayjs';
 import { DefendantInterface } from '../../types/DefendantInterface';
+import { Link } from 'react-router-dom';
 
 interface DefendantsTableProps {
 	defendants: DefendantInterface[];
@@ -47,6 +48,11 @@ export const DefendantsTable: React.FC<DefendantsTableProps> = ({
 							{defendant.email === '' ? 'N/A' : defendant.email}
 						</Td>
 						<Td>{defendant.meetingType}</Td>
+						<Td>
+							<Link to={`/defendants/${defendant._id}`}>
+								View
+							</Link>
+						</Td>
 					</Tr>
 				))}
 			</Tbody>

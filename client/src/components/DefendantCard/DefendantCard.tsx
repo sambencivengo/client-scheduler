@@ -1,4 +1,5 @@
 import { Flex, VStack } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { colors } from '../../theme';
 import { DefendantInterface } from '../../types/DefendantInterface';
 import { DefendantCardText } from './DefendantCardText';
@@ -30,6 +31,7 @@ export const DefendantCard = ({ defendant }: DefendantCardProps) => {
 					value={meetingType}
 					tag={true}
 				/>
+				<Link to={`/defendants/${defendant._id}`}>View</Link>
 			</VStack>
 		</Flex>
 	);
