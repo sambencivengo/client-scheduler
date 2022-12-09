@@ -7,8 +7,6 @@ import { Lawyer } from '../../models';
 export const post: Handler = async (req, res) => {
 	try {
 		const { body } = req;
-		console.log({ body });
-
 		// TODO: util validation method
 		try {
 			await Schema.createLawyer.apiSchema.validate(body);

@@ -21,12 +21,14 @@ import { DefendantInterface } from '../../types/DefendantInterface';
 
 import { MeetingType } from '../../types/MeetingType';
 import { Calendar } from '../Calendar';
+import { useLawyer } from '../LawyerProvider';
 
 export const DefendantForm = () => {
 	const [validateWhileTyping, setValidateWhileTyping] = React.useState(false);
 	const [name, setName] = React.useState('');
 	const [email, setEmail] = React.useState('');
 	const [showCalendly, setShowCalendly] = React.useState(false);
+	const { lawyer } = useLawyer();
 
 	const toast = useToast();
 
@@ -100,7 +102,11 @@ export const DefendantForm = () => {
 	if (showCalendly) {
 		return (
 			<Center>
-				<Calendar name={name} email={email} />
+				<Calendar
+					name={name}
+					email={email}
+					calendlyLink={lawyer!.calendlyLink}
+				/>
 			</Center>
 		);
 	}

@@ -34,8 +34,6 @@ export const Register: React.FC = () => {
 				initialValues={{ email: '', password: '', calendlyLink: '' }}
 				validationSchema={CreateLawyer.uiSchema}
 				onSubmit={async ({ email, password, calendlyLink }) => {
-					console.log(email, password, calendlyLink);
-
 					const success = await register({
 						email,
 						password,
@@ -46,9 +44,7 @@ export const Register: React.FC = () => {
 					}
 				}}
 			>
-				{(
-					{ isSubmitting } // TODO: fix validation so that it only fires off on submission
-				) => (
+				{({ isSubmitting }) => (
 					<Form>
 						<Flex flexDirection={'column'} gap={4}>
 							<InputField name="email" label="Email" />

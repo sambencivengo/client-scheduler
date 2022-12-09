@@ -19,9 +19,9 @@ export const me: Handler = async (req, res) => {
 		}
 
 		const lawyer = {
-			// TODO: types for sending back lawyer DTO
-			email: lawyerDocument?.email,
-			id: lawyerDocument?.id,
+			email: lawyerDocument.email,
+			id: lawyerDocument.id,
+			calendlyLink: lawyerDocument.calendlyLink,
 		};
 
 		res.send(lawyer);

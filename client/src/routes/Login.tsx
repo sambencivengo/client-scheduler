@@ -2,7 +2,7 @@ import { Box, Button, Center, Flex, Heading, Spinner } from '@chakra-ui/react';
 import React from 'react';
 import { colors } from '../theme';
 import { Form, Formik } from 'formik';
-import { CreateLawyer } from '../schema';
+import { LoginLawyer } from '../schema';
 import { InputField } from '../components/InputField';
 import { ErrorAlert } from '../components/ErrorAlert';
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +32,7 @@ export const Login: React.FC = () => {
 				validateOnChange={false}
 				validateOnBlur={false}
 				initialValues={{ email: '', password: '' }}
-				validationSchema={CreateLawyer.uiSchema}
+				validationSchema={LoginLawyer.uiSchema}
 				onSubmit={async (args) => {
 					const success = await login(args);
 					if (success) {

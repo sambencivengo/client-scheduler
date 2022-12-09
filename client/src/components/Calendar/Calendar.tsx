@@ -6,9 +6,10 @@ import { colors } from '../../theme';
 interface CalendarProps {
 	email: string;
 	name: string;
+	calendlyLink: string;
 }
 
-export const Calendar = ({ email, name }: CalendarProps) => {
+export const Calendar = ({ email, name, calendlyLink }: CalendarProps) => {
 	const width = useBreakpointValue({ base: '400px', md: '800px' });
 
 	const calendlyEmail = email === '' ? 'bekahotis@gmail.com' : email;
@@ -25,7 +26,7 @@ export const Calendar = ({ email, name }: CalendarProps) => {
 					email: `${calendlyEmail}`,
 					name: `${name}`,
 				}}
-				url="https://calendly.com/sambencivengo" //TODO: ENV VARIABLE FOR CALENDAR NAME
+				url={calendlyLink} //TODO: ENV VARIABLE FOR CALENDAR NAME
 			/>
 		</Box>
 	);
