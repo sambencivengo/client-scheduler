@@ -117,12 +117,21 @@ export const DefendantProfile = ({ defendant }: DefendantProfileProps) => {
 										</Center>
 									</Box>
 								) : (
-									<Button
-										mt={4}
-										onClick={() => setIsConfirming(true)}
-									>
-										Save
-									</Button>
+									<HStack mt={4}>
+										<Button
+											onClick={() => setIsEditing(false)}
+										>
+											Back
+										</Button>
+										<Button
+											mt={4}
+											onClick={() =>
+												setIsConfirming(true)
+											}
+										>
+											Save
+										</Button>
+									</HStack>
 								)}
 							</Center>
 						</Box>
@@ -169,9 +178,7 @@ export const DefendantProfile = ({ defendant }: DefendantProfileProps) => {
 					/>
 				</VStack>
 				<Center>
-					<Button onClick={() => setIsEditing(!isEditing)}>
-						Edit
-					</Button>
+					<Button onClick={() => setIsEditing(true)}>Edit</Button>
 				</Center>
 			</VStack>
 		</Flex>
