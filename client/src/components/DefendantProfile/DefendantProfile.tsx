@@ -7,6 +7,7 @@ import {
 	Heading,
 	HStack,
 } from '@chakra-ui/react';
+import axios from 'axios';
 import { Formik, Form } from 'formik'; // <== this correct import
 import React from 'react';
 import { EditDefendant } from '../../schema';
@@ -20,10 +21,12 @@ interface DefendantProfileProps {
 	defendant: DefendantInterface;
 }
 
-export const DefendantProfile = ({ defendant }: DefendantProfileProps) => {
+export const DefendantProfile = ({ defendant: def }: DefendantProfileProps) => {
+	const [defendant, setDefendant] = React.useState<DefendantInterface>(def);
 	const [isEditing, setIsEditing] = React.useState<boolean>(false);
 	const [isConfirming, setIsConfirming] = React.useState<boolean>(false);
-	const { firstName, lastName, phoneNumber, email, meetingType } = defendant;
+	const { firstName, lastName, phoneNumber, email, meetingType, _id } =
+		defendant;
 
 	if (isEditing) {
 		return (
@@ -45,13 +48,16 @@ export const DefendantProfile = ({ defendant }: DefendantProfileProps) => {
 					email,
 					meetingType,
 				}) => {
-					console.log({
+					const { data } = await axios.put(`/api/defendants/${_id}`, {
 						firstName,
 						lastName,
 						phoneNumber,
 						email,
 						meetingType,
 					});
+					setDefendant(data);
+					setIsConfirming(false);
+					setIsEditing(false);
 				}}
 			>
 				{({ isSubmitting }) => (
