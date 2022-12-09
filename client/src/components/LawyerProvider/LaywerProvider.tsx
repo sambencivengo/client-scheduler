@@ -11,13 +11,16 @@ interface LawyerContextData {
 	isLoading: boolean;
 	requestError: AxiosError | null;
 	lawyer: Lawyer | null;
-	login: (a: LoginAndRegisterArgs) => Promise<boolean>;
+	login: (a: LoginArgs) => Promise<boolean>;
 	logout: () => Promise<boolean>;
-	register: (a: LoginAndRegisterArgs) => Promise<boolean>;
+	register: (a: RegisterArgs) => Promise<boolean>;
 }
-interface LoginAndRegisterArgs {
+interface LoginArgs {
 	email: string;
 	password: string;
+}
+interface RegisterArgs extends LoginArgs {
+	calendlyLink: string;
 }
 
 const LawyerContext = React.createContext<LawyerContextData>({
@@ -63,7 +66,7 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 		getMe();
 	}, []);
 
-	const login = async ({ email, password }: LoginAndRegisterArgs) => {
+	const login = async ({ email, password }: LoginArgs) => {
 		try {
 			await axios.post('/api/lawyers/login', {
 				email,
@@ -81,11 +84,16 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 		}
 	};
 
-	const register = async ({ email, password }: LoginAndRegisterArgs) => {
+	const register = async ({
+		email,
+		password,
+		calendlyLink,
+	}: RegisterArgs) => {
 		try {
 			await axios.post('/api/lawyers', {
 				email,
 				password,
+				calendlyLink,
 			});
 			setIsLoading(false);
 			getMe();

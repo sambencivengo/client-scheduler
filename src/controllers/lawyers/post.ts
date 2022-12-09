@@ -7,6 +7,7 @@ import { Lawyer } from '../../models';
 export const post: Handler = async (req, res) => {
 	try {
 		const { body } = req;
+		console.log({ body });
 
 		// TODO: util validation method
 		try {
@@ -16,13 +17,14 @@ export const post: Handler = async (req, res) => {
 			return;
 		}
 
-		const { email, password } = body;
+		const { email, password, calendlyLink } = body;
 
 		const hashedPassword = await argon2.hash(password);
 
 		const lawyer = new Lawyer({
 			email,
 			password: hashedPassword,
+			calendlyLink,
 		});
 		await lawyer.save();
 

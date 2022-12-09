@@ -31,10 +31,16 @@ export const Register: React.FC = () => {
 			<Formik
 				validateOnChange={false}
 				validateOnBlur={false}
-				initialValues={{ email: '', password: '' }}
+				initialValues={{ email: '', password: '', calendlyLink: '' }}
 				validationSchema={CreateLawyer.uiSchema}
-				onSubmit={async ({ email, password }) => {
-					const success = await register({ email, password });
+				onSubmit={async ({ email, password, calendlyLink }) => {
+					console.log(email, password, calendlyLink);
+
+					const success = await register({
+						email,
+						password,
+						calendlyLink,
+					});
 					if (success) {
 						navigate('/');
 					}
@@ -50,6 +56,10 @@ export const Register: React.FC = () => {
 								name="password"
 								label="Password"
 								type="password"
+							/>
+							<InputField
+								name="calendlyLink"
+								label="Calendly Link"
 							/>
 						</Flex>
 						<Button isLoading={isSubmitting} mt={4} type="submit">

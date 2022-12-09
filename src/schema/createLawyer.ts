@@ -16,6 +16,17 @@ const schema = yup.object({
 			PASSWORD_LENGTH,
 			`Password must be at least ${PASSWORD_LENGTH} characters long`
 		),
+	calendlyLink: yup
+		.string()
+		.trim()
+		.required()
+		.test(
+			'calendlyLink',
+			'Please enter a valid Calendy link',
+			(val: string | undefined) => {
+				return val!.includes('https://calendly.com/');
+			}
+		),
 });
 
 export type UiValues = yup.InferType<typeof uiSchema>;
