@@ -6,6 +6,7 @@ import {
 	Th,
 	Tbody,
 	Td,
+	Button,
 } from '@chakra-ui/react';
 import React from 'react';
 import dayjs from 'dayjs';
@@ -47,6 +48,9 @@ export const DefendantsTable: React.FC<DefendantsTableProps> = ({
 							{defendant.email === '' ? 'N/A' : defendant.email}
 						</Td>
 						<Td>{defendant.meetingType}</Td>
+						<Td>
+							<Button>Edit</Button>
+						</Td>
 					</Tr>
 				))}
 			</Tbody>
