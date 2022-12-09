@@ -6,11 +6,11 @@ import {
 	Th,
 	Tbody,
 	Td,
-	Button,
 } from '@chakra-ui/react';
 import React from 'react';
 import dayjs from 'dayjs';
 import { DefendantInterface } from '../../types/DefendantInterface';
+import { Link } from 'react-router-dom';
 
 interface DefendantsTableProps {
 	defendants: DefendantInterface[];
@@ -49,7 +49,9 @@ export const DefendantsTable: React.FC<DefendantsTableProps> = ({
 						</Td>
 						<Td>{defendant.meetingType}</Td>
 						<Td>
-							<Button>Edit</Button>
+							<Link to={`/defendants?${defendant._id}`}>
+								View
+							</Link>
 						</Td>
 					</Tr>
 				))}
