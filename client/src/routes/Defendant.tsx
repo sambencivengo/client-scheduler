@@ -48,5 +48,5 @@ export const Defendant: React.FC = () => {
 	}
 	if (requestError) return <ErrorAlert error={requestError} />;
 
-	return <DefendantProfile defendant={defendant} />;
+	return <DefendantProfile selectedDefendant={defendant} />;
 };

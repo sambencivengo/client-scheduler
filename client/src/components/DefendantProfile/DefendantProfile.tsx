@@ -1,149 +1,31 @@
-import {
-	Button,
-	Center,
-	Flex,
-	VStack,
-	Box,
-	Heading,
-	HStack,
-} from '@chakra-ui/react';
-import axios from 'axios';
-import { Formik, Form } from 'formik'; // <== this correct import
+import { Button, Center, Flex, VStack } from '@chakra-ui/react';
 import React from 'react';
-import { EditDefendant } from '../../schema';
 import { colors } from '../../theme';
 import { DefendantInterface } from '../../types/DefendantInterface';
 import { DefendantCardText } from '../DefendantCard/DefendantCardText';
-
-import { DefendantProfileEditField } from './DefendantProfileEditField';
+import { EditDefendantForm } from '../EditDefendantForm';
 
 interface DefendantProfileProps {
-	defendant: DefendantInterface;
+	selectedDefendant: DefendantInterface;
 }
 
-export const DefendantProfile = ({ defendant: def }: DefendantProfileProps) => {
-	const [defendant, setDefendant] = React.useState<DefendantInterface>(def);
+export const DefendantProfile = ({
+	selectedDefendant,
+}: DefendantProfileProps) => {
+	const [defendant, setDefendant] =
+		React.useState<DefendantInterface>(selectedDefendant);
 	const [isEditing, setIsEditing] = React.useState<boolean>(false);
 	const [isConfirming, setIsConfirming] = React.useState<boolean>(false);
-	const { firstName, lastName, phoneNumber, email, meetingType, _id } =
-		defendant;
 
 	if (isEditing) {
 		return (
-			<Formik
-				validateOnChange={false}
-				validateOnBlur={false}
-				initialValues={{
-					firstName,
-					lastName,
-					phoneNumber,
-					email,
-					meetingType,
-				}}
-				validationSchema={EditDefendant.uiSchema}
-				onSubmit={async ({
-					firstName,
-					lastName,
-					phoneNumber,
-					email,
-					meetingType,
-				}) => {
-					const { data } = await axios.put(`/api/defendants/${_id}`, {
-						firstName,
-						lastName,
-						phoneNumber,
-						email,
-						meetingType,
-					});
-					setDefendant(data);
-					setIsConfirming(false);
-					setIsEditing(false);
-				}}
-			>
-				{({ isSubmitting }) => (
-					<Form>
-						<Box
-							minWidth={{ base: 350, sm: 500 }}
-							bgColor={colors.deepNavy}
-							p={10}
-							borderRadius={20}
-						>
-							<Flex gap={4} flexDir={'column'}>
-								<DefendantProfileEditField
-									fieldLabel="First Name"
-									fieldName={'firstName'}
-								/>
-								<DefendantProfileEditField
-									fieldLabel="Last Name"
-									fieldName={'lastName'}
-								/>
-								<DefendantProfileEditField
-									fieldLabel="Number"
-									fieldName={'phoneNumber'}
-								/>
-								<DefendantProfileEditField
-									fieldLabel="Email"
-									fieldName={'email'}
-								/>
-							</Flex>
-							<Center>
-								{isConfirming ? (
-									<Box
-										mt={5}
-										borderRadius={25}
-										p={5}
-										bgColor={colors.navy}
-									>
-										<Center>
-											<VStack>
-												<Heading size={'sm'}>
-													Clicking "Confirm" will
-													update this record in the
-													database.
-												</Heading>
-												<HStack>
-													<Button
-														onClick={() =>
-															setIsConfirming(
-																false
-															)
-														}
-													>
-														Back
-													</Button>
-													<Button
-														isLoading={isSubmitting}
-														bgColor={'green'}
-														type={'submit'}
-													>
-														Confirm
-													</Button>
-												</HStack>
-											</VStack>
-										</Center>
-									</Box>
-								) : (
-									<HStack mt={4}>
-										<Button
-											onClick={() => setIsEditing(false)}
-										>
-											Back
-										</Button>
-										<Button
-											mt={4}
-											onClick={() =>
-												setIsConfirming(true)
-											}
-										>
-											Save
-										</Button>
-									</HStack>
-								)}
-							</Center>
-						</Box>
-					</Form>
-				)}
-			</Formik>
+			<EditDefendantForm
+				defendant={defendant}
+				isConfirming={isConfirming}
+				setDefendant={setDefendant}
+				setIsConfirming={setIsConfirming}
+				setIsEditing={setIsEditing}
+			/>
 		);
 	}
 
