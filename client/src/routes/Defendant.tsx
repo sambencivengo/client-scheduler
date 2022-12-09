@@ -38,6 +38,8 @@ export const Defendant: React.FC = () => {
 		getDefendant();
 	}, [defendantId]);
 
+	console.log(defendant);
+
 	if (!defendant || isLoading) {
 		return (
 			<Center>
