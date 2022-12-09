@@ -49,7 +49,7 @@ export const DefendantsTable: React.FC<DefendantsTableProps> = ({
 						</Td>
 						<Td>{defendant.meetingType}</Td>
 						<Td>
-							<Link to={`/defendants?${defendant._id}`}>
+							<Link to={`/defendants/${defendant._id}`}>
 								View
 							</Link>
 						</Td>
