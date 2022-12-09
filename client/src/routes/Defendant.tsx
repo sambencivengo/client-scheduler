@@ -1,7 +1,7 @@
-import { Center, Spinner } from '@chakra-ui/react';
+import { Button, Center, Spinner, VStack } from '@chakra-ui/react';
 import axios, { AxiosError } from 'axios';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { DefendantProfile } from '../components/DefendantProfile';
 import { ErrorAlert } from '../components/ErrorAlert';
 import { DefendantInterface } from '../types/DefendantInterface';
@@ -48,5 +48,12 @@ export const Defendant: React.FC = () => {
 	}
 	if (requestError) return <ErrorAlert error={requestError} />;
 
-	return <DefendantProfile selectedDefendant={defendant} />;
+	return (
+		<VStack spacing={9}>
+			<DefendantProfile selectedDefendant={defendant} />
+			<Link to={'/defendants'}>
+				<Button>Back to Defendants</Button>
+			</Link>
+		</VStack>
+	);
 };

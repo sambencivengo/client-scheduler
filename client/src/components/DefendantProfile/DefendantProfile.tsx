@@ -1,7 +1,9 @@
 import { Button, Center, Flex, VStack } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import React from 'react';
 import { colors } from '../../theme';
 import { DefendantInterface } from '../../types/DefendantInterface';
+import { BsPersonCircle } from 'react-icons/bs';
 import { DefendantCardText } from '../DefendantCard/DefendantCardText';
 import { EditDefendantForm } from '../EditDefendantForm';
 
@@ -38,7 +40,8 @@ export const DefendantProfile = ({
 			bgColor={colors.deepNavy}
 			justifyContent="center"
 		>
-			<VStack spacing={10}>
+			<VStack spacing={8}>
+				<BsPersonCircle size={50} />
 				<VStack alignItems={'left'}>
 					<DefendantCardText
 						field={'First Name'}
@@ -47,6 +50,12 @@ export const DefendantProfile = ({
 					<DefendantCardText
 						field={'Last Name'}
 						value={defendant.lastName}
+					/>
+					<DefendantCardText
+						field={'Day of Contact'}
+						value={dayjs(defendant.dayOfContact).format(
+							'MM/DD/YYYY'
+						)}
 					/>
 					{defendant.phoneNumber && (
 						<DefendantCardText
