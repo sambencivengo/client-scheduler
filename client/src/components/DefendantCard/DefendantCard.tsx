@@ -1,4 +1,4 @@
-import { Flex, VStack } from '@chakra-ui/react';
+import { Button, Center, Flex, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { colors } from '../../theme';
 import { DefendantInterface } from '../../types/DefendantInterface';
@@ -16,7 +16,7 @@ export const DefendantCard = ({ defendant }: DefendantCardProps) => {
 		<Flex
 			minW={'300px'}
 			gap={1}
-			p={10}
+			p={8}
 			borderRadius={20}
 			bgColor={colors.deepNavy}
 		>
@@ -31,7 +31,14 @@ export const DefendantCard = ({ defendant }: DefendantCardProps) => {
 					value={meetingType}
 					tag={true}
 				/>
-				<Link to={`/defendants/${defendant._id}`}>View</Link>
+				<Center>
+					<Link
+						style={{ marginTop: 10 }}
+						to={`/defendants/${defendant._id}`}
+					>
+						<Button>View</Button>
+					</Link>
+				</Center>
 			</VStack>
 		</Flex>
 	);
