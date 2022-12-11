@@ -1,13 +1,13 @@
-import * as createDefendant from './createDefendant';
-import * as getDefendant from './getDefendant';
+import * as createClient from './createClient';
+import * as getClient from './getClient';
 import * as createLawyer from './createLawyer';
 import * as loginLawyer from './loginLawyer';
-import * as editDefendant from './editDefendant';
+import * as editClient from './editClient';
 
 const Schema = {
-	createDefendant,
-	editDefendant,
-	getDefendant,
+	createClient,
+	editClient,
+	getClient,
 	createLawyer,
 	loginLawyer,
 };

@@ -1,6 +1,6 @@
-import * as Defendants from './defendants';
+import * as Clients from './clients';
 import * as Lawyers from './lawyers';
 
-const API = { Defendants, Lawyers };
+const API = { Clients, Lawyers };
 
 export default API;

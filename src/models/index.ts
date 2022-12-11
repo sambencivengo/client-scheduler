@@ -1,4 +1,4 @@
-import { Defendant } from './defendant';
+import { Client } from './client';
 import { Lawyer } from './lawyer';
 
-export { Defendant, Lawyer };
+export { Client, Lawyer };

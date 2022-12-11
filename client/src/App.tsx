@@ -1,8 +1,8 @@
 import { Box, Center } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DefendantForm } from './components/DefendantForm';
+import { ClientForm } from './components/ClientForm';
 import { NavBar } from './components/NavBar';
-import { Defendant, Defendants, Home, Login, Register } from './routes';
+import { Client, Clients, Home, Login, Register } from './routes';
 
 const App = () => (
 	<>
@@ -15,15 +15,9 @@ const App = () => (
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
 
-						<Route path="/defendants" element={<Defendants />} />
-						<Route
-							path="/defendants/:defendantId"
-							element={<Defendant />}
-						/>
-						<Route
-							path="/defendants/new"
-							element={<DefendantForm />}
-						/>
+						<Route path="/clients" element={<Clients />} />
+						<Route path="/clients/:clientId" element={<Client />} />
+						<Route path="/clients/new" element={<ClientForm />} />
 					</Routes>
 				</Center>
 			</Box>

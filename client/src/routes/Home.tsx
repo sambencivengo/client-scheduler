@@ -28,13 +28,13 @@ export const Home: React.FC = () => {
 						This application is a simple client management tool. If
 						this is your first time, click the{' '}
 						<chakra.span fontWeight={800} as="i">
-							New Defendant
+							New Client
 						</chakra.span>{' '}
 						button below or use the navigation bar to add a new
 						client. Once you have added clients, they will be
 						available under the{' '}
 						<chakra.span fontWeight={800} as="i">
-							Defendants
+							Clients
 						</chakra.span>{' '}
 						tab in the navigation bar. From there you will be able
 						to query records of your clients and filter based
@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
 				</VStack>
 
 				<Button>
-					<Link to={'/defendants/new'}>New Defendant</Link>
+					<Link to={'/clients/new'}>New Client</Link>
 				</Button>
 			</VStack>
 		</Box>

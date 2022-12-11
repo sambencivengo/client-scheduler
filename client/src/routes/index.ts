@@ -1,7 +1,7 @@
-import { Defendants } from './Defendants';
+import { Clients } from './Clients';
 import { Home } from './Home';
 import { Register } from './Register';
 import { Login } from './Login';
-import { Defendant } from './Defendant';
+import { Client } from './Client';
 
-export { Defendants, Home, Register, Login, Defendant };
+export { Client, Home, Register, Login, Clients };
