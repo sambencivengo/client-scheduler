@@ -2,7 +2,6 @@ import {
 	Flex,
 	Center,
 	VStack,
-	Heading,
 	HStack,
 	Button,
 	Box,
@@ -10,6 +9,7 @@ import {
 	Radio,
 	RadioGroup,
 	Stack,
+	useToast,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import React from 'react';
@@ -23,20 +23,17 @@ import { DefendantProfileEditField } from './DefendantProfileEditField';
 interface EditDefendantFormProps {
 	defendant: DefendantInterface;
 	setDefendant: React.Dispatch<React.SetStateAction<DefendantInterface>>;
-	isConfirming: boolean;
-	setIsConfirming: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 	defendant,
-	isConfirming,
 	setDefendant,
-	setIsConfirming,
 	setIsEditing,
 }) => {
 	const [requestError, setRequestError] =
 		React.useState<ErrorAlertProps | null>(null);
+	const toast = useToast();
 	const { firstName, lastName, phoneNumber, email, meetingType, _id } =
 		defendant;
 
@@ -82,7 +79,15 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 				}
 
 				setDefendant(await res.json());
-				setIsConfirming(false);
+				toast({
+					description: 'Defendant updated',
+					status: 'success',
+					variant: 'solid',
+					duration: 4000,
+					isClosable: true,
+					containerStyle: { background: colors.navy },
+					position: 'top',
+				});
 				setIsEditing(false);
 			}}
 		>
@@ -139,57 +144,20 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 							</Flex>
 						</Flex>
 						<Center>
-							{isConfirming ? (
-								<Box
-									mt={5}
-									borderRadius={25}
-									p={5}
-									bgColor={colors.navy}
-								>
-									<Center>
-										<VStack>
-											<Heading size={'sm'}>
-												Clicking "Confirm" will update
-												this record in the database.
-											</Heading>
-											<HStack>
-												<Button
-													onClick={() =>
-														setIsConfirming(false)
-													}
-												>
-													Back
-												</Button>
-												<Button
-													isLoading={isSubmitting}
-													bgColor={'green'}
-													type={'submit'}
-												>
-													Confirm
-												</Button>
-											</HStack>
-										</VStack>
-									</Center>
-								</Box>
-							) : (
-								<VStack>
-									<HStack mt={4}>
-										<Button
-											onClick={() => setIsEditing(false)}
-										>
-											Back
-										</Button>
-										<Button
-											mt={4}
-											onClick={() =>
-												setIsConfirming(true)
-											}
-										>
-											Save
-										</Button>
-									</HStack>
-								</VStack>
-							)}
+							<VStack>
+								<HStack mt={4}>
+									<Button onClick={() => setIsEditing(false)}>
+										Back
+									</Button>
+									<Button
+										isLoading={isSubmitting}
+										bgColor={'green'}
+										type={'submit'}
+									>
+										Save
+									</Button>
+								</HStack>
+							</VStack>
 						</Center>
 						<Center>
 							{requestError && <ErrorAlert {...requestError} />}

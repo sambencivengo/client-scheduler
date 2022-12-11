@@ -18,16 +18,13 @@ export const DefendantProfile = ({
 	const [defendant, setDefendant] =
 		React.useState<DefendantInterface>(selectedDefendant);
 	const [isEditing, setIsEditing] = React.useState<boolean>(false);
-	const [isConfirming, setIsConfirming] = React.useState<boolean>(false);
 	const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
 
 	if (isEditing) {
 		return (
 			<EditDefendantForm
 				defendant={defendant}
-				isConfirming={isConfirming}
 				setDefendant={setDefendant}
-				setIsConfirming={setIsConfirming}
 				setIsEditing={setIsEditing}
 			/>
 		);
