@@ -11,6 +11,7 @@ import {
 	RadioGroup,
 	Stack,
 	useToast,
+	VStack,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import React from 'react';
@@ -19,6 +20,7 @@ import { colors } from '../../theme';
 import { DefendantInterface } from '../../types/DefendantInterface';
 import { MeetingType } from '../../types/MeetingType';
 import { Calendar } from '../Calendar';
+import { ErrorAlert, ErrorAlertProps } from '../ErrorAlert';
 import { useLawyer } from '../LawyerProvider';
 
 export const DefendantForm = () => {
@@ -26,6 +28,8 @@ export const DefendantForm = () => {
 	const [name, setName] = React.useState('');
 	const [email, setEmail] = React.useState('');
 	const [showCalendly, setShowCalendly] = React.useState(false);
+	const [requestError, setRequestError] =
+		React.useState<ErrorAlertProps | null>(null);
 	const { lawyer } = useLawyer();
 
 	const toast = useToast();
@@ -57,7 +61,7 @@ export const DefendantForm = () => {
 			};
 
 			try {
-				const res = await fetch('/api/defendants', {
+				const res = await fetch('/api/defensdants', {
 					method: 'POST',
 					headers: {
 						'content-type': 'application/json',
@@ -65,6 +69,13 @@ export const DefendantForm = () => {
 					body: JSON.stringify({ ...payload }),
 				});
 
+				if (!res.ok) {
+					setRequestError({
+						header: 'Unable to submit form',
+						message: `Unable to create defendant. (Error Code: ${res.status})`,
+					});
+					return;
+				}
 				const defendant = (await res.json()) as DefendantInterface;
 
 				setEmail(defendant.email ?? '');
@@ -82,17 +93,6 @@ export const DefendantForm = () => {
 				setShowCalendly(true);
 			} catch (error) {
 				console.error(error);
-				toast({
-					description: 'Unable to submit form',
-					status: 'error',
-					variant: 'solid',
-					duration: 4000,
-					isClosable: true,
-					containerStyle: {
-						background: colors.warning,
-					},
-					position: 'top',
-				});
 			}
 		},
 	});
@@ -202,14 +202,17 @@ export const DefendantForm = () => {
 					</Flex>
 
 					<Center>
-						<Button
-							isLoading={formik.isSubmitting}
-							mt={5}
-							size="md"
-							type="submit"
-						>
-							Submit
-						</Button>
+						<VStack>
+							<Button
+								isLoading={formik.isSubmitting}
+								mt={5}
+								size="md"
+								type="submit"
+							>
+								Submit
+							</Button>
+							{requestError && <ErrorAlert {...requestError} />}
+						</VStack>
 					</Center>
 				</form>
 			</Flex>
