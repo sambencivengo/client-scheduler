@@ -61,7 +61,7 @@ export const DefendantForm = () => {
 			};
 
 			try {
-				const res = await fetch('/api/defensdants', {
+				const res = await fetch('/api/defendants', {
 					method: 'POST',
 					headers: {
 						'content-type': 'application/json',
