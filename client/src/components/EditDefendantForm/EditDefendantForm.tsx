@@ -6,6 +6,10 @@ import {
 	HStack,
 	Button,
 	Box,
+	FormLabel,
+	Radio,
+	RadioGroup,
+	Stack,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { Formik, Form } from 'formik';
@@ -13,6 +17,7 @@ import React from 'react';
 import { EditDefendant } from '../../schema';
 import { colors } from '../../theme';
 import { DefendantInterface } from '../../types/DefendantInterface';
+import { MeetingType } from '../../types/MeetingType';
 import { DefendantProfileEditField } from './DefendantProfileEditField';
 
 interface EditDefendantFormProps {
@@ -32,6 +37,7 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 }) => {
 	const { firstName, lastName, phoneNumber, email, meetingType, _id } =
 		defendant;
+
 	return (
 		<Formik
 			validateOnChange={false}
@@ -63,7 +69,7 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 				setIsEditing(false);
 			}}
 		>
-			{({ isSubmitting }) => (
+			{({ isSubmitting, values }) => (
 				<Form>
 					<Box
 						minWidth={{ base: 350, sm: 500 }}
@@ -88,6 +94,32 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 								fieldLabel="Email"
 								fieldName={'email'}
 							/>
+							<Flex justifyContent={'space-between'}>
+								<FormLabel>Meeting Type</FormLabel>
+								<RadioGroup
+									defaultValue={defendant.meetingType}
+									id="meetingType"
+									onChange={(val) =>
+										(values.meetingType =
+											val as MeetingType)
+									}
+								>
+									<Stack spacing={5} direction="row">
+										<Radio
+											name="meetingType"
+											value={MeetingType.InPerson}
+										>
+											{MeetingType.InPerson}
+										</Radio>
+										<Radio
+											name="meetingType"
+											value={MeetingType.Phone}
+										>
+											{MeetingType.Phone}
+										</Radio>
+									</Stack>
+								</RadioGroup>
+							</Flex>
 						</Flex>
 						<Center>
 							{isConfirming ? (
@@ -123,17 +155,23 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 									</Center>
 								</Box>
 							) : (
-								<HStack mt={4}>
-									<Button onClick={() => setIsEditing(false)}>
-										Back
-									</Button>
-									<Button
-										mt={4}
-										onClick={() => setIsConfirming(true)}
-									>
-										Save
-									</Button>
-								</HStack>
+								<VStack>
+									<HStack mt={4}>
+										<Button
+											onClick={() => setIsEditing(false)}
+										>
+											Back
+										</Button>
+										<Button
+											mt={4}
+											onClick={() =>
+												setIsConfirming(true)
+											}
+										>
+											Save
+										</Button>
+									</HStack>
+								</VStack>
 							)}
 						</Center>
 					</Box>

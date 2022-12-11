@@ -17,6 +17,8 @@ export const put: Handler = async (req, res) => {
 		const { firstName, lastName, phoneNumber, email, meetingType } =
 			req.body;
 
+		console.log(req.body);
+
 		const defendant = await Defendant.findOne({
 			_id: defendantId,
 			lawyer: lawyerId,

@@ -1,4 +1,4 @@
-import { Button, Center, Flex, VStack } from '@chakra-ui/react';
+import { Button, Center, Flex, HStack, VStack } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import React from 'react';
 import { colors } from '../../theme';
@@ -6,6 +6,7 @@ import { DefendantInterface } from '../../types/DefendantInterface';
 import { BsPersonCircle } from 'react-icons/bs';
 import { DefendantCardText } from '../DefendantCard/DefendantCardText';
 import { EditDefendantForm } from '../EditDefendantForm';
+import { DeleteDefendantConfirmation } from '../DeleteDefendantConfirmation';
 
 interface DefendantProfileProps {
 	selectedDefendant: DefendantInterface;
@@ -18,6 +19,7 @@ export const DefendantProfile = ({
 		React.useState<DefendantInterface>(selectedDefendant);
 	const [isEditing, setIsEditing] = React.useState<boolean>(false);
 	const [isConfirming, setIsConfirming] = React.useState<boolean>(false);
+	const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
 
 	if (isEditing) {
 		return (
@@ -75,7 +77,23 @@ export const DefendantProfile = ({
 					/>
 				</VStack>
 				<Center>
-					<Button onClick={() => setIsEditing(true)}>Edit</Button>
+					{isDeleting ? (
+						<DeleteDefendantConfirmation
+							setIsDeleting={setIsDeleting}
+						/>
+					) : (
+						<HStack>
+							<Button onClick={() => setIsEditing(true)}>
+								Edit
+							</Button>
+							<Button
+								bgColor={colors.red}
+								onClick={() => setIsDeleting(true)}
+							>
+								Delete
+							</Button>
+						</HStack>
+					)}
 				</Center>
 			</VStack>
 		</Flex>
