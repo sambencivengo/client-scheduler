@@ -25,8 +25,8 @@ export const Home: React.FC = () => {
 				</Heading>
 				<VStack maxW={600}>
 					<Text fontSize={'20px'}>
-						This application is a simple client management tool. If
-						this is your first time, click the{' '}
+						This application is a simple client management tool for
+						public defenders. If this is your first time, click the{' '}
 						<chakra.span fontWeight={800} as="i">
 							New Client
 						</chakra.span>{' '}

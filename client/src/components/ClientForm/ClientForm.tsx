@@ -6,6 +6,7 @@ import {
 	FormControl,
 	FormHelperText,
 	FormLabel,
+	Heading,
 	Input,
 	Radio,
 	RadioGroup,
@@ -114,108 +115,113 @@ export const ClientForm = () => {
 	}
 
 	return (
-		<Box
-			minWidth={{ base: 350, sm: 500 }}
-			bgColor={colors.deepNavy}
-			p={10}
-			borderRadius={20}
-		>
-			<Flex flexDir={'column'}>
-				<form
-					onSubmit={formik.handleSubmit}
-					onReset={formik.handleReset}
-				>
-					<FormControl isRequired id="firstName">
-						<FormLabel>First Name</FormLabel>
-						<Input
-							id="firstName"
-							defaultValue={formik.values.firstName}
-							disabled={formik.isSubmitting}
-							onChange={formik.handleChange}
-							isInvalid={!!formik.errors.firstName}
-						/>
-						<FormHelperText color={colors.warning}>
-							{formik.errors.firstName}&nbsp;
-						</FormHelperText>
-					</FormControl>
+		<VStack gap={5}>
+			<Heading>New Client</Heading>
+			<Box
+				minWidth={{ base: 350, sm: 500 }}
+				bgColor={colors.deepNavy}
+				p={10}
+				borderRadius={20}
+			>
+				<Flex flexDir={'column'}>
+					<form
+						onSubmit={formik.handleSubmit}
+						onReset={formik.handleReset}
+					>
+						<FormControl isRequired id="firstName">
+							<FormLabel>First Name</FormLabel>
+							<Input
+								id="firstName"
+								defaultValue={formik.values.firstName}
+								disabled={formik.isSubmitting}
+								onChange={formik.handleChange}
+								isInvalid={!!formik.errors.firstName}
+							/>
+							<FormHelperText color={colors.warning}>
+								{formik.errors.firstName}&nbsp;
+							</FormHelperText>
+						</FormControl>
 
-					<FormControl isRequired id="lastName">
-						<FormLabel>Last Name</FormLabel>
-						<Input
-							id="lastName"
-							defaultValue={formik.values.lastName}
-							disabled={formik.isSubmitting}
-							onChange={formik.handleChange}
-							isInvalid={!!formik.errors.lastName}
-						/>
-						<FormHelperText color={colors.warning}>
-							{formik.errors.lastName}&nbsp;
-						</FormHelperText>
-					</FormControl>
+						<FormControl isRequired id="lastName">
+							<FormLabel>Last Name</FormLabel>
+							<Input
+								id="lastName"
+								defaultValue={formik.values.lastName}
+								disabled={formik.isSubmitting}
+								onChange={formik.handleChange}
+								isInvalid={!!formik.errors.lastName}
+							/>
+							<FormHelperText color={colors.warning}>
+								{formik.errors.lastName}&nbsp;
+							</FormHelperText>
+						</FormControl>
 
-					<FormControl id="email">
-						<FormLabel>Email</FormLabel>
-						<Input
-							id="email"
-							defaultValue={formik.values.email}
-							disabled={formik.isSubmitting}
-							onChange={formik.handleChange}
-							isInvalid={!!formik.errors.email}
-						/>
-						<FormHelperText color={colors.warning}>
-							{formik.errors.email}&nbsp;
-						</FormHelperText>
-					</FormControl>
+						<FormControl id="email">
+							<FormLabel>Email</FormLabel>
+							<Input
+								id="email"
+								defaultValue={formik.values.email}
+								disabled={formik.isSubmitting}
+								onChange={formik.handleChange}
+								isInvalid={!!formik.errors.email}
+							/>
+							<FormHelperText color={colors.warning}>
+								{formik.errors.email}&nbsp;
+							</FormHelperText>
+						</FormControl>
 
-					<FormControl id="phoneNumber">
-						<FormLabel>Phone number</FormLabel>
-						<Input
-							id="phoneNumber"
-							defaultValue={formik.values.phoneNumber}
-							disabled={formik.isSubmitting}
-							onChange={formik.handleChange}
-							isInvalid={!!formik.errors.phoneNumber}
-						/>
-						<FormHelperText color={colors.warning}>
-							{formik.errors.phoneNumber as string}&nbsp;
-						</FormHelperText>
-					</FormControl>
+						<FormControl id="phoneNumber">
+							<FormLabel>Phone number</FormLabel>
+							<Input
+								id="phoneNumber"
+								defaultValue={formik.values.phoneNumber}
+								disabled={formik.isSubmitting}
+								onChange={formik.handleChange}
+								isInvalid={!!formik.errors.phoneNumber}
+							/>
+							<FormHelperText color={colors.warning}>
+								{formik.errors.phoneNumber as string}&nbsp;
+							</FormHelperText>
+						</FormControl>
 
-					<Flex justifyContent={'space-between'}>
-						<FormLabel>Meeting Type</FormLabel>
-						<RadioGroup
-							onChange={(value: MeetingType) =>
-								formik.setFieldValue('meetingType', value)
-							}
-							defaultValue={MeetingType.InPerson}
-							id="meetingType"
-						>
-							<Stack spacing={5} direction="row">
-								<Radio value={MeetingType.InPerson}>
-									{MeetingType.InPerson}
-								</Radio>
-								<Radio value={MeetingType.Phone}>
-									{MeetingType.Phone}
-								</Radio>
-							</Stack>
-						</RadioGroup>
-					</Flex>
-
-					<Center>
-						<VStack>
-							<Button
-								isLoading={formik.isSubmitting}
-								mt={5}
-								size="md"
-								type="submit"
+						<Flex justifyContent={'space-between'}>
+							<FormLabel>Meeting Type</FormLabel>
+							<RadioGroup
+								onChange={(value: MeetingType) =>
+									formik.setFieldValue('meetingType', value)
+								}
+								defaultValue={MeetingType.InPerson}
+								id="meetingType"
 							>
-								Submit
-							</Button>
-							{requestError && <ErrorAlert {...requestError} />}
-						</VStack>
-					</Center>
-				</form>
-			</Flex>
-		</Box>
+								<Stack spacing={5} direction="row">
+									<Radio value={MeetingType.InPerson}>
+										{MeetingType.InPerson}
+									</Radio>
+									<Radio value={MeetingType.Phone}>
+										{MeetingType.Phone}
+									</Radio>
+								</Stack>
+							</RadioGroup>
+						</Flex>
+
+						<Center>
+							<VStack>
+								<Button
+									isLoading={formik.isSubmitting}
+									mt={5}
+									size="md"
+									type="submit"
+								>
+									Submit
+								</Button>
+								{requestError && (
+									<ErrorAlert {...requestError} />
+								)}
+							</VStack>
+						</Center>
+					</form>
+				</Flex>
+			</Box>
+		</VStack>
 	);
 };
