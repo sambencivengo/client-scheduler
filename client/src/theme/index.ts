@@ -13,8 +13,8 @@ export const colors = {
 	greyBlue: '#415A77',
 	lightGreyBlue: '#778DA9',
 	paperGrey: '#E0E1DD',
-	red: '#8B0000',
-	warning: '#ffae00',
+	red: '#bf0a30',
+	warning: '#ffd700',
 };
 
 export const theme = extendTheme({
