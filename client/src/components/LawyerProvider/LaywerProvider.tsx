@@ -1,7 +1,8 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import React from 'react';
 
 import { Lawyer } from '../../types/Lawyer';
+import { ErrorAlertProps } from '../ErrorAlert';
 
 interface LawyerProviderProps {
 	children: React.ReactNode;
@@ -9,7 +10,7 @@ interface LawyerProviderProps {
 
 interface LawyerContextData {
 	isLoading: boolean;
-	requestError: AxiosError | null;
+	requestError: ErrorAlertProps | null;
 	lawyer: Lawyer | null;
 	login: (a: LoginArgs) => Promise<boolean>;
 	logout: () => Promise<boolean>;
@@ -35,9 +36,8 @@ const LawyerContext = React.createContext<LawyerContextData>({
 export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [lawyer, setLawyer] = React.useState<Lawyer | null>(null);
-	const [requestError, setRequestError] = React.useState<AxiosError | null>(
-		null
-	);
+	const [requestError, setRequestError] =
+		React.useState<ErrorAlertProps | null>(null);
 
 	const getMe = async (): Promise<void> => {
 		try {
@@ -77,7 +77,10 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 			getMe();
 			return true;
 		} catch (error) {
-			setRequestError(error as AxiosError);
+			setRequestError({
+				header: 'Unable to login',
+				message: 'Encountered an error logging in',
+			});
 			setIsLoading(false);
 			console.error(error);
 			return false;
@@ -99,7 +102,10 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 			getMe();
 			return true;
 		} catch (error) {
-			setRequestError(error as AxiosError);
+			setRequestError({
+				header: 'Signup error',
+				message: 'Unable to sign up',
+			});
 			setIsLoading(false);
 			console.error(error);
 			return false;

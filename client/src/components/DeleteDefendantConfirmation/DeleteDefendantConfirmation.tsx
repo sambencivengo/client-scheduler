@@ -6,11 +6,11 @@ import {
 	useToast,
 	VStack,
 } from '@chakra-ui/react';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { colors } from '../../theme';
-import { ErrorAlert } from '../ErrorAlert';
+import { ErrorAlert, ErrorAlertProps } from '../ErrorAlert';
 
 interface DeleteDefendantConfirmationProps {
 	setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,16 +19,27 @@ interface DeleteDefendantConfirmationProps {
 export const DeleteDefendantConfirmation: React.FC<
 	DeleteDefendantConfirmationProps
 > = ({ setIsDeleting }) => {
-	const [requestError, setRequestError] = React.useState<AxiosError | null>(
-		null
-	);
+	const [requestError, setRequestError] =
+		React.useState<ErrorAlertProps | null>(null);
 	const { defendantId } = useParams();
 	const toast = useToast();
 	const navigate = useNavigate();
 
 	const deleteDefendant = async () => {
 		try {
-			await axios.delete(`/api/defendants/${defendantId}`);
+			const res = await fetch(`/api/defendants/${defendantId}`, {
+				method: 'DELETE',
+				headers: {
+					'content-type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				setRequestError({
+					header: 'Unable to delete defendant',
+					message: `${await res.text()} (Error Code: ${res.status})`,
+				});
+				return;
+			}
 			toast({
 				description: `Defendant successfully deleted from the database`,
 				status: 'success',
@@ -41,7 +52,7 @@ export const DeleteDefendantConfirmation: React.FC<
 			navigate('/defendants');
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
-				setRequestError(error as AxiosError);
+				// setRequestError(error as AxiosError);
 				console.error(error);
 			} else {
 				console.error(error);
@@ -68,7 +79,7 @@ export const DeleteDefendantConfirmation: React.FC<
 					</Button>
 				</HStack>
 			</Center>
-			{requestError && <ErrorAlert error={requestError} />}
+			{requestError && <ErrorAlert {...requestError} />}
 		</VStack>
 	);
 };

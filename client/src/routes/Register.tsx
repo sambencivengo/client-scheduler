@@ -64,7 +64,7 @@ export const Register: React.FC = () => {
 					</Form>
 				)}
 			</Formik>
-			{requestError && <ErrorAlert error={requestError} />}
+			{requestError && <ErrorAlert {...requestError} />}
 		</Box>
 	);
 };

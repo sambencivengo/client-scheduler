@@ -7,10 +7,10 @@ import {
 	useBreakpointValue,
 } from '@chakra-ui/react';
 import React from 'react';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { DefendantCard } from '../components/DefendantCard';
 import { DefendantInterface } from '../types/DefendantInterface';
-import { ErrorAlert } from '../components/ErrorAlert';
+import { ErrorAlert, ErrorAlertProps } from '../components/ErrorAlert';
 import dayjs from 'dayjs';
 import { DefendantsTable } from '../components/DefendantsTable';
 import { MeetingType } from '../types/MeetingType';
@@ -21,7 +21,8 @@ export const Defendants: React.FC = () => {
 	const [defendants, setDefendants] = React.useState<
 		DefendantInterface[] | null
 	>(null);
-	const [requestError, setRequestError] = React.useState<AxiosError>();
+	const [requestError, setRequestError] =
+		React.useState<ErrorAlertProps | null>(null);
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 	const [startDate, setStartDate] = React.useState<Date>(
 		dayjs().subtract(7, 'days').toDate() // Set start at 1 week ago
@@ -49,7 +50,10 @@ export const Defendants: React.FC = () => {
 				setIsLoading(false);
 			} catch (error) {
 				if (axios.isAxiosError(error)) {
-					setRequestError(error);
+					setRequestError({
+						header: 'Unable to GET Defendants',
+						message: 'Error fetching defendants',
+					});
 					setIsLoading(false);
 					console.error(error);
 				} else {
@@ -60,7 +64,7 @@ export const Defendants: React.FC = () => {
 		getDefendants();
 	}, [startDate, endDate, meetingType]);
 
-	if (requestError) return <ErrorAlert error={requestError} />;
+	if (requestError) return <ErrorAlert {...requestError} />;
 
 	if (!defendants || isLoading) {
 		return (

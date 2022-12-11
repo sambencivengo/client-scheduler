@@ -1,15 +1,15 @@
 import { Button, Center, Spinner, VStack } from '@chakra-ui/react';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DefendantProfile } from '../components/DefendantProfile';
-import { ErrorAlert } from '../components/ErrorAlert';
+import { ErrorAlert, ErrorAlertProps } from '../components/ErrorAlert';
 import { DefendantInterface } from '../types/DefendantInterface';
 
 export const Defendant: React.FC = () => {
 	const { defendantId } = useParams();
 	const [isLoading, setIsLoading] = React.useState(false);
-	const [requestError, setRequestError] = React.useState<AxiosError>();
+	const [requestError, setRequestError] = React.useState<ErrorAlertProps>();
 	const [defendant, setDefendant] = React.useState<DefendantInterface | null>(
 		null
 	);
@@ -27,7 +27,10 @@ export const Defendant: React.FC = () => {
 				setDefendant(data);
 			} catch (error) {
 				if (axios.isAxiosError(error)) {
-					setRequestError(error);
+					setRequestError({
+						header: 'Unable to retrieve defendant',
+						message: 'Unable to retrieve defendant',
+					});
 					setIsLoading(false);
 					console.error(error);
 				} else {
@@ -46,7 +49,7 @@ export const Defendant: React.FC = () => {
 			</Center>
 		);
 	}
-	if (requestError) return <ErrorAlert error={requestError} />;
+	if (requestError) return <ErrorAlert {...requestError} />;
 
 	return (
 		<VStack spacing={9}>
