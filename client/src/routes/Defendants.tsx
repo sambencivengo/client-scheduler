@@ -7,7 +7,6 @@ import {
 	useBreakpointValue,
 } from '@chakra-ui/react';
 import React from 'react';
-import axios from 'axios';
 import { DefendantCard } from '../components/DefendantCard';
 import { DefendantInterface } from '../types/DefendantInterface';
 import { ErrorAlert, ErrorAlertProps } from '../components/ErrorAlert';
@@ -41,24 +40,21 @@ export const Defendants: React.FC = () => {
 
 		const getDefendants = async (): Promise<void> => {
 			try {
-				const { data } = await axios.get(
-					`/api/defendants?${queryString.toString()}`,
-					{ withCredentials: true }
+				const res = await fetch(
+					`/api/defendants?${queryString.toString()}`
 				);
 
-				setDefendants(data);
+				if (!res.ok) {
+					setRequestError({
+						header: 'Error fetching defendants',
+						message: `Unable to get defendants. (Error Code: ${res.status})`,
+					});
+					return;
+				}
+				setDefendants(await res.json());
 				setIsLoading(false);
 			} catch (error) {
-				if (axios.isAxiosError(error)) {
-					setRequestError({
-						header: 'Unable to GET Defendants',
-						message: 'Error fetching defendants',
-					});
-					setIsLoading(false);
-					console.error(error);
-				} else {
-					console.error(error);
-				}
+				console.error(error);
 			}
 		};
 		getDefendants();

@@ -6,7 +6,6 @@ import {
 	useToast,
 	VStack,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { colors } from '../../theme';
@@ -51,12 +50,7 @@ export const DeleteDefendantConfirmation: React.FC<
 			});
 			navigate('/defendants');
 		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				// setRequestError(error as AxiosError);
-				console.error(error);
-			} else {
-				console.error(error);
-			}
+			console.error(error);
 		}
 	};
 
