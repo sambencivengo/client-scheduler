@@ -1,5 +1,5 @@
 import { phoneUtils } from './phoneUtils';
 import { validateDate } from './validateDateUtil';
-import { buildDefendantFilter } from './buildDefendantFilter';
+import { buildClientFilter } from './buildClientFilter';
 
-export { phoneUtils, validateDate, buildDefendantFilter };
+export { phoneUtils, validateDate, buildClientFilter };

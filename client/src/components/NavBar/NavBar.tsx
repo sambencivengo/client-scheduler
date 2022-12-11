@@ -53,11 +53,11 @@ export const NavBar = () => {
 			{lawyer ? (
 				<React.Fragment>
 					<Flex gap={3}>
-						<Link to="/defendants/new">
+						<Link to="/clients/new">
 							<Button>Add</Button>
 						</Link>
-						<Link to="/defendants">
-							<Button>Defendants</Button>
+						<Link to="/clients">
+							<Button>Clients</Button>
 						</Link>
 					</Flex>
 					{navType}

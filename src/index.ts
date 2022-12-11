@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import { connectDb } from './db';
 import logger from './logger';
-import { defendants } from './routes/defendants';
+import { clients } from './routes/clients';
 import session from 'express-session';
 import { lawyers } from './routes/lawyer';
 import path from 'path';
@@ -51,7 +51,7 @@ const main = async () => {
 		app.use(express.json());
 
 		// Routes
-		app.use('/api/defendants', defendants);
+		app.use('/api/clients', clients);
 		app.use('/api/lawyers', lawyers);
 
 		// NOTE: Keep in as comment until deployment method is determined

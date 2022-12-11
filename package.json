@@ -1,5 +1,5 @@
 {
-	"name": "defendant-scheduler",
+	"name": "client-scheduler",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",

@@ -5,5 +5,5 @@ export interface LawyerInterface {
 	email: string;
 	password: string;
 	calendlyLink: string;
-	defendants: Schema.Types.ObjectId[];
+	clients: Schema.Types.ObjectId[];
 }

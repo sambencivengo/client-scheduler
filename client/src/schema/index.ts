@@ -1,6 +1,6 @@
-import * as CreateDefendant from './createDefendant';
+import * as CreateClient from './createClient';
 import * as CreateLawyer from './createLawyer';
-import * as EditDefendant from './editDefendant';
+import * as EditClient from './editClient';
 import * as LoginLawyer from './loginLawyer';
 
-export { CreateDefendant, CreateLawyer, EditDefendant, LoginLawyer };
+export { CreateClient, CreateLawyer, EditClient, LoginLawyer };
