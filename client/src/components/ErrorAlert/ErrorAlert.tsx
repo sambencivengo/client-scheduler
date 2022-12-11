@@ -4,14 +4,14 @@ import { colors } from '../../theme';
 
 export interface ErrorAlertProps {
 	header: string;
-	message: string;
+	message: string | JSX.Element[];
 }
 
 export const ErrorAlert: React.FC<ErrorAlertProps> = ({ header, message }) => {
 	return (
-		<VStack m={3} py={5} borderRadius={20} bgColor={colors.red}>
+		<VStack m={3} p={5} borderRadius={20} bgColor={colors.red}>
 			<Heading size={'md'}>{header}:</Heading>
-			<Text> {message}</Text>
+			<Text>{message}</Text>
 		</VStack>
 	);
 };

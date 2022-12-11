@@ -1,5 +1,4 @@
 import { Button, Center, Spinner, VStack } from '@chakra-ui/react';
-import axios from 'axios';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DefendantProfile } from '../components/DefendantProfile';
@@ -17,30 +16,35 @@ export const Defendant: React.FC = () => {
 	React.useEffect(() => {
 		const getDefendant = async (): Promise<void> => {
 			try {
-				const { data } = await axios.get(
-					`/api/defendants/${defendantId}`,
-					{
-						withCredentials: true,
-					}
-				);
-
-				setDefendant(data);
-			} catch (error) {
-				if (axios.isAxiosError(error)) {
-					setRequestError({
-						header: 'Unable to retrieve defendant',
-						message: 'Unable to retrieve defendant',
-					});
+				setIsLoading(true);
+				const res = await fetch(`/api/defendants/${defendantId}`);
+				if (!res.ok) {
 					setIsLoading(false);
-					console.error(error);
-				} else {
-					console.error(error);
+					setRequestError({
+						header: 'Error fetching Defendant',
+						message: `${await res.text()} (Error Code: ${
+							res.status
+						})`,
+					});
 				}
+				const data = (await res.json()) as DefendantInterface;
+				setDefendant(data);
+				setIsLoading(false);
+			} catch (error) {
+				setRequestError({
+					header: `An error while getting defendant`,
+					message:
+						'We were unable to get defendant, please try again',
+				});
+				setIsLoading(false);
+				console.error(error);
 			}
 		};
 
 		getDefendant();
 	}, [defendantId]);
+
+	if (requestError && !isLoading) return <ErrorAlert {...requestError} />;
 
 	if (!defendant || isLoading) {
 		return (
@@ -49,7 +53,6 @@ export const Defendant: React.FC = () => {
 			</Center>
 		);
 	}
-	if (requestError) return <ErrorAlert {...requestError} />;
 
 	return (
 		<VStack spacing={9}>

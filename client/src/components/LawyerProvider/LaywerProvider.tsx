@@ -1,6 +1,4 @@
-import axios from 'axios';
 import React from 'react';
-
 import { Lawyer } from '../../types/Lawyer';
 import { ErrorAlertProps } from '../ErrorAlert';
 
@@ -41,7 +39,14 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 
 	const getMe = async (): Promise<void> => {
 		try {
-			const { data } = await axios.get('/api/lawyers/me');
+			const res = await fetch('/api/lawyers/me');
+			if (!res.ok) {
+				console.error(await res.text());
+				setLawyer(null);
+				setIsLoading(false);
+				return;
+			}
+			const data = await res.json();
 			setLawyer(data);
 			setIsLoading(false);
 		} catch (error) {
@@ -53,7 +58,7 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 
 	const logout = async (): Promise<boolean> => {
 		try {
-			await axios.delete(`/api/lawyers/logout`);
+			await fetch(`/api/lawyers/logout`, { method: 'DELETE' });
 			getMe();
 			return true;
 		} catch (error) {
@@ -68,9 +73,15 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 
 	const login = async ({ email, password }: LoginArgs) => {
 		try {
-			await axios.post('/api/lawyers/login', {
-				email,
-				password,
+			await fetch('/api/lawyers/login', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+				},
+				body: JSON.stringify({
+					email,
+					password,
+				}),
 			});
 			setIsLoading(false);
 			setRequestError(null);
@@ -93,18 +104,24 @@ export const LawyerProvider: React.FC<LawyerProviderProps> = ({ children }) => {
 		calendlyLink,
 	}: RegisterArgs) => {
 		try {
-			await axios.post('/api/lawyers', {
-				email,
-				password,
-				calendlyLink,
+			await fetch('/api/lawyers', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+				},
+				body: JSON.stringify({
+					email,
+					password,
+					calendlyLink,
+				}),
 			});
 			setIsLoading(false);
 			getMe();
 			return true;
 		} catch (error) {
 			setRequestError({
-				header: 'Signup error',
-				message: 'Unable to sign up',
+				header: 'An error occurred while registering account',
+				message: 'Unable to create account. Please try again later',
 			});
 			setIsLoading(false);
 			console.error(error);
