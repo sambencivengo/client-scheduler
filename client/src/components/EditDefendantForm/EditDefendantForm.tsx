@@ -11,13 +11,13 @@ import {
 	RadioGroup,
 	Stack,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import { Formik, Form } from 'formik';
 import React from 'react';
 import { EditDefendant } from '../../schema';
 import { colors } from '../../theme';
 import { DefendantInterface } from '../../types/DefendantInterface';
 import { MeetingType } from '../../types/MeetingType';
+import { ErrorAlert, ErrorAlertProps } from '../ErrorAlert';
 import { DefendantProfileEditField } from './DefendantProfileEditField';
 
 interface EditDefendantFormProps {
@@ -35,6 +35,8 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 	setIsConfirming,
 	setIsEditing,
 }) => {
+	const [requestError, setRequestError] =
+		React.useState<ErrorAlertProps | null>(null);
 	const { firstName, lastName, phoneNumber, email, meetingType, _id } =
 		defendant;
 
@@ -57,14 +59,29 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 				email,
 				meetingType,
 			}) => {
-				const { data } = await axios.put(`/api/defendants/${_id}`, {
-					firstName,
-					lastName,
-					phoneNumber,
-					email,
-					meetingType,
+				const res = await fetch(`/api/defendants/${_id}`, {
+					method: 'PUT',
+					headers: {
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify({
+						firstName,
+						lastName,
+						phoneNumber,
+						email,
+						meetingType,
+					}),
 				});
-				setDefendant(data);
+
+				if (!res.ok) {
+					setRequestError({
+						header: 'Error submitting form',
+						message: `Unable to edit defendant. (Error Code: ${res.status})`,
+					});
+					return;
+				}
+
+				setDefendant(await res.json());
 				setIsConfirming(false);
 				setIsEditing(false);
 			}}
@@ -173,6 +190,9 @@ export const EditDefendantForm: React.FC<EditDefendantFormProps> = ({
 									</HStack>
 								</VStack>
 							)}
+						</Center>
+						<Center>
+							{requestError && <ErrorAlert {...requestError} />}
 						</Center>
 					</Box>
 				</Form>

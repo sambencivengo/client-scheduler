@@ -12,13 +12,11 @@ import {
 	Stack,
 	useToast,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import { useFormik } from 'formik';
 import React from 'react';
 import { CreateDefendant } from '../../schema';
 import { colors } from '../../theme';
 import { DefendantInterface } from '../../types/DefendantInterface';
-
 import { MeetingType } from '../../types/MeetingType';
 import { Calendar } from '../Calendar';
 import { useLawyer } from '../LawyerProvider';
@@ -59,11 +57,15 @@ export const DefendantForm = () => {
 			};
 
 			try {
-				const res = await axios.post('/api/defendants', payload, {
-					withCredentials: true,
+				const res = await fetch('/api/defendants', {
+					method: 'POST',
+					headers: {
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify({ ...payload }),
 				});
 
-				const defendant = res.data as DefendantInterface;
+				const defendant = (await res.json()) as DefendantInterface;
 
 				setEmail(defendant.email ?? '');
 				setName(`${defendant.firstName} ${defendant.lastName}`);
