@@ -63,7 +63,7 @@ export const get: Handler = async (req, res) => {
 		const clients = await Client.find({
 			...filter,
 			lawyer: lawyerId,
-		});
+		}).sort({ dayOfContact: 'desc' });
 
 		res.send(clients);
 	} catch (error) {
