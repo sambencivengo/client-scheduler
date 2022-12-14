@@ -14,6 +14,7 @@ import { MeetingType } from '../types/MeetingType';
 import { ClientQueryFilter } from '../components/ClientQueryFilter';
 import { ClientCard } from '../components/ClientCard';
 import { ClientsTable } from '../components/ClientsTable';
+import { useNavigate } from 'react-router-dom';
 
 export const Clients: React.FC = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -28,6 +29,7 @@ export const Clients: React.FC = () => {
 	);
 	const [endDate, setEndDate] = React.useState<Date>(new Date());
 	const [meetingType, setMeetingType] = React.useState<MeetingType>();
+	const navigate = useNavigate();
 
 	React.useEffect(() => {
 		const queryString = new URLSearchParams({
@@ -49,6 +51,9 @@ export const Clients: React.FC = () => {
 						header: 'Error fetching clients',
 						message: `Unable to get clients. (Error Code: ${res.status})`,
 					});
+					if (res.status === 403) {
+						navigate('/');
+					}
 					return;
 				}
 				setClients(await res.json());
@@ -58,7 +63,7 @@ export const Clients: React.FC = () => {
 			}
 		};
 		getClients();
-	}, [startDate, endDate, meetingType]);
+	}, [startDate, endDate, meetingType, navigate]);
 
 	if (requestError) return <ErrorAlert {...requestError} />;
 
