@@ -25,7 +25,7 @@ export const Register: React.FC = () => {
 			minWidth={{ base: 350, sm: 500 }}
 			bgColor={colors.deepNavy}
 			p={10}
-			borderRadius={20}
+			borderRadius={2}
 		>
 			<Heading textAlign="center">Register</Heading>
 			<Formik

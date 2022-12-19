@@ -55,13 +55,7 @@ export const DeleteClientConfirmation: React.FC<
 	};
 
 	return (
-		<VStack
-			gap={3}
-			maxW={400}
-			p={5}
-			bgColor={colors.navy}
-			borderRadius={25}
-		>
+		<VStack gap={3} maxW={400} p={5} bgColor={colors.navy} borderRadius={2}>
 			<Heading textAlign="center" size="sm">
 				Are you sure you want to delete this record?
 			</Heading>

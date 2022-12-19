@@ -33,7 +33,7 @@ export const ClientProfile = ({ selectedClient }: ClientProfileProps) => {
 			minW={'auto'}
 			gap={1}
 			p={10}
-			borderRadius={20}
+			borderRadius={2}
 			bgColor={colors.deepNavy}
 			justifyContent="center"
 		>

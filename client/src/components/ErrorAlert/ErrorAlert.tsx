@@ -9,7 +9,7 @@ export interface ErrorAlertProps {
 
 export const ErrorAlert: React.FC<ErrorAlertProps> = ({ header, message }) => {
 	return (
-		<VStack m={3} p={5} borderRadius={20} bgColor={colors.red}>
+		<VStack m={3} p={5} borderRadius={2} bgColor={colors.red}>
 			<Heading size={'md'}>{header}:</Heading>
 			<Text>{message}</Text>
 		</VStack>

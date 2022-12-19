@@ -97,7 +97,7 @@ export const EditClientForm: React.FC<EditClientFormProps> = ({
 						minWidth={{ base: 350, sm: 500 }}
 						bgColor={colors.deepNavy}
 						p={10}
-						borderRadius={20}
+						borderRadius={2}
 					>
 						<Flex gap={4} flexDir={'column'}>
 							<ClientProfileEditField

@@ -17,7 +17,7 @@ export const ClientCard = ({ client }: ClientCardProps) => {
 			minW={'300px'}
 			gap={1}
 			p={8}
-			borderRadius={20}
+			borderRadius={2}
 			bgColor={colors.deepNavy}
 		>
 			<VStack alignItems={'left'}>

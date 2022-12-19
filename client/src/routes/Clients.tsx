@@ -88,7 +88,7 @@ export const Clients: React.FC = () => {
 			{isMobile ? (
 				<Flex
 					gap={5}
-					borderRadius={20}
+					borderRadius={2}
 					w={'100%'}
 					h={'100%'}
 					justifyContent={'space-evenly'}

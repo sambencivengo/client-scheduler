@@ -121,7 +121,7 @@ export const ClientForm = () => {
 				minWidth={{ base: 350, sm: 500 }}
 				bgColor={colors.deepNavy}
 				p={10}
-				borderRadius={20}
+				borderRadius={2}
 			>
 				<Flex flexDir={'column'}>
 					<form
