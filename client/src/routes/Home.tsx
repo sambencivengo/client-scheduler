@@ -2,15 +2,10 @@ import { Box, Text, Button, Heading, VStack, chakra } from '@chakra-ui/react';
 import React from 'react';
 import { useLawyer } from '../components/LawyerProvider';
 import { colors } from '../theme';
-import { Login } from './Login';
 import { Link } from 'react-router-dom';
 
 export const Home: React.FC = () => {
 	const { lawyer } = useLawyer();
-
-	if (!lawyer) {
-		return <Login />;
-	}
 
 	return (
 		<Box
@@ -50,7 +45,11 @@ export const Home: React.FC = () => {
 				</VStack>
 
 				<Button>
-					<Link to={'/clients/new'}>New Client</Link>
+					{lawyer ? (
+						<Link to={'/clients/new'}>New Client</Link>
+					) : (
+						<Link to={'/clients/new'}>New Client</Link>
+					)}
 				</Button>
 			</VStack>
 		</Box>

@@ -6,6 +6,7 @@ import {
 	MenuItem,
 	MenuList,
 	useBreakpointValue,
+	Box,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
@@ -50,6 +51,11 @@ export const NavBar = () => {
 
 	return (
 		<Flex p={5} bgColor={colors.deepNavy} w={'100%'}>
+			<Box pr={3}>
+				<Link to="/">
+					<Button>Home</Button>
+				</Link>
+			</Box>
 			{lawyer ? (
 				<React.Fragment>
 					<Flex gap={3}>
