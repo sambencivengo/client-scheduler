@@ -14,6 +14,7 @@ import { ClientCard } from '../components/ClientCard';
 import { ClientsTable } from '../components/ClientsTable';
 import dayjs from 'dayjs';
 import { MeetingType } from '../types/MeetingType';
+import { useNavigate } from 'react-router-dom';
 
 export interface FetchClientsProps {
 	dayOfContactStart: Date | string;
@@ -28,6 +29,7 @@ export const Clients: React.FC = () => {
 	const [requestError, setRequestError] =
 		React.useState<ErrorAlertProps | null>(null);
 	const isMobile = useBreakpointValue({ base: true, lg: false });
+	const navigate = useNavigate();
 
 	React.useEffect(() => {
 		fetchClients({
@@ -63,6 +65,9 @@ export const Clients: React.FC = () => {
 					header: 'Error fetching clients',
 					message: `Unable to get clients. (Error Code: ${res.status})`,
 				});
+				if (res.status === 403) {
+					navigate('/');
+				}
 				setIsLoading(false);
 				return;
 			}

@@ -32,9 +32,9 @@ export const LawyerInfo: React.FC = () => {
 				</Text>
 			</VStack>
 
-			<Button>
-				<Link to={'/clients/new'}>New Client</Link>
-			</Button>
+			<Link to={'/clients/new'}>
+				<Button>New Client</Button>
+			</Link>
 		</VStack>
 	);
 };

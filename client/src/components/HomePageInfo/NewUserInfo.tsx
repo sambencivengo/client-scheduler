@@ -48,12 +48,12 @@ export const NewUserInfo: React.FC = () => {
 				</Text>
 			</VStack>
 			<HStack>
-				<Button>
-					<Link to={'/register'}>Register</Link>
-				</Button>
-				<Button>
-					<Link to={'/login'}>Login</Link>
-				</Button>
+				<Link to={'/register'}>
+					<Button>Register</Button>
+				</Link>
+				<Link to={'/login'}>
+					<Button>Login</Button>
+				</Link>
 			</HStack>
 		</VStack>
 	);
