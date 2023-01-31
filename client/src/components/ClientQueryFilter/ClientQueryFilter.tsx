@@ -136,7 +136,13 @@ export const ClientQueryFilter: React.FC<ClientQueryFilterProps> = ({
 								</Flex>
 
 								<Center>
-									<InputField name="clientName" />
+									<VStack>
+										<InputField
+											centerLabel={true}
+											label="Client Name"
+											name="clientName"
+										/>
+									</VStack>
 								</Center>
 								<Button isLoading={isSubmitting} type="submit">
 									Search
