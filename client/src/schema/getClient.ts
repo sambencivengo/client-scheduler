@@ -1,5 +1,11 @@
 import * as yup from 'yup';
-import { validateDate } from '../utils';
+import dayjs from 'dayjs';
+import { MeetingType } from '../types/MeetingType';
+
+export const validateDate = (value: Date | string | undefined) => {
+	if (value === undefined) return true;
+	return dayjs(value).isValid();
+};
 
 const schema = yup.object({
 	dayOfContactStart: yup
@@ -10,7 +16,7 @@ const schema = yup.object({
 		.string()
 		.trim()
 		.test('dayOfContact', 'Please enter a valid date', validateDate),
-	// meetingType: yup.mixed<MeetingType>().oneOf(Object.values(MeetingType)), // TODO: fix meeting type validation
+	meetingType: yup.mixed<MeetingType>().oneOf(Object.values(MeetingType)),
 	clientName: yup.string().trim(),
 });
 

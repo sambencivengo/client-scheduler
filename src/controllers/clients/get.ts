@@ -4,6 +4,7 @@ import { Client } from '../../models';
 import dayjs from 'dayjs';
 import Schema from '../../schema';
 import { buildClientFilter } from '../../utils';
+import { ClientInterface } from 'src/types';
 
 enum BoundaryType {
 	Start = 'Start',
@@ -39,6 +40,7 @@ export const get: Handler = async (req, res) => {
 		dayOfContactStart: dayOfContactStartString,
 		dayOfContactEnd: dayOfContactEndString,
 		meetingType,
+		clientName,
 	} = req.query;
 
 	const dayOfContactStartDate = createDateBoundaryOrUndefined(
@@ -64,6 +66,23 @@ export const get: Handler = async (req, res) => {
 			...filter,
 			lawyer: lawyerId,
 		}).sort({ dayOfContact: 'desc' });
+
+		// WORKING NAME FILTER NOTE: Make adjustments after more testing
+		const clientsFilteredByName: ClientInterface[] = [];
+		if (clientName) {
+			clients.forEach((client) => {
+				if (
+					client.firstName
+						.toLowerCase()
+						.includes(clientName?.toString() as string) ||
+					client.lastName.toLowerCase().includes(clientName as string)
+				)
+					clientsFilteredByName.push(client);
+			});
+
+			res.send(clientsFilteredByName);
+			return;
+		}
 
 		res.send(clients);
 	} catch (error) {
