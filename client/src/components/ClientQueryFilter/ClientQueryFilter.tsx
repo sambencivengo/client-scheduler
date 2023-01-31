@@ -13,32 +13,17 @@ import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import dayjs from 'dayjs';
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FetchClientsProps } from '../../routes/Clients';
 import { GetClient } from '../../schema';
-import { ClientInterface } from '../../types/ClientInterface';
 import { MeetingType } from '../../types/MeetingType';
-import { ErrorAlertProps } from '../ErrorAlert';
 import { InputField } from '../InputField';
 
 interface ClientQueryFilterProps {
-	setClients: React.Dispatch<React.SetStateAction<ClientInterface[]>>;
-	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-	setRequestError: React.Dispatch<
-		React.SetStateAction<ErrorAlertProps | null>
-	>;
-}
-
-interface FetchClientsProps {
-	dayOfContactStart: Date | string;
-	dayOfContactEnd: Date | string;
-	meetingType?: MeetingType;
-	clientName?: string;
+	fetchClients: (a: FetchClientsProps) => Promise<void>;
 }
 
 export const ClientQueryFilter: React.FC<ClientQueryFilterProps> = ({
-	setClients,
-	setIsLoading,
-	setRequestError,
+	fetchClients,
 }) => {
 	const isMobile = useBreakpointValue({ base: true, lg: false });
 	const [startDate, setStartDate] = React.useState<Date>(
@@ -48,56 +33,6 @@ export const ClientQueryFilter: React.FC<ClientQueryFilterProps> = ({
 	);
 
 	const [endDate, setEndDate] = React.useState<Date>(new Date());
-	const navigate = useNavigate();
-
-	const fetchClients = async ({
-		clientName,
-		dayOfContactEnd,
-		meetingType,
-		dayOfContactStart,
-	}: FetchClientsProps) => {
-		const queryString = new URLSearchParams({
-			dayOfContactStart: dayOfContactStart
-				? dayjs(dayOfContactStart).format('YYYY-MM-DD')
-				: '',
-			dayOfContactEnd: dayOfContactEnd
-				? dayjs(dayOfContactEnd).format('YYYY-MM-DD')
-				: '',
-			meetingType: meetingType ?? '',
-			clientName: clientName ?? '',
-		});
-
-		try {
-			setIsLoading(true);
-
-			const res = await fetch(`/api/clients?${queryString.toString()}`);
-
-			if (!res.ok) {
-				setRequestError({
-					header: 'Error fetching clients',
-					message: `Unable to get clients. (Error Code: ${res.status})`,
-				});
-				if (res.status === 403) {
-					navigate('/');
-				}
-				setIsLoading(false);
-				return;
-			}
-			const clients = await res.json();
-			setClients(clients);
-
-			setIsLoading(false);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	// React.useEffect(() => {
-	// 	fetchClients({
-	// 		dayOfContactStart: startDate,
-	// 		dayOfContactEnd: endDate,
-	// 	});
-	// }, []);
 
 	return (
 		<React.Fragment>
