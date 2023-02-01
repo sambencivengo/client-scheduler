@@ -7,11 +7,14 @@ import {
 	Tbody,
 	Td,
 	Button,
+	Center,
+	Heading,
 } from '@chakra-ui/react';
 import React from 'react';
 import dayjs from 'dayjs';
 import { ClientInterface } from '../../types/ClientInterface';
 import { Link } from 'react-router-dom';
+import { colors } from '../../theme';
 
 interface ClientsTableProps {
 	clients: ClientInterface[];
@@ -54,5 +57,10 @@ export const ClientsTable: React.FC<ClientsTableProps> = ({ clients }) => (
 				))}
 			</Tbody>
 		</Table>
+		{!clients.length && (
+			<Center rounded="lg" p={10} bgColor={colors.deepNavy}>
+				<Heading size={'md'}>No clients match this query</Heading>
+			</Center>
+		)}
 	</TableContainer>
 );
