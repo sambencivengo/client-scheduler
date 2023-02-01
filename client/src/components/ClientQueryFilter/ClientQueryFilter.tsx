@@ -9,6 +9,7 @@ import {
 	FormLabel,
 	VStack,
 	HStack,
+	Stack,
 } from '@chakra-ui/react';
 import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import dayjs from 'dayjs';
@@ -140,7 +141,9 @@ export const ClientQueryFilter: React.FC<ClientQueryFilterProps> = ({
 								</Flex>
 
 								<Center>
-									<HStack>
+									<Stack
+										direction={['column', 'column', 'row']}
+									>
 										<InputField
 											centerLabel={true}
 											label="First Name"
@@ -151,7 +154,7 @@ export const ClientQueryFilter: React.FC<ClientQueryFilterProps> = ({
 											label="Last Name"
 											name="lastName"
 										/>
-									</HStack>
+									</Stack>
 								</Center>
 								<Button isLoading={isSubmitting} type="submit">
 									Search
