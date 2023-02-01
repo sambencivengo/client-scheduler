@@ -4,7 +4,7 @@ import { Client } from '../../models';
 import dayjs from 'dayjs';
 import Schema from '../../schema';
 import { buildClientFilter } from '../../utils';
-import { ClientInterface } from 'src/types';
+import { ClientInterface } from '../../types';
 
 enum BoundaryType {
 	Start = 'Start',
@@ -38,7 +38,8 @@ export const get: Handler = async (req, res) => {
 		dayOfContactStart: dayOfContactStartString,
 		dayOfContactEnd: dayOfContactEndString,
 		meetingType,
-		clientName,
+		firstName,
+		lastName,
 	} = req.query;
 
 	const dayOfContactStartDate = createDateBoundaryOrUndefined(
@@ -67,13 +68,35 @@ export const get: Handler = async (req, res) => {
 
 		// WORKING NAME FILTER NOTE: Make adjustments after more testing
 		const clientsFilteredByName: ClientInterface[] = [];
-		if (clientName) {
+		if (firstName || lastName) {
+			const caseAdjustedFirstName = firstName?.toString().toLowerCase();
+			const caseAdjustedLastName = lastName?.toString().toLowerCase();
 			clients.forEach((client) => {
-				if (
+				if (firstName && lastName) {
+					if (
+						client.firstName
+							.toLowerCase()
+							.includes(caseAdjustedFirstName ?? '') ||
+						client.lastName
+							.toLowerCase()
+							.includes(caseAdjustedLastName ?? '')
+					) {
+						clientsFilteredByName.push(client);
+					}
+				} else if (
+					firstName &&
+					!lastName &&
 					client.firstName
 						.toLowerCase()
-						.includes(clientName?.toString() as string) ||
-					client.lastName.toLowerCase().includes(clientName as string)
+						.includes(caseAdjustedFirstName ?? '')
+				)
+					clientsFilteredByName.push(client);
+				else if (
+					lastName &&
+					!firstName &&
+					client.lastName
+						.toLowerCase()
+						.includes(caseAdjustedLastName ?? '')
 				)
 					clientsFilteredByName.push(client);
 			});

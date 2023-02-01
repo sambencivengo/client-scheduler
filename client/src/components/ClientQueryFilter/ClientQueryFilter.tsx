@@ -8,6 +8,7 @@ import {
 	FormControl,
 	FormLabel,
 	VStack,
+	HStack,
 } from '@chakra-ui/react';
 import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import dayjs from 'dayjs';
@@ -43,18 +44,21 @@ export const ClientQueryFilter: React.FC<ClientQueryFilterProps> = ({
 					initialValues={{
 						dayOfContactStart: startDate.toDateString(),
 						dayOfContactEnd: endDate.toDateString(),
-						clientName: '',
+						firstName: '',
+						lastName: '',
 						meetingType: undefined,
 					}}
 					validationSchema={GetClient.uiSchema}
 					onSubmit={async ({
-						clientName,
+						firstName,
+						lastName,
 						dayOfContactStart,
 						dayOfContactEnd,
 						meetingType,
 					}) => {
 						fetchClients({
-							clientName,
+							firstName,
+							lastName,
 							dayOfContactStart,
 							dayOfContactEnd,
 							meetingType,
@@ -136,13 +140,18 @@ export const ClientQueryFilter: React.FC<ClientQueryFilterProps> = ({
 								</Flex>
 
 								<Center>
-									<VStack>
+									<HStack>
 										<InputField
 											centerLabel={true}
-											label="Client Name"
-											name="clientName"
+											label="First Name"
+											name="firstName"
 										/>
-									</VStack>
+										<InputField
+											centerLabel={true}
+											label="Last Name"
+											name="lastName"
+										/>
+									</HStack>
 								</Center>
 								<Button isLoading={isSubmitting} type="submit">
 									Search

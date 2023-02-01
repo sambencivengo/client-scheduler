@@ -11,7 +11,8 @@ const schema = yup.object({
 		.trim()
 		.test('dayOfContact', 'Please enter a valid date', validateDate),
 	// meetingType: yup.mixed<MeetingType>().oneOf(Object.values(MeetingType)), // TODO: fix meeting type validation
-	clientName: yup.string().trim(),
+	firstName: yup.string().trim(),
+	lastName: yup.string().trim(),
 });
 
 export type UiValues = yup.InferType<typeof uiSchema>;

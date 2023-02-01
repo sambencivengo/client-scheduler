@@ -20,7 +20,8 @@ export interface FetchClientsProps {
 	dayOfContactStart: Date | string;
 	dayOfContactEnd: Date | string;
 	meetingType?: MeetingType;
-	clientName?: string;
+	firstName?: string;
+	lastName?: string;
 }
 
 export const Clients: React.FC = () => {
@@ -39,7 +40,8 @@ export const Clients: React.FC = () => {
 	}, []);
 
 	const fetchClients = async ({
-		clientName,
+		firstName,
+		lastName,
 		dayOfContactEnd,
 		meetingType,
 		dayOfContactStart,
@@ -52,7 +54,8 @@ export const Clients: React.FC = () => {
 				? dayjs(dayOfContactEnd).format('YYYY-MM-DD')
 				: '',
 			meetingType: meetingType ?? '',
-			clientName: clientName ?? '',
+			firstName: firstName ?? '',
+			lastName: lastName ?? '',
 		});
 
 		try {
@@ -72,6 +75,7 @@ export const Clients: React.FC = () => {
 				return;
 			}
 			const clients = await res.json();
+
 			setClients(clients);
 
 			setIsLoading(false);
